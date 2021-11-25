@@ -20,4 +20,4 @@ class Mouse:
 
         # If mouse has been released then no need to save previous position
         if self.pressed is False:
-            self.prev_pos = self.pos
+            self.prev_pos = pos

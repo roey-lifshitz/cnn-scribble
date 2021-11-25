@@ -1,7 +1,9 @@
 import pygame
 
+from binary_file_parser import BinaryFileParser
 from canvas import Canvas
 from mouse import Mouse
+
 def main():
 
     background_colour = (255, 255, 255)
@@ -11,8 +13,11 @@ def main():
     pygame.display.set_caption('Scribble')
     screen.fill(background_colour)
 
-    canvas = Canvas(screen, 0, 0, 600, 600)
+    canvas = Canvas(screen, 0, 0, 256, 256)
     mouse = Mouse(pygame.mouse.get_pos(), 10)
+
+    parser = BinaryFileParser()
+    image = parser.load()
 
 
     running = True
@@ -29,8 +34,9 @@ def main():
                 if canvas.contains(*mouse.pos):
                     canvas.draw(mouse.pos, mouse.prev_pos, mouse.stroke_width)
 
+
             if pygame.mouse.get_pressed()[2]:
-                print(canvas.to_binary())
+                print(canvas.get_strokes())
 
         pygame.display.update()
         pygame.display.flip()
