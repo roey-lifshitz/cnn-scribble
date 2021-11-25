@@ -1,34 +1,36 @@
 import pygame
 
-from canvas import canvas
-
+from canvas import Canvas
+from mouse import Mouse
 def main():
 
     background_colour = (255, 255, 255)
     (width, height) = (600, 600)
 
-
     screen = pygame.display.set_mode((width, height))
-    pygame.display.set_caption('Tutorial 1')
+    pygame.display.set_caption('Scribble')
     screen.fill(background_colour)
 
-    cnvs = canvas(screen, 0, 0, 100, 100)
+    canvas = Canvas(screen, 0, 0, 600, 600)
+    mouse = Mouse(pygame.mouse.get_pos(), 10)
+
 
     running = True
     draw = False
     while running:
 
+        mouse.update()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
-            if pygame.mouse.get_pressed()[0]:
-                mouse_x, mouse_y = pygame.mouse.get_pos()
-                if cnvs.contains(mouse_x, mouse_y):
-                    cnvs.draw(mouse_x, mouse_y)
+            if mouse.pressed:
+                if canvas.contains(*mouse.pos):
+                    canvas.draw(mouse.pos, mouse.prev_pos, mouse.stroke_width)
 
             if pygame.mouse.get_pressed()[2]:
-                print(cnvs.data())
+                print(canvas.to_binary())
 
         pygame.display.update()
         pygame.display.flip()

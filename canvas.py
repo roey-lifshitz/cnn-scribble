@@ -1,8 +1,9 @@
 import pygame
 import numpy as np
-class canvas:
 
 
+BLACK = (0, 0, 0)
+class Canvas:
 
     def __init__(self, screen, x, y, width, height):
         self.x = x
@@ -18,11 +19,34 @@ class canvas:
         in_y_axis = self.y < y and self.y + self.height > y
         return in_x_axis and in_y_axis
 
-    def draw(self, x, y):
-        #pygame.draw.rect(self.window, (0, 0, 0), (x, y, 1, 1), 5)
-        self.screen.set_at((x - self.x, y - self.y), (0, 0, 0))
+    def draw(self, pos, prev_pos, radius):
 
-    def data(self):
-        return pygame.surfarray.array3d(self.screen)
+        if pos == prev_pos:
+            pygame.draw.circle(self.screen, BLACK, pos, radius)
+        else:
+            # Draw circles between current mouse position and previous mouse position
+            x, y = pos
+            prev_x, prev_y = prev_pos
+            # Calculate amount amount of points to add
+            steps = max(abs(x - prev_x), abs(y - prev_y))
+            # Calculate the offset of each point
+            x_offset = (x - prev_x) / steps
+            y_offset = (y - prev_y) / steps
+            # Draw points
+            for _ in range(steps):
+                prev_x += x_offset
+                prev_y += y_offset
+                pygame.draw.circle(self.screen, BLACK, (round(prev_x), round(prev_y)), radius)
 
+    def to_binary(self):
+        # returns a serialized 3d array- maybe for later if we want to include colors in drawings
+        pixels = pygame.surfarray.array3d(self.screen)
+        # reshape it into one dimensional array
+        pixels = pixels.ravel()
+        # slice it to receive only red value of every pixel start:stop:step
+        pixels = pixels[::3]
+        # turn every 225 to 0 and 0 to 1
+        pixels[pixels == 0] = 1
+        pixels[pixels == 255] = 0
+        return pixels
 
