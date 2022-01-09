@@ -1,8 +1,7 @@
 import pygame
-import numpy as np
-
-
+import algorithms
 BLACK = (0, 0, 0)
+
 
 
 class Canvas:
@@ -12,43 +11,53 @@ class Canvas:
         self.width = width
         self.height = height
 
-
-        self.strokes = [(), ()]
+        self.points = [[], []]
+        self.data = []
         self.screen = screen.subsurface(x, y, width, height)
 
     # Check if given position is inside the canvas
     def contains(self, x, y):
-        in_x_axis = self.x < x and self.x + self.width > x
-        in_y_axis = self.y < y and self.y + self.height > y
+        in_x_axis = self.x < x < self.x + self.width
+        in_y_axis = self.y < y < self.y + self.height
         return in_x_axis and in_y_axis
 
-    # Draws a line in a given position
-    def draw(self, pos, prev_pos, radius):
 
-        if prev_pos == pos:
-            pygame.draw.circle(self.screen, BLACK, pos, radius)
-            self.strokes[0] += (pos[0], )
-            self.strokes[1] += (pos[1], )
-        else:
-            # Draw circles between current mouse position and previous mouse position
-            x, y = pos
-            prev_x, prev_y = prev_pos
-            # Calculate amount amount of points to add
-            steps = max(abs(x - prev_x), abs(y - prev_y))
-            # Calculate the offset of each point
-            x_offset = (x - prev_x) / steps
-            y_offset = (y - prev_y) / steps
-            # Draw points
+    def draw_line(self, start, end, radius):
+
+        # Draw starting position
+        pygame.draw.circle(self.screen, BLACK, start, radius)
+
+        curr_x, curr_y = start
+        self.points[0].append(round(curr_x))
+        self.points[1].append(round(curr_y))
+
+        # If drawn a line, meaning start isn't equal to end
+        if start != end:
+            end_x, end_y = end
+            # Calculate amount of points in line
+            steps = max(abs(curr_x - end_x), abs(curr_y - end_y))
+            # Calculate the offset between each point
+            dx = (curr_x - end_x) / steps
+            dy = (curr_y - end_y) / steps
+
+            # create list of all points
             for _ in range(steps):
-                prev_x += x_offset
-                prev_y += y_offset
-                self.strokes[0] += (round(prev_x), )
-                self.strokes[1] += (round(prev_y), )
-                pygame.draw.circle(self.screen, BLACK, (round(prev_x), round(prev_y)), radius)
+                curr_x += dx
+                curr_y += dy
 
-    def get_strokes(self):
-        return self.strokes
+                # Draw a dot to create an effect of a continuous stroke
+                pygame.draw.circle(self.screen, BLACK, (round(curr_x), round(curr_y)), radius)
+                self.points[0].append(round(curr_x))
+                self.points[1].append(round(curr_y))
 
+    def add_line(self):
+        # compress the data into less points using the Douglas Peucker algorithm
+        print(self.points)
+        self.points = algorithms.douglas_peucker(self.points, 2.0)
+        print("AFTER: ")
+        print(self.points)
+        self.data.append(self.points)
+        self.points = [[], []]
 
     def to_binary(self):
         # returns a serialized 3d array- maybe for later if we want to include colors in drawings
@@ -73,11 +82,3 @@ class Canvas:
 
         pygame.display.update()
         pygame.display.flip()
-
-    """
-       
-         
-        # Gray Scales the pixels
-        grayscaled_pixels = np.dot(image[..., :3], [0.2989, 0.5870, 0.1140])
-         
-         """

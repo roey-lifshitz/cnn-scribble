@@ -23,6 +23,7 @@ from struct import unpack
 
 class BinaryFileParser:
 
+    # Unpack Data of a given file
     def unpack_drawing(self, file_handle):
         key_id, = unpack('Q', file_handle.read(8))
         country_code, = unpack('2s', file_handle.read(2))
@@ -30,11 +31,14 @@ class BinaryFileParser:
         timestamp, = unpack('I', file_handle.read(4))
         n_strokes, = unpack('H', file_handle.read(2))
         image = []
+        # Loop through all strokes
         for i in range(n_strokes):
+            # Unpack each stroke
             n_points, = unpack('H', file_handle.read(2))
             fmt = str(n_points) + 'B'
             x = unpack(fmt, file_handle.read(n_points))
             y = unpack(fmt, file_handle.read(n_points))
+            # Add stroke to data
             image.append((x, y))
 
         return {
