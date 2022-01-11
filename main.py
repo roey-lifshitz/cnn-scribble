@@ -16,10 +16,8 @@ def main():
     canvas = Canvas(screen, 0, 0, 600, 600)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
 
-    #parser = BinaryFileParser()
-    #image = parser.load()
-
-
+    parser = BinaryFileParser()
+    image = parser.load(screen, canvas)
     running = True
     while running:
         for event in pygame.event.get():

@@ -59,11 +59,13 @@ class BinaryFileParser:
                     break
 
 
-    def load(self):
-        for drawing in self.unpack_drawings('data/full_binary_anvil.bin'):
+    def load(self, screen, canvas):
+        for drawing in self.unpack_drawings('Data/full_binary_banana.bin'):
             # do something with the drawing
-            return drawing
-
+            screen.fill((255, 255, 255))
+            canvas.data = drawing['image']
+            canvas.draw_data(screen, 2)
+            return
 
 
 
