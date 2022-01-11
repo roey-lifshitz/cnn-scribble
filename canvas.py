@@ -1,7 +1,7 @@
 import pygame
 import algorithms
 BLACK = (0, 0, 0)
-
+WHITE = (255, 255, 255)
 
 
 class Canvas:
@@ -21,6 +21,11 @@ class Canvas:
         in_x_axis = self.x < x < self.x + self.width
         in_y_axis = self.y < y < self.y + self.height
         return in_x_axis and in_y_axis
+
+    def clear(self):
+        self.points = [[], []]
+        self.data = []
+        self.screen.fill(WHITE)
 
     def draw_line(self, start, end, radius):
         # Draw Line
@@ -50,7 +55,6 @@ class Canvas:
 
         # Compress the data into less points using the Douglas Peucker algorithm
         if self.points[0]:
-            print(self.points)
             # Algorithm receives [(x1, y1), (x2, y2), (x3, y3)]
             self.points = algorithms.douglas_peucker(list(zip(*self.points)), 2.0)
 
@@ -63,11 +67,10 @@ class Canvas:
             # reset points
             self.points = [[], []]
 
-    def draw_data(self, screen, radius):
-
+    def draw_data(self, radius):
         for line in self.data:
             for x, y in list(zip(*line)):
-                pygame.draw.circle(screen, BLACK, (x, y), radius)
+                pygame.draw.circle(self.screen, BLACK, (x, y), radius)
 
 
 

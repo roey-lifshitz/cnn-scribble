@@ -7,6 +7,8 @@ from button import Button
 
 def main():
 
+    pygame.font.init()
+
     background_colour = (255, 255, 255)
     (width, height) = (600, 600)
 
@@ -20,19 +22,29 @@ def main():
     parser = BinaryFileParser()
     image = parser.load(screen, canvas)
 
-    button = Button((0,0), (100, 100))
+    buttons = []
+    b1 = Button((480, 550), (100, 30), text="Erase", on_click=lambda: canvas.clear())
+    b2 = Button((480, 440), (100, 30), text="Show rmd", on_click=lambda: canvas.draw_data(mouse.radius))
+    buttons.append(b1)
+    buttons.append(b2)
+
+
     running = True
     while running:
-        button.draw(screen)
+        mouse.pos = pygame.mouse.get_pos()
+        for button in buttons:
+            button.draw(screen)
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_q:
-                    screen.fill((255, 255, 255))
                 if event.key == pygame.K_p:
-                    canvas.draw_data(screen, mouse.radius)
+                    screen.fill()
+                    canvas.draw_data(mouse.radius)
+                if event.key == pygame.K_o:
+                    print(canvas.data)
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse.pressed = False
@@ -42,16 +54,20 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse.pressed = True
 
+                for button in buttons:
+                    if button.click(mouse.pos):
+                        pass
+
             elif event.type == pygame.MOUSEMOTION:
                 if mouse.pressed:
-                    mouse.pos = pygame.mouse.get_pos()
                     if mouse.prev_pos is not None:
                         canvas.draw_line(mouse.prev_pos, mouse.pos, mouse.radius)
                     mouse.prev_pos = mouse.pos
 
-            if pygame.mouse.get_pressed()[2]:
-                print(canvas.data)
-
+            if not mouse.pressed:
+                for button in buttons:
+                    if button.on_hover(mouse.pos):
+                        pass
 
 
         pygame.display.update()
