@@ -22,8 +22,10 @@ def main():
     parser = BinaryFileParser()
     image = parser.load(screen, canvas)
 
+    img = pygame.image.load("images/eraser.png")
     buttons = []
-    b1 = Button((480, 550), (100, 30), text="Erase", on_click=lambda: canvas.clear())
+    #b1 = Button((480, 550), (100, 30), text="Erase", on_click=lambda: canvas.clear())
+    b1 = Button((480, 550), (50, 40), image=img, on_click=lambda: canvas.clear())
     b2 = Button((480, 440), (100, 30), text="Show rmd", on_click=lambda: canvas.draw_data(mouse.radius))
     buttons.append(b1)
     buttons.append(b2)

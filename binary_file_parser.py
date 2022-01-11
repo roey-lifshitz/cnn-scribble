@@ -60,7 +60,7 @@ class BinaryFileParser:
 
 
     def load(self, screen, canvas):
-        for drawing in self.unpack_drawings('Data/full_binary_anvil.bin'):
+        for drawing in self.unpack_drawings('Data/full_binary_arm.bin'):
             # do something with the drawing
             screen.fill((255, 255, 255))
             canvas.data = drawing['image']
