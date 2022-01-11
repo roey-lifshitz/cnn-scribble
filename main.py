@@ -3,6 +3,7 @@ import pygame
 from binary_file_parser import BinaryFileParser
 from canvas import Canvas
 from mouse import Mouse
+from button import Button
 
 def main():
 
@@ -18,8 +19,11 @@ def main():
 
     parser = BinaryFileParser()
     image = parser.load(screen, canvas)
+
+    button = Button((0,0), (100, 100))
     running = True
     while running:
+        button.draw(screen)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
