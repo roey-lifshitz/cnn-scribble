@@ -12,7 +12,7 @@ class Canvas:
         self.width = width
         self.height = height
 
-        self.points = [[], []]
+        self.line = []
         self.data = []
         self.screen = screen.subsurface(x, y, width, height)
 
@@ -23,7 +23,7 @@ class Canvas:
         return in_x_axis and in_y_axis
 
     def clear(self):
-        self.points = [[], []]
+        self.line = []
         self.data = []
         self.screen.fill(WHITE)
 
@@ -45,32 +45,39 @@ class Canvas:
         # Loop through points
         for _ in range(steps):
             # Add to Points List
-            self.points[0].append(round(x))
-            self.points[1].append(round(y))
+            self.line.append((round(x), round(y)))
             # Update point
             x += dx
             y += dy
 
-    def save_points(self):
+    def save_line(self):
 
         # Compress the data into less points using the Douglas Peucker algorithm
-        if self.points[0]:
-            # Algorithm receives [(x1, y1), (x2, y2), (x3, y3)]
-            self.points = algorithms.douglas_peucker(list(zip(*self.points)), 2.0)
+        if len(self.line) > 0:
 
-            # turn self.points = [[x1, x2, x3], [y1, y2, y3]]
-            self.points = [[x for x, y in self.points], [y for x, y, in self.points]]
+            # Algorithm receives [(x1, y1), (x2, y2), (x3, y3)]
+            self.line = algorithms.douglas_peucker(self.line, 2.0)
 
             # Add to data
-            self.data.append(list(self.points))
+            self.data.append(self.line)
 
             # reset points
-            self.points = [[], []]
+            self.line = []
+
+    def prepare_data(self):
+
+        rect = algorithms.bounds(self.data)
+        print("RECT", rect)
+        tmp = self.data
+        self.data = algorithms.relocate(self.data, rect)
+        self.draw_data(2)
+        self.data = tmp
 
     def draw_data(self, radius):
+
         for line in self.data:
-            for x, y in list(zip(*line)):
-                pygame.draw.circle(self.screen, BLACK, (x, y), radius)
+            for point in line:
+                pygame.draw.circle(self.screen, BLACK, point, radius)
 
 
 

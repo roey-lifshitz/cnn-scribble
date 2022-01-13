@@ -22,18 +22,23 @@ def main():
     parser = BinaryFileParser()
     image = parser.load(screen, canvas)
 
+    # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = []
-    #b1 = Button((480, 550), (100, 30), text="Erase", on_click=lambda: canvas.clear())
-    b1 = Button((480, 550), (50, 40), image=img, on_click=lambda: canvas.clear())
-    b2 = Button((480, 440), (100, 30), text="Show rmd", on_click=lambda: canvas.draw_data(mouse.radius))
+    b1 = Button((540, 550), (50, 40), image=img, on_click=canvas.clear)
+    b2 = Button((540, 500), (50, 40), text="rmd", on_click=lambda: canvas.draw_data(mouse.radius))
+    b3 = Button((540, 450), (50, 40), text="prpr dta", on_click=canvas.prepare_data)
+    b4 = Button((540, 400), (50, 40), text="print", on_click=lambda: print(canvas.data))
     buttons.append(b1)
     buttons.append(b2)
+    buttons.append(b3)
+    buttons.append(b4)
 
 
     running = True
     while running:
         mouse.pos = pygame.mouse.get_pos()
+
         for button in buttons:
             button.draw(screen)
 
@@ -43,7 +48,7 @@ def main():
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_p:
-                    screen.fill()
+                    screen.fill((255, 255, 255))
                     canvas.draw_data(mouse.radius)
                 if event.key == pygame.K_o:
                     print(canvas.data)
@@ -51,13 +56,13 @@ def main():
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse.pressed = False
                 mouse.prev_pos = None
-                canvas.save_points()
+                canvas.save_line()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse.pressed = True
 
                 for button in buttons:
-                    if button.click(mouse.pos):
+                    if button.check_click(mouse.pos):
                         pass
 
             elif event.type == pygame.MOUSEMOTION:
@@ -68,7 +73,7 @@ def main():
 
             if not mouse.pressed:
                 for button in buttons:
-                    if button.on_hover(mouse.pos):
+                    if button.check_hover(mouse.pos):
                         pass
 
 

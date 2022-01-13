@@ -15,4 +15,3 @@ class Mouse:
 
         if self.pressed:
             self.pos = pygame.mouse.get_pos()
-

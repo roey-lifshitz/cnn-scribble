@@ -63,59 +63,12 @@ class BinaryFileParser:
         for drawing in self.unpack_drawings('Data/full_binary_arm.bin'):
             # do something with the drawing
             screen.fill((255, 255, 255))
-            canvas.data = drawing['image']
+
+            data = drawing['image']
+
+            for line in data:
+                line = list(zip(*line))
+                canvas.data.append(line)
+
             canvas.draw_data(2)
             return
-
-
-
-
-"""
-import struct
-from struct import unpack
-
-
-def unpack_drawing(file_handle):
-    key_id, = unpack('Q', file_handle.read(8))
-    country_code, = unpack('2s', file_handle.read(2))
-    recognized, = unpack('b', file_handle.read(1))
-    timestamp, = unpack('I', file_handle.read(4))
-    n_strokes, = unpack('H', file_handle.read(2))
-    print(n_strokes)
-
-    # Size of given image is 256 * 256
-    pixels = [0] * 256 * 256
-
-    # Loop through all strokes
-    for i in range(n_strokes):
-        n_points, = unpack('H', file_handle.read(2))
-        fmt = str(n_points) + 'B'
-        # get the indexes of each pixel that has been drawn
-        x = unpack(fmt, file_handle.read(n_points))
-        y = unpack(fmt, file_handle.read(n_points))
-        # fill the pixels array
-        for index in range(len(x)):
-            pixels[x[index] * 256 + y[index]] = 1
-
-    return {
-        'key_id': key_id,
-        'country_code': country_code,
-        'recognized': recognized,
-        'timestamp': timestamp,
-        'pixels': pixels
-    }
-
-def unpack_drawings(filename):
-    with open(filename, 'rb') as f:
-        while True:
-            try:
-                yield unpack_drawing(f)
-            except struct.error:
-                break
-
-
-def loadFiles():
-    for drawing in unpack_drawings('data/full_binary_anvil.bin'):
-        # do something with the drawing
-        print(drawing['pixels'])
-"""

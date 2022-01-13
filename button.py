@@ -66,7 +66,7 @@ class Button():
         # Draw data (inside button)
         screen.blit(self.data, self.data_rect)
 
-    def on_hover(self, mouse_pos):
+    def check_hover(self, mouse_pos):
         if self.rect.contains(pygame.Rect(*mouse_pos, 1, 1)):
             self.hover = True
             return True
@@ -75,7 +75,7 @@ class Button():
 
 
 
-    def click(self, mouse_pos):
+    def check_click(self, mouse_pos):
         if self.rect.contains(pygame.Rect(*mouse_pos, 1, 1)):
             self.hover = False
             self.on_click()
