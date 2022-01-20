@@ -50,10 +50,10 @@ class Canvas:
             x += dx
             y += dy
 
-    def save_line(self):
 
+    def append_line(self):
         # Compress the data into less points using the Douglas Peucker algorithm
-        if len(self.line) > 0:
+        if len(self.line):
 
             # Algorithm receives [(x1, y1), (x2, y2), (x3, y3)]
             self.line = algorithms.douglas_peucker(self.line, 2.0)
@@ -64,14 +64,29 @@ class Canvas:
             # reset points
             self.line = []
 
-    def prepare_data(self):
+    def get_data(self):
 
+        # get Rect of drawing
         rect = algorithms.bounds(self.data)
-        print("RECT", rect)
-        tmp = self.data
+
+        # Align Data to (0, 0)
         self.data = algorithms.relocate(self.data, rect)
+
+        # Scale Drawing to maximum value of 255
+        self.data, rect = algorithms.rescale(self.data, rect)
+
+        # create pixel array
+        pixels = [[0] * 256] * 256
+        for line in self.data:
+            for point in line:
+                try:
+                    pixels[point[0]][point[1]] = 1
+                except:
+                    print("Error, problem with index: ", point)
+
         self.draw_data(2)
-        self.data = tmp
+        return pixels
+
 
     def draw_data(self, radius):
 
@@ -96,14 +111,3 @@ class Canvas:
         pixels[pixels == 255] = 0
         return pixels
     """
-    def load_scribble(self, pixels):
-        self.screen.fill((255, 255, 255))
-        print(pixels[0])
-        for i in range(len(pixels[0][0])):
-            pos = pixels[0][0][i], pixels[0][1][i]
-            print(pos)
-            pygame.draw.circle(self.screen, BLACK, pos, 1)
-            self.screen.set_at(pos, BLACK)
-
-        pygame.display.update()
-        pygame.display.flip()

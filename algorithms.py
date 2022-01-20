@@ -1,13 +1,15 @@
 from math import sqrt
 from math import sqrt, inf
+from pygame import Rect
 
 # distance between 2 points
 def dist(a, b):
     return sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 
+
 # distance between point and line
 def perpendicular_distance(point, start, end):
-    if (start == end):
+    if start == end:
         return dist(point, start)
     else:
         n = abs(
@@ -42,8 +44,8 @@ def douglas_peucker(point_list, epsilon):
 def bounds(point_list):
 
     # Find edges of drawing
-    min_x, min_y = inf, inf
-    max_x, max_y = -inf, -inf
+    min_x, min_y = 1000, 1000
+    max_x, max_y = 0, 0
 
     for line in point_list:
         for point in line:
@@ -57,19 +59,43 @@ def bounds(point_list):
             elif point[1] > max_y:
                 max_y = point[1]
 
-    return min_x, min_y, max_x - min_x, max_y - min_y
+    width = max(max_x - min_x, 1)
+    height = max(max_y - min_y, 1)
+    print(min_x, min_y, width, height)
+    return Rect(min_x, min_y, width, height)
 
 
-def relocate(point_list, bounds):
+def relocate(point_list, bound):
 
     # put top left of drawing at 0, 0
     result_list = []
     for line in point_list:
         new_line = []
         for point in line:
-            new_point = (point[0] - bounds[0], point[1] - bounds[1])
+            new_point = (point[0] - bound[0], point[1] - bound[1])
             new_line.append(new_point)
 
         result_list.append(new_line)
 
     return result_list
+
+
+def rescale(point_list, bound, size=255):
+
+    # find max between image width and image height
+    dmax = max(bound.w, bound.h, 255)
+
+    # if we multiply each point by this value, we will receive a scaled image of [MAX_SIZE, MAX_SIZE]
+    multiplier = size / dmax
+
+    result_list = []
+    for line in point_list:
+        new_line = []
+        for point in line:
+            new_point = (round(point[0] * multiplier), round(point[1] * multiplier))
+            new_line.append(new_point)
+        result_list.append(new_line)
+
+    new_bounds = bounds(result_list)
+
+    return result_list, new_bounds

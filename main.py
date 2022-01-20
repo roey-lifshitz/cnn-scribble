@@ -1,12 +1,11 @@
 import pygame
-
-from binary_file_parser import BinaryFileParser
 from canvas import Canvas
 from mouse import Mouse
 from button import Button
+from data import Data
+from neuralnetwork import NeuralNetwork
 
 def main():
-
     pygame.font.init()
 
     background_colour = (255, 255, 255)
@@ -16,23 +15,22 @@ def main():
     pygame.display.set_caption('Scribble')
     screen.fill(background_colour)
 
-    canvas = Canvas(screen, 0, 0, 600, 600)
+    canvas = Canvas(screen, 0, 0, 500, 500)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
 
-    parser = BinaryFileParser()
-    image = parser.load(screen, canvas)
+    data = Data()
+    data.load()
 
+    network = NeuralNetwork()
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = []
     b1 = Button((540, 550), (50, 40), image=img, on_click=canvas.clear)
-    b2 = Button((540, 500), (50, 40), text="rmd", on_click=lambda: canvas.draw_data(mouse.radius))
-    b3 = Button((540, 450), (50, 40), text="prpr dta", on_click=canvas.prepare_data)
-    b4 = Button((540, 400), (50, 40), text="print", on_click=lambda: print(canvas.data))
+    b2 = Button((540, 500), (50, 40), text="dots", on_click=lambda: canvas.draw_data(mouse.radius))
+    b3 = Button((540, 450), (50, 40), text="show", on_click=canvas.get_data)
     buttons.append(b1)
     buttons.append(b2)
     buttons.append(b3)
-    buttons.append(b4)
 
 
     running = True
@@ -47,16 +45,12 @@ def main():
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_p:
-                    screen.fill((255, 255, 255))
-                    canvas.draw_data(mouse.radius)
-                if event.key == pygame.K_o:
-                    print(canvas.data)
+                pass
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse.pressed = False
                 mouse.prev_pos = None
-                canvas.save_line()
+                canvas.append_line()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse.pressed = True
@@ -67,7 +61,7 @@ def main():
 
             elif event.type == pygame.MOUSEMOTION:
                 if mouse.pressed:
-                    if mouse.prev_pos is not None:
+                    if canvas.contains(*mouse.pos) and mouse.prev_pos is not None:
                         canvas.draw_line(mouse.prev_pos, mouse.pos, mouse.radius)
                     mouse.prev_pos = mouse.pos
 
@@ -75,7 +69,6 @@ def main():
                 for button in buttons:
                     if button.check_hover(mouse.pos):
                         pass
-
 
         pygame.display.update()
         pygame.display.flip()
