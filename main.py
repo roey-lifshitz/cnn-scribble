@@ -2,8 +2,8 @@ import pygame
 from canvas import Canvas
 from mouse import Mouse
 from button import Button
-from data import Data
-from neuralnetwork import NeuralNetwork
+from FileParser import FileParser
+from NeuralNetwork import NeuralNetwork
 
 def main():
     pygame.font.init()
@@ -18,10 +18,11 @@ def main():
     canvas = Canvas(screen, 0, 0, 500, 500)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
 
-    data = Data()
-    data.load()
+    file_parser = FileParser()
+    train_x, train_y, test_x, test_y = file_parser.load_all()
+    print(len(train_y), len(test_y))
 
-    network = NeuralNetwork()
+
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = []

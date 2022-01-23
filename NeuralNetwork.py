@@ -84,6 +84,7 @@ class NeuralNetwork:
         self.init_layers()
 
 
+
     @staticmethod
     def sigmoid(activation):
         return 1.0 / (1.0 + exp(-activation))
@@ -118,43 +119,31 @@ class NeuralNetwork:
                 layer_output_size, layer_input_size)
             self.model['b' + str(layer_index)] = np.random.randn(
                 layer_output_size, 1)
+            print("Weights: ", self.model['w' + str(layer_index)].shape, "Biases: ", self.model['b' + str(layer_index)].shape)
 
     def singe_layer_forward_propagate(self, neurons, weights, biases, activation):
 
         # z = Weights * Inputs + Biases
         z = np.dot(weights, neurons) + biases
 
-        return self.sigmoid(z), z
+        return self.sigmoid(z)
 
     def forward_propagate(self, inputs):
 
+        # neurons of input layer
         neurons = inputs
         for index, layer in enumerate(self.model_architecture):
 
             layer_index = index + 1
-            prev_neurons = neurons
 
+            # Get information regarding that layer
             activation = layer['activation']
             weights = self.model['w' + str(layer_index)]
             biases = self.model['b' + str(layer_index)]
 
-            neurons, z = self.singe_layer_forward_propagate(prev_neurons, weights, biases, activation)
+            neurons = self.singe_layer_forward_propagate(neurons, weights, biases, activation)
 
-            self.memory["a" + str(index)] = prev_neurons
-            self.memory["z" + str(layer_index)] = z
+        return neurons
 
-        # returns the values of the last hidden Layer
-        return inputs
-
-    def single_layer_backward_propagation(self, a, weights, biases, neurons, a_prev):
-        m = a_prev.shape[1]
-
-        b_z = self.sigmoid_backward(a, neurons)
-        b_weights = np.dot(b_z, neurons.T) / m
-        b_biases = np.sum(b_z, axis=1, keepdims=True) / m
-        a_prev = np.dot(weights.T, b_z)
-
-        return a_prev, b_weights, b_biases
-
-
-
+    def train(self, data, labels):
+        print(self.forward_propagate(data[0]))
