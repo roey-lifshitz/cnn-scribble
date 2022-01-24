@@ -206,11 +206,12 @@ class NeuralNetwork:
             self.model['w' + str(layer_index)] -= learning_rate * error['l' + str(layer_index)]
 
     def update(self, error, learning_rate):
-        for layer_idx, layer in enumerate(self.model_architecture):
-            self.model["w" + str(layer_idx)] -= learning_rate * error["w" + str(layer_idx)]
-            self.model["b" + str(layer_idx)] -= learning_rate * error["b" + str(layer_idx)]
+        for index, layer in enumerate(self.model_architecture):
+            layer = index + 1
+            #self.model["w" + str(layer)] -= learning_rate * error["w" + str(layer)]
+            #self.model["b" + str(layer)] -= learning_rate * error["b" + str(layer)]
 
-    def train(self, inputs, labels, epochs=3, learning_rate= 0.01):
+    def train(self, inputs, labels, epochs=24, learning_rate= 0.01):
         cost_history = []
         accuracy_history = []
 
@@ -221,14 +222,11 @@ class NeuralNetwork:
             accuracy = self.get_accuracy_value(output, labels[i])
             accuracy_history.append(accuracy)
 
-            error = self.sbackward_propagation(output, labels[i], memory)
+            error = self.backwards_propagate(output, labels[i], memory)
             params_values = self.update(error, learning_rate)
 
 
-    """
-      def train(self, inputs, labels, learning_rate = 0.01):
+        print("COST: ", cost_history)
+        print("Accuracy: ", accuracy_history)
+        print("Labels", labels)
 
-        outputs, memory = self.forward_propagate(inputs[0].ravel())
-        errors = self.sbackwards_propagate(outputs, labels[0], memory)
-        self.update(errors, learning_rate)
-    """
