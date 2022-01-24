@@ -17,7 +17,7 @@ class FileParser:
         self.data = []
         self.percent = 0.8
 
-    def load(self, filename, max_amount=10):
+    def load(self, filename, max_amount=1000):
 
         sets = []
         counter = 0

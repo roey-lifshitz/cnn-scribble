@@ -86,7 +86,10 @@ class NeuralNetwork:
 
     @staticmethod
     def sigmoid(inputs):
-        return 1.0 / (1.0 + exp(-inputs))
+        try:
+            return 1.0 / (1.0 + exp(-inputs))
+        except:
+            print(inputs)
 
     @staticmethod
     def sigmoid_derivative(inputs):
@@ -176,6 +179,7 @@ class NeuralNetwork:
         # Error of neurons in input layer
 
         e = outputs - labels * self.sigmoid_derivative(outputs)
+
         #e = 0.5 * np.power(outputs - labels, 2) Mean Squared error
 
         # Calculate the error of the output layer
@@ -192,41 +196,35 @@ class NeuralNetwork:
 
             # Calculate the error of prev_neurons
             e = self.single_layer_backward_propagate(prev_neurons, e, weights)
-            error['l' + str(layer_index)] = np.outer(e, prev_neurons)
+            error['l' + str(layer_index)] = e
 
         return error
 
-    def update(self, error, learning_rate):
 
-        for index, layer in enumerate(self.model_architecture):
-            layer_index = index + 1
-
-            print(self.model['w' + str(layer_index)].shape, error['l' + str(layer_index)].shape)
-            # weight = weight - learning_rate * error * input
-            self.model['w' + str(layer_index)] -= learning_rate * error['l' + str(layer_index)]
-
-    def update(self, error, learning_rate):
+    def update(self, error, learning_rate, memory):
         for index, layer in enumerate(self.model_architecture):
             layer = index + 1
-            #self.model["w" + str(layer)] -= learning_rate * error["w" + str(layer)]
-            #self.model["b" + str(layer)] -= learning_rate * error["b" + str(layer)]
 
-    def train(self, inputs, labels, epochs=24, learning_rate= 0.01):
+            self.model["w" + str(layer)] -= learning_rate * np.dot(error["l" + str(layer)], memory['z' + str(layer)])
+            self.model["b" + str(layer)] -= learning_rate * error["l" + str(layer)]
+
+    def train(self, inputs, labels, epochs=500, learning_rate=0.01):
         cost_history = []
         accuracy_history = []
 
         for i in range(epochs):
-            output, memory = self.forward_propagate(inputs[i].ravel())
-            cost = self.get_cost_value(output, labels[i])
+            output, memory = self.forward_propagate(inputs[0].ravel())
+            cost = self.get_cost_value(output, labels[0])
             cost_history.append(cost)
-            accuracy = self.get_accuracy_value(output, labels[i])
+            accuracy = self.get_accuracy_value(output, labels[0])
             accuracy_history.append(accuracy)
 
-            error = self.backwards_propagate(output, labels[i], memory)
-            params_values = self.update(error, learning_rate)
+            error = self.backwards_propagate(output, labels[0], memory)
+            self.update(error, learning_rate, memory)
 
+            print("cost", cost, "accuracy", accuracy)
 
         print("COST: ", cost_history)
         print("Accuracy: ", accuracy_history)
-        print("Labels", labels)
+
 
