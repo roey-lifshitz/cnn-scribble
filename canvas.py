@@ -96,6 +96,13 @@ class Canvas:
 
 
 
+    def draw_loaded_data(self, data, radius):
+
+        self.clear()
+        for i in range(len(data)):
+            for j in range(len(data)):
+                if data[i][j] == 1:
+                    pygame.draw.circle(self.screen, BLACK, (i, j), radius)
 
 
     """

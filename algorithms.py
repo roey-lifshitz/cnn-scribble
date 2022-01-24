@@ -34,7 +34,7 @@ def douglas_peucker(point_list, epsilon):
             dmax = d
 
     if dmax >= epsilon:
-        result_list = douglas_peucker(point_list[:index + 1], epsilon)[:-1] + douglas_peucker(point_list[index:], epsilon)
+        result_list = douglas_peucker(point_list[:index + 1], epsilon) + douglas_peucker(point_list[index:], epsilon)
     else:
         result_list = [point_list[0], point_list[-1]]
 
@@ -83,7 +83,7 @@ def relocate(point_list, bound):
 def rescale(point_list, bound, size=255):
 
     # find max between image width and image height
-    dmax = max(bound.w, bound.h, 255)
+    dmax = max(bound.w, bound.h)
 
     # if we multiply each point by this value, we will receive a scaled image of [MAX_SIZE, MAX_SIZE]
     multiplier = size / dmax

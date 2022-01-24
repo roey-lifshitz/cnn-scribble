@@ -20,15 +20,18 @@ def main():
 
     file_parser = FileParser()
     train_x, train_y, test_x, test_y = file_parser.load_all()
-    print(len(train_y), len(test_y))
+    idx = 0
 
+    network = NeuralNetwork()
+    network.train(train_x, train_y)
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = []
     b1 = Button((540, 550), (50, 40), image=img, on_click=canvas.clear)
-    b2 = Button((540, 500), (50, 40), text="dots", on_click=lambda: canvas.draw_data(mouse.radius))
-    b3 = Button((540, 450), (50, 40), text="show", on_click=canvas.get_data)
+    b2 = Button((540, 500), (50, 40), text="show", on_click=canvas.get_data)
+    b3 = Button((540, 450), (50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
+
     buttons.append(b1)
     buttons.append(b2)
     buttons.append(b3)
@@ -46,7 +49,9 @@ def main():
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                pass
+                if event.key == pygame.K_SPACE:
+                    idx += 1
+                    if idx == 24: idx = 0
 
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse.pressed = False
