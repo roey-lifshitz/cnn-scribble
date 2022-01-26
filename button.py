@@ -3,12 +3,11 @@ GRAY = (235, 232, 232)
 HOVER_GRAY = (196, 191, 191)
 BLACK = (0, 0, 0)
 
-""""
-    Button Class
-    This class represents an editable button that can be added into a pygame screen
-"""
-class Button:
 
+class Button:
+    """
+        This class represents an editable button that can be added onto a pygame screen
+    """
     def __init__(self, pos, size,
                  text=None,
                  font="Ariel",
@@ -43,13 +42,13 @@ class Button:
 
         self.data_rect = self.data.get_rect()
 
-        # Center the image in relation to the button
+        # Center the image/text in relation to the button
         self.data_rect.center = self.rect.center
 
     def draw(self, screen):
         """
-        Draw 4 lines (Border) around the button and then fill them with color
-        :return:
+        Draw 4 lines (Borders) around the button and then fills them with color
+        :return: None
         """
         # Rect between lines
         if not self.hover:
@@ -68,9 +67,8 @@ class Button:
         pygame.draw.line(screen, self.border_color, (self.x, self.y + self.h), (self.x + self.w, self.y + self.h),
                          self.border_width)
 
-        # Draw data (inside button)
+        # Draw image/text (inside button)
         screen.blit(self.data, self.data_rect)
-
 
     def check_hover(self, mouse_pos):
         """
@@ -82,7 +80,7 @@ class Button:
         self.hover = False
         return False
 
-    def check_click(self, mouse_pos):
+    def check_click(self):
         """
             Check if mouse clicking buton
         """

@@ -7,6 +7,7 @@ WHITE = (255, 255, 255)
 class Canvas:
 
     def __init__(self, screen, x, y, width, height):
+        # Rect of canvas
         self.x = x
         self.y = y
         self.width = width
@@ -14,24 +15,44 @@ class Canvas:
 
         self.line = []
         self.data = []
+
+        # if we draw to self.screen in position (0, 0) it will draw to the pygame.screen in pos (self.x, self.y)
+        # because self.screen is a sub screen of pygame.screen
         self.screen = screen.subsurface(x, y, width, height)
 
-    # Check if given position is inside the canvas
     def contains(self, x, y):
+        """
+        Check if self contains given coordinates
+        :param x: x position
+        :param y: y position
+        :return: boolean if contains
+        """
         in_x_axis = self.x < x < self.x + self.width
         in_y_axis = self.y < y < self.y + self.height
         return in_x_axis and in_y_axis
 
     def clear(self):
+        """
+        Clears all pixels of canvas and all data stored in canvas
+        :return: None
+        """
+        # Clear data
         self.line = []
         self.data = []
+        # Clear pixels
         self.screen.fill(WHITE)
 
-    def draw_line(self, start, end, radius):
+    def draw_line(self, start, end, width):
+        """
+        Draws a line between to given dots, stores all dots that create the line
+        :param start: line start position
+        :param end: line end position
+        :param width: width of line
+        :return:
+        """
         # Draw Line
-        pygame.draw.line(self.screen, BLACK, start, end, radius)
+        pygame.draw.line(self.screen, BLACK, start, end, width)
 
-        # Add points creating the line into self.points
         x, y = start
         end_x, end_y = end
 
@@ -52,9 +73,11 @@ class Canvas:
 
 
     def append_line(self):
-        # Compress the data into less points using the Douglas Peucker algorithm
+
+        # if line not empty
         if len(self.line):
 
+            # Compress the data into less points using the Douglas Peucker algorithm
             # Algorithm receives [(x1, y1), (x2, y2), (x3, y3)]
             self.line = algorithms.douglas_peucker(self.line, 2.0)
 
@@ -66,7 +89,7 @@ class Canvas:
 
     def get_data(self):
 
-        # get Rect of drawing
+        # get rect of drawing
         rect = algorithms.bounds(self.data)
 
         # Align Data to (0, 0)
@@ -75,34 +98,47 @@ class Canvas:
         # Scale Drawing to maximum value of 255
         self.data, rect = algorithms.rescale(self.data, rect)
 
-        # create pixel array
+        # create pixel array pixels[256][256] = 0
         pixels = [[0] * 256] * 256
+        # loop through lines
         for line in self.data:
+            # loop through points
             for point in line:
-                try:
-                    pixels[point[0]][point[1]] = 1
-                except:
-                    print("Error, problem with index: ", point)
+                # 1 means there is a points in pixels[x][y]
+                pixels[point[0]][point[1]] = 1
 
+        # draw data on screen with 2 as radius of each point
         self.draw_data(2)
         return pixels
 
-
     def draw_data(self, radius):
-
+        """
+        Draws point on screen for each point in self.data
+        :param radius: radius of points
+        :return: None
+        """
         for line in self.data:
             for point in line:
                 pygame.draw.circle(self.screen, BLACK, point, radius)
 
 
-
+    # Temp function just to check everything is okay
     def draw_loaded_data(self, data, radius):
-
+        """
+        Draws points on screen from loaded data
+        :param data: pixel matrix
+        :param radius:
+        :return:
+        """
         self.clear()
         for i in range(len(data)):
             for j in range(len(data)):
+                # if point in pixel
                 if data[i][j] == 1:
                     pygame.draw.circle(self.screen, BLACK, (i, j), radius)
+
+
+
 
 
     """

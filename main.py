@@ -23,7 +23,7 @@ def main():
     idx = 0
 
     network = NeuralNetwork()
-    network.train(train_x, train_y)
+    #network.train(train_x, train_y)
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
@@ -62,7 +62,7 @@ def main():
                 mouse.pressed = True
 
                 for button in buttons:
-                    if button.check_click(mouse.pos):
+                    if button.check_click():
                         pass
 
             elif event.type == pygame.MOUSEMOTION:
