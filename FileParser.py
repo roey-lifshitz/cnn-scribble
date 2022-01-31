@@ -38,7 +38,7 @@ def unpack_drawing(file_handle, label):
     return {
         'label': label,
         'recognized': recognized,
-        'image': image
+        'image': image.ravel().reshape(-1, 1)
     }
 
 
@@ -74,7 +74,7 @@ class FileParser:
 
                 if data['recognized']:
                     image = data['image']
-                    label = np.zeros(len(self.filenames), dtype=int)
+                    label = np.zeros((len(self.filenames), 1), dtype=int)
                     label[self.filenames.index(data['label'])] = 1
                     sets.append((image, label))
                     counter += 1

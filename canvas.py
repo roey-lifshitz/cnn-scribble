@@ -104,8 +104,11 @@ class Canvas:
         for line in self.data:
             # loop through points
             for point in line:
-                # 1 means there is a points in pixels[x][y]
-                pixels[point[0]][point[1]] = 1
+                try:
+                    # 1 means there is a points in pixels[x][y]
+                    pixels[point[0]][point[1]] = 1
+                except:
+                    print("Error: ", point)
 
         # draw data on screen with 2 as radius of each point
         self.draw_data(2)

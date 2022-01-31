@@ -1,5 +1,4 @@
 from math import sqrt
-from math import sqrt, inf
 from pygame import Rect
 
 

@@ -5,6 +5,7 @@ from button import Button
 from FileParser import FileParser
 from NeuralNetwork import NeuralNetwork
 
+
 def main():
     pygame.font.init()
 
@@ -23,7 +24,7 @@ def main():
     idx = 0
 
     network = NeuralNetwork()
-    #network.train(train_x, train_y)
+    network.train(train_x, train_y)
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
