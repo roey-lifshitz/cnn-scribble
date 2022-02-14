@@ -4,6 +4,8 @@ from mouse import Mouse
 from Ui.Button import Button
 from FileParser import FileParser
 from NeuralNetwork import NeuralNetwork
+from matplotlib import pyplot as plt
+from Layers.Convolutional import Convolutional
 
 def main():
  

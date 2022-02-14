@@ -42,7 +42,7 @@ class FileParser:
             if file not in self.files:
                 self.files.append(file)
 
-    def load(self, train_amount: int = 300, test_amount: int = 50, seed: int = 99) -> Tuple[np.array, np.array, np.array, np.array]:
+    def load(self, train_amount: int = 300, test_amount: int = 50, seed: int = 99) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Returns training and test data sets
         :param train_amount: Total amount of training data to parse
@@ -77,7 +77,7 @@ class FileParser:
             # Load images from .npy file
             images = np.load(f"data/{file}") / 255.
             # Reshape that each image will be in a 1X28X28 format
-            images = images.reshape(-1, 1, 28, 28)
+            images = images.reshape(-1, 1, 28, 28, 1)
 
             # binary array that represents the location of the file in self.files
             y = np.zeros(amount_of_files)
