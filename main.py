@@ -4,34 +4,46 @@ from mouse import Mouse
 from button import Button
 from FileParser import FileParser
 from NeuralNetwork import NeuralNetwork
-
-
+from Layers.Convolutional import Convolutional
+from Layers.MaxPooling import MaxPooling
+from Layers.Flatten import Flatten
+from Layers.Activations import Softmax, Sigmoid, Relu
+from Layers.Dense import Dense
+import numpy as np
 def main():
+ 
     pygame.font.init()
-
     background_colour = (255, 255, 255)
     (width, height) = (600, 600)
-
     screen = pygame.display.set_mode((width, height))
     pygame.display.set_caption('Scribble')
     screen.fill(background_colour)
 
     canvas = Canvas(screen, 0, 0, 500, 500)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
-
     file_parser = FileParser()
     train_x, train_y, test_x, test_y = file_parser.load_all()
+
     idx = 0
 
+    """
+            The Neural Network will consist of the following Layers
+            1. Convolutional Layer
+            2. Max Pooling Layer
+            3  Convolutional Layer
+            4. Max Pooling Layer
+            5. Flatter Layer
+            6. Softmax Activation Layer
+    """
     network = NeuralNetwork()
     network.train(train_x, train_y)
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = []
-    b1 = Button((540, 550), (50, 40), image=img, on_click=canvas.clear)
-    b2 = Button((540, 500), (50, 40), text="show", on_click=canvas.get_data)
-    b3 = Button((540, 450), (50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
+    b1 = Button((540, 550, 50, 40), image=img, on_click=canvas.clear)
+    b2 = Button((540, 500, 50, 40), text="show", on_click=canvas.get_data)
+    b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
 
     buttons.append(b1)
     buttons.append(b2)
@@ -77,7 +89,6 @@ def main():
                     if button.check_hover(mouse.pos):
                         pass
 
-        pygame.display.update()
         pygame.display.flip()
 
 

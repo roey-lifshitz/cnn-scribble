@@ -70,7 +70,7 @@ class Button:
         # Draw image/text (inside button)
         screen.blit(self.data, self.data_rect)
 
-    def check_hover(self, mouse_pos):
+    def is_click(self, mouse_pos):
         """
         Check if mouse hovering on top of button
         """
@@ -80,7 +80,7 @@ class Button:
         self.hover = False
         return False
 
-    def check_click(self):
+    def on_click(self):
         """
             Check if mouse clicking buton
         """
