@@ -76,11 +76,11 @@ class Canvas:
 
         # if line not empty
         if len(self.line):
-
+            print(self.line)
             # Compress the data into less points using the Douglas Peucker algorithm
             # Algorithm receives [(x1, y1), (x2, y2), (x3, y3)]
             self.line = algorithms.douglas_peucker(self.line, 2.0)
-
+            print(self.line)
             # Add to data
             self.data.append(self.line)
 
@@ -104,11 +104,7 @@ class Canvas:
         for line in self.data:
             # loop through points
             for point in line:
-                try:
-                    # 1 means there is a points in pixels[x][y]
-                    pixels[point[0]][point[1]] = 1
-                except:
-                    print("Error: ", point)
+                pixels[point[0]][point[1]] = 1
 
         # draw data on screen with 2 as radius of each point
         self.draw_data(2)

@@ -1,15 +1,10 @@
 import pygame
 from canvas import Canvas
 from mouse import Mouse
-from button import Button
+from Ui.Button import Button
 from FileParser import FileParser
 from NeuralNetwork import NeuralNetwork
-from Layers.Convolutional import Convolutional
-from Layers.MaxPooling import MaxPooling
-from Layers.Flatten import Flatten
-from Layers.Activations import Softmax, Sigmoid, Relu
-from Layers.Dense import Dense
-import numpy as np
+
 def main():
  
     pygame.font.init()
@@ -22,7 +17,9 @@ def main():
     canvas = Canvas(screen, 0, 0, 500, 500)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load_all()
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=300, test_amount=20)
+
+
 
     idx = 0
 
@@ -35,19 +32,19 @@ def main():
             5. Flatter Layer
             6. Softmax Activation Layer
     """
-    network = NeuralNetwork()
-    network.train(train_x, train_y)
+    #network = NeuralNetwork()
+    #network.train(train_x, train_y)
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = []
     b1 = Button((540, 550, 50, 40), image=img, on_click=canvas.clear)
     b2 = Button((540, 500, 50, 40), text="show", on_click=canvas.get_data)
-    b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
+    #b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
 
     buttons.append(b1)
     buttons.append(b2)
-    buttons.append(b3)
+    #buttons.append(b3)
 
 
     running = True
@@ -75,7 +72,7 @@ def main():
                 mouse.pressed = True
 
                 for button in buttons:
-                    if button.check_click():
+                    if button.on_click():
                         pass
 
             elif event.type == pygame.MOUSEMOTION:
@@ -86,7 +83,7 @@ def main():
 
             if not mouse.pressed:
                 for button in buttons:
-                    if button.check_hover(mouse.pos):
+                    if button.is_click(mouse.pos):
                         pass
 
         pygame.display.flip()

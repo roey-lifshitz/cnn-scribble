@@ -1,125 +1,61 @@
 import numpy as np
-from struct import unpack
-
-
-def unpack_drawing(file_handle, label):
-    """
-    Reads the data of a single drawing from google's quickdraw data set.
-    The file it reads from consists of multiple drawings of the same object
-    To read multiple objects all you need to do is call this function a number of times for the same file_handle
-    https://github.com/googlecreativelab/quickdraw-dataset
-
-    :param file_handle: File object
-    :param label: label of drawing it is about to read
-    :return: Dictionary {'label', 'recognized', 'image'}
-    """
-
-    # Read all data from current file object location
-    key_id, = unpack('Q', file_handle.read(8))
-    country_code, = unpack('2s', file_handle.read(2))
-    recognized, = unpack('b', file_handle.read(1))
-    timestamp, = unpack('I', file_handle.read(4))
-    n_strokes, = unpack('H', file_handle.read(2))
-
-    # Create matrix of pixels for the image
-    image = np.zeros(shape=(256, 256), dtype=int)
-    # Loop through all strokes
-    for i in range(n_strokes):
-        # Unpack each stroke
-        n_points, = unpack('H', file_handle.read(2))
-        fmt = str(n_points) + 'B'
-        # x, y arrays of points that have been drawn p[0] = (x[0], y[0])
-        x = unpack(fmt, file_handle.read(n_points))
-        y = unpack(fmt, file_handle.read(n_points))
-        # Add stroke to data
-        for point in list(zip(x, y)):
-            image[point] = 1
-
-    return {
-        'label': label,
-        'recognized': recognized,
-        'image': image.ravel().reshape(-1, 1)
-    }
-
 
 class FileParser:
 
     def __init__(self):
 
         self.filenames = [
-            'arm.bin',
-            'dog.bin',
-            'sun.bin'
+            'apple.npy',
+            'duck.npy',
+            'foot.npy',
+            'sun.npy'
         ]
-        self.percent = 0.8
 
-    def load(self, filename, amount):
-        """
-        Loads specified amount of drawings from a given file name
-        :param filename: filename
-        :param amount: amount of drawings to load
-        :return: array of tuples, each tuple= (image, label)
-        """
-        sets = []
-        counter = 0
+    def load(self, train_amount: int = 300, test_amount: int = 50, seed: int = 99):
 
-        # Open binary file
-        with open(f'data/{filename}', 'rb') as file:
-            # Loop for specified amount
-            while counter < amount:
-                # unpack single drawing
-                data = unpack_drawing(file, filename)
-                # Skip drawings that have not been recognized by Google A.I
-                # We don't want our network to study from images that Google A.I didn't recognize
+        if 0 < test_amount < len(self.filenames) or 0 < train_amount < len(self.filenames):
 
-                if data['recognized']:
-                    image = data['image']
-                    label = np.zeros((len(self.filenames), 1), dtype=int)
-                    label[self.filenames.index(data['label'])] = 1
-                    sets.append((image, label))
-                    counter += 1
+            raise ValueError("amount is smaller than files in Class, Cannot load less than one file per file")
 
-        return sets
-
-    def load_all(self, seed=99, amount=99):
-        """
-        Loads all drawings that appear in self.filename
-        :param seed: optional, for numpy.random
-        :return: train_x, train_y, test_x, test_y
-        """
         np.random.seed(seed)
-        all_sets = []
-        # Loop through all filenames
-        for filename in self.filenames:
 
-            # Get (image, label) of drawings for specific filename
-            sets = self.load(filename, amount)
+        # Prepare variables for easier loading
+        amount_of_files = len(self.filenames)
+        train_amount_per_file = train_amount // amount_of_files
+        test_amount_per_file = test_amount // amount_of_files
+        offset = train_amount_per_file
 
-            # array that contains all sets
-            all_sets += sets
+        train_data = np.empty((train_amount, 2), dtype=object)
+        test_data = np.empty((test_amount, 2), dtype=object)
 
-        # Calculate length of training data
-        length = len(all_sets)
-        t_length = int(length * self.percent)
+        for i, filename in enumerate(self.filenames):
 
-        # Split data into training and test (80% training, 20% test)
-        training = np.array(all_sets[:t_length])
-        test = np.array(all_sets[t_length:])
+            # Load images from .npy file
+            images = np.load(f"data/{filename}") / 255.
+            # Reshape that each image will be in a 1X28X28 format
+            images = images.reshape(-1, 1, 28, 28)
 
-        # randomly shuffle arrays
-        np.random.shuffle(training)
-        np.random.shuffle(test)
+            # binary array that represents the location of the filename in self.filenames
+            y = np.zeros(amount_of_files)
+            y[i] = 1
 
-        """
-            Currently, training and test shape is (N, 2) and training[0]= image, label
-            In order to split the data into separate images and labels arrays
-            we can transpose the matrix-> 
-            The new shape will be (2, N) and training[0] = all images, training[1] = all labels
-        """
-        return *training.transpose(), *test.transpose()
+            # Indices for storing data
+            train_start = i * train_amount_per_file
+            train_end = train_start + train_amount_per_file
+            test_start = i * test_amount_per_file
+            test_end = test_start + test_amount_per_file
 
+            train_data[train_start:train_end] = list(zip(images[train_start:train_end], [y] * train_amount_per_file))
+            test_data[test_start:test_end] = list(zip(images[test_start + offset:test_end + offset], [y] * test_amount_per_file))
 
+        # Shuffle the array
+        np.random.shuffle(train_data)
+        np.random.shuffle(test_data)
 
+        train_x, train_y = test_data.transpose()
+        test_x, test_y = train_data.transpose()
+
+        return test_x, train_y, test_x, test_y
 
 
 
