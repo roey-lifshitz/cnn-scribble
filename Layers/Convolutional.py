@@ -5,8 +5,8 @@ import numpy as np
 
 class Convolutional(Layer):
 
-    def __init__(self, filters_num: int = 8, kernel_shape: Tuple[int, int, int] = (2, 2), stride: int = 1,
-                 padding: int = 0):
+    def __init__(self, filters_num: int = 8, kernel_shape: Tuple[int, int, int] = (2, 2, 1), stride: int = 1,
+                 padding: int = 0) -> None:
 
         self.filters_num = filters_num
         self.kernel_shape = kernel_shape
