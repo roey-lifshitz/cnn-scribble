@@ -37,13 +37,12 @@ def main():
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
-    buttons = []
-    b1 = Button((540, 550, 50, 40), image=img, on_click=canvas.clear)
-    b2 = Button((540, 500, 50, 40), text="show", on_click=canvas.get_data)
-    #b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
+    buttons = [
+        Button((540, 550, 50, 40), image=img, on_click=canvas.clear),
+        Button((540, 500, 50, 40), text="show", on_click=canvas.get_data)
+    ]
+     #b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
 
-    buttons.append(b1)
-    buttons.append(b2)
     #buttons.append(b3)
 
 
