@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="BranchesTreeState">
+    <expand />
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Neural network">
+      <change beforePath="$PROJECT_DIR$/FileParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/FileParser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/anvil.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/arm.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/dog.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/sun.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
+    <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
+    <list id="70e296d0-f9f9-4205-946d-5a11e9e7da8b" name="rebasing" comment="undo commit" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="21PnK85ZLOSkw6ik1ZmuOGiBjDP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\data" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\Ui" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="scribble" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\rnm24\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="scribble" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\rnm24\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="" />
+      <changelist id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
+      <changelist id="70e296d0-f9f9-4205-946d-5a11e9e7da8b" name="rebasing" comment="undo commit" />
+      <created>1637851522366</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1637851522366</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Worked on Drawing function, added mouse classes and handled interpolation">
+      <created>1637866768307</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1637866768307</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Studied loading files, Succesfully loaded a file.&#10;Files are a [(x1)(y1)] where arr[0][i] arr[1][j] are position where pixel is black&#10;&#10;TO DO:&#10; restructuring the to_binary function, data needs to be as mention [(x1), (x2)] and not an array of 1, 0&#10; &#10;saving strokes of canvas&#10;&#10;finish file loading function">
+      <created>1637879273750</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1637879273750</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Studied loading files, Succesfully loaded a file.&#10;Files are a [(x1)(y1)] where arr[0][i] arr[1][j] are position where pixel is black&#10;&#10;TO DO:&#10; restructuring the to_binary function, data needs to be as mention [(x1), (x2)] and not an array of 1, 0&#10; &#10;saving strokes of canvas&#10;&#10;finish file loading function">
+      <created>1641763278722</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1641763278722</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Studied loading files, Succesfully loaded a file.&#10;Files are a [(x1)(y1)] where arr[0][i] arr[1][j] are position where pixel is black&#10;&#10;TO DO:&#10; restructuring the to_binary function, data needs to be as mention [(x1), (x2)] and not an array of 1, 0&#10; &#10;saving strokes of canvas&#10;&#10;finish file loading function">
+      <created>1641919298372</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1641919298372</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Studied loading files, Succesfully loaded a file.&#10;Files are a [(x1)(y1)] where arr[0][i] arr[1][j] are position where pixel is black&#10;&#10;TO DO:&#10; restructuring the to_binary function, data needs to be as mention [(x1), (x2)] and not an array of 1, 0&#10; &#10;saving strokes of canvas&#10;&#10;finish file loading function">
+      <created>1641934530030</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1641934530030</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Restructed data to [[(x1, y1), (x2, y2)], [(x3, y3)]]&#10;- added button to relocate rmd of data to top left of the screen&#10;&#10;TO DO:&#10;work on unpacking files from quick draw open source">
+      <created>1642060129669</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1642060129669</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Restructed data to [[(x1, y1), (x2, y2)], [(x3, y3)]]&#10;- added button to relocate rmd of data to top left of the screen&#10;&#10;TO DO:&#10;work on unpacking files from quick draw open source">
+      <created>1642670629621</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1642670629621</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Finished unpacking images and preparing training and test data!!!! finally, next step: complete neural netwrok">
+      <created>1642974843371</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1642974843371</updated>
+    </task>
+    <task id="LOCAL-00009" summary="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)">
+      <created>1643052018600</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1643052018600</updated>
+    </task>
+    <task id="LOCAL-00010" summary="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)">
+      <created>1643052233447</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1643052233447</updated>
+    </task>
+    <task id="LOCAL-00011" summary="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)">
+      <created>1643065711953</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1643065711953</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added comments">
+      <created>1643240552225</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1643240552225</updated>
+    </task>
+    <task id="LOCAL-00013" summary="finished base for neural network, needed debugging&#10;neural network reaches really big minuse numbers">
+      <created>1643659717615</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1643659717615</updated>
+    </task>
+    <task id="LOCAL-00014" summary="finished base for neural network, needed debugging&#10;neural network reaches really big minuse numbers">
+      <created>1643659730235</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1643659730235</updated>
+    </task>
+    <task id="LOCAL-00015" summary="finished base for neural network, needed debugging&#10;neural network reaches really big minuse numbers">
+      <created>1643659737573</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1643659737573</updated>
+    </task>
+    <task id="LOCAL-00016" summary="save">
+      <created>1644336404429</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1644336404429</updated>
+    </task>
+    <task id="LOCAL-00017" summary="save">
+      <created>1644594507610</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1644594507610</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Neural network">
+      <created>1644610466277</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1644610466277</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Neural network">
+      <created>1644861627952</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1644861627952</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Neural network">
+      <created>1644863935113</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1644863935113</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="1">
+          <value>
+            <State>
+              <option name="SHOW_ONLY_AFFECTED_CHANGES" value="true" />
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="HEAD" />
+                      </list>
+                    </value>
+                  </entry>
+                  <entry key="structure">
+                    <value>
+                      <list>
+                        <option value="dir:C:/Users/rnm24/PycharmProjects/scribble/data" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="OPEN_GENERIC_TABS">
+      <map>
+        <entry key="1" value="TOOL_WINDOW" />
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Worked on Drawing function, added mouse classes and handled interpolation" />
+    <MESSAGE value="Studied loading files, Succesfully loaded a file.&#10;Files are a [(x1)(y1)] where arr[0][i] arr[1][j] are position where pixel is black&#10;&#10;TO DO:&#10; restructuring the to_binary function, data needs to be as mention [(x1), (x2)] and not an array of 1, 0&#10; &#10;saving strokes of canvas&#10;&#10;finish file loading function" />
+    <MESSAGE value="Restructed data to [[(x1, y1), (x2, y2)], [(x3, y3)]]&#10;- added button to relocate rmd of data to top left of the screen&#10;&#10;TO DO:&#10;work on unpacking files from quick draw open source" />
+    <MESSAGE value="Finished unpacking images and preparing training and test data!!!! finally, next step: complete neural netwrok" />
+    <MESSAGE value="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)" />
+    <MESSAGE value="added comments" />
+    <MESSAGE value="finished base for neural network, needed debugging&#10;neural network reaches really big minuse numbers" />
+    <MESSAGE value="save" />
+    <MESSAGE value="Neural network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Neural network" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="698" y="343" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1644864090652" />
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1637853826619">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1637853826619" />
+    <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1644545778352">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644545778352" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1642059950134">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1642059950134" />
+    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog" timestamp="1644864219248">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644864219248" />
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1644696279628">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1644696279628" />
+    <state width="1899" height="264" key="GridCell.Tab.0.bottom" timestamp="1644869781943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
+    <state width="1899" height="264" key="GridCell.Tab.0.center" timestamp="1644869781943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="264" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
+    <state width="1899" height="264" key="GridCell.Tab.0.left" timestamp="1644869781943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="264" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
+    <state width="1899" height="264" key="GridCell.Tab.0.right" timestamp="1644869781943">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="264" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
+    <state width="1899" height="347" key="GridCell.Tab.1.bottom" timestamp="1644865489688">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
+    <state width="1899" height="347" key="GridCell.Tab.1.center" timestamp="1644865489688">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
+    <state width="1899" height="347" key="GridCell.Tab.1.left" timestamp="1644865489688">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
+    <state width="1899" height="347" key="GridCell.Tab.1.right" timestamp="1644865489688">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1899" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
+    <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="184" y="85" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644864007375" />
+    <state x="598" y="281" key="MultipleFileMergeDialog" timestamp="1644862017054">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="598" y="281" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644862017054" />
+    <state x="761" y="222" key="RollbackChangesDialog" timestamp="1644862641980">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="761" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644862641980" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1637853704381">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1637853704381" />
+    <state x="807" y="433" key="VCS.ChangelistChooser" timestamp="1644862182928">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644862182928" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1644864183541">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1644864183541" />
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1644863907092">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644863907092" />
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1644525236993">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1644525236993" />
+    <state x="804" y="432" key="git4idea.rebase.GitUnstructuredEditor" timestamp="1644862010495">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="804" y="432" key="git4idea.rebase.GitUnstructuredEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1644862010495" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1644595234886">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1644595234886" />
+  </component>
+</project>

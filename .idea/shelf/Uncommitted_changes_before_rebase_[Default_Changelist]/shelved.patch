@@ -1,0 +1,278 @@
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nfrom canvas import Canvas\r\nfrom mouse import Mouse\r\nfrom Ui.Button import Button\r\nfrom FileParser import FileParser\r\nfrom NeuralNetwork import NeuralNetwork\r\nfrom Layers.Convolutional import Convolutional\r\nfrom Layers.MaxPooling import MaxPooling\r\nfrom Layers.Flatten import Flatten\r\nfrom Layers.Activations import Softmax, Sigmoid, Relu\r\nfrom Layers.Dense import Dense\r\nimport numpy as np\r\ndef main():\r\n \r\n    pygame.font.init()\r\n    background_colour = (255, 255, 255)\r\n    (width, height) = (600, 600)\r\n    screen = pygame.display.set_mode((width, height))\r\n    pygame.display.set_caption('Scribble')\r\n    screen.fill(background_colour)\r\n\r\n    canvas = Canvas(screen, 0, 0, 500, 500)\r\n    mouse = Mouse(pygame.mouse.get_pos(), 2)\r\n    file_parser = FileParser()\r\n    train_x, train_y, test_x, test_y = file_parser.load_all()\r\n\r\n    idx = 0\r\n\r\n    \"\"\"\r\n            The Neural Network will consist of the following Layers\r\n            1. Convolutional Layer\r\n            2. Max Pooling Layer\r\n            3  Convolutional Layer\r\n            4. Max Pooling Layer\r\n            5. Flatter Layer\r\n            6. Softmax Activation Layer\r\n    \"\"\"\r\n    network = NeuralNetwork()\r\n\r\n\r\n    network.initialize([\r\n        Convolutional(num_filters=8, stride=2, kernel_size=3),\r\n        MaxPooling(stride=2, pool_size=2),\r\n        Convolutional(num_filters=8, stride=2, kernel_size=3),\r\n        MaxPooling(stride=2, pool_size=2),\r\n        Flatten(),\r\n        Dense(200, 5),\r\n        Sigmoid(),\r\n    ])\r\n\r\n    network.train(train_x, train_y, epochs=1000)\r\n    network.save(\"model2\")\r\n    #\"\"\"\r\n\r\n    #print(network.model[0])\r\n    network.validate(test_x, test_y)\r\n\r\n    # Adding buttons to the screen\r\n    img = pygame.image.load(\"images/eraser.png\")\r\n    buttons = []\r\n    b1 = Button((540, 550, 50, 40), image=img, on_click=canvas.clear)\r\n    b2 = Button((540, 500, 50, 40), text=\"show\", on_click=canvas.get_data)\r\n    b3 = Button((540, 450, 50, 40), text=\"load\", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))\r\n\r\n    buttons.append(b1)\r\n    buttons.append(b2)\r\n    buttons.append(b3)\r\n\r\n\r\n    running = True\r\n    while running:\r\n        mouse.pos = pygame.mouse.get_pos()\r\n\r\n        for button in buttons:\r\n            button.draw(screen)\r\n\r\n        for event in pygame.event.get():\r\n            if event.type == pygame.QUIT:\r\n                running = False\r\n\r\n            if event.type == pygame.KEYDOWN:\r\n                if event.key == pygame.K_SPACE:\r\n                    idx += 1\r\n                    if idx == 24: idx = 0\r\n\r\n            elif event.type == pygame.MOUSEBUTTONUP:\r\n                mouse.pressed = False\r\n                mouse.prev_pos = None\r\n                canvas.append_line()\r\n\r\n            elif event.type == pygame.MOUSEBUTTONDOWN:\r\n                mouse.pressed = True\r\n\r\n                for button in buttons:\r\n                    if button.check_click():\r\n                        pass\r\n\r\n            elif event.type == pygame.MOUSEMOTION:\r\n                if mouse.pressed:\r\n                    if canvas.contains(*mouse.pos) and mouse.prev_pos is not None:\r\n                        canvas.draw_line(mouse.prev_pos, mouse.pos, mouse.radius)\r\n                    mouse.prev_pos = mouse.pos\r\n\r\n            if not mouse.pressed:\r\n                for button in buttons:\r\n                    if button.check_hover(mouse.pos):\r\n                        pass\r\n\r\n        pygame.display.flip()\r\n\r\n\r\nif __name__ == '__main__':\r\n   main()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- main.py	(revision ac59d39392425a261ca3fb43bf8a4fac76f906ba)
++++ main.py	(date 1644855120541)
+@@ -1,15 +1,17 @@
+ import pygame
++from matplotlib import pyplot as plt
+ from canvas import Canvas
+ from mouse import Mouse
+ from Ui.Button import Button
++from Ui.InputBox import InputBox
+ from FileParser import FileParser
+-from NeuralNetwork import NeuralNetwork
+-from Layers.Convolutional import Convolutional
+-from Layers.MaxPooling import MaxPooling
+-from Layers.Flatten import Flatten
+-from Layers.Activations import Softmax, Sigmoid, Relu
+-from Layers.Dense import Dense
+-import numpy as np
++
++
++def load(data):
++    plt.imshow(data.reshape(28, 28))
++    plt.show()
++
++
+ def main():
+  
+     pygame.font.init()
+@@ -26,46 +28,17 @@
+ 
+     idx = 0
+ 
+-    """
+-            The Neural Network will consist of the following Layers
+-            1. Convolutional Layer
+-            2. Max Pooling Layer
+-            3  Convolutional Layer
+-            4. Max Pooling Layer
+-            5. Flatter Layer
+-            6. Softmax Activation Layer
+-    """
+-    network = NeuralNetwork()
+-
+-
+-    network.initialize([
+-        Convolutional(num_filters=8, stride=2, kernel_size=3),
+-        MaxPooling(stride=2, pool_size=2),
+-        Convolutional(num_filters=8, stride=2, kernel_size=3),
+-        MaxPooling(stride=2, pool_size=2),
+-        Flatten(),
+-        Dense(200, 5),
+-        Sigmoid(),
+-    ])
+-
+-    network.train(train_x, train_y, epochs=1000)
+-    network.save("model2")
+-    #"""
+-
+-    #print(network.model[0])
+-    network.validate(test_x, test_y)
+-
+     # Adding buttons to the screen
+     img = pygame.image.load("images/eraser.png")
+-    buttons = []
+-    b1 = Button((540, 550, 50, 40), image=img, on_click=canvas.clear)
+-    b2 = Button((540, 500, 50, 40), text="show", on_click=canvas.get_data)
+-    b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
++    buttons = [
++        Button((540, 550, 50, 40), image=img, on_click=canvas.clear),
++        Button((540, 500, 50, 40), text="show", on_click=canvas.get_data),
++        Button((540, 450, 50, 40), text="load", on_click=lambda: load(train_x[idx]))
++    ]
+ 
+-    buttons.append(b1)
+-    buttons.append(b2)
+-    buttons.append(b3)
+-
++    input_boxes = [
++        InputBox((440, 350, 150, 40))
++    ]
+ 
+     running = True
+     while running:
+@@ -74,11 +47,18 @@
+         for button in buttons:
+             button.draw(screen)
+ 
++        for input_box in input_boxes:
++            input_box.draw(screen)
++
+         for event in pygame.event.get():
+             if event.type == pygame.QUIT:
+                 running = False
+ 
+             if event.type == pygame.KEYDOWN:
++
++                for input_box in input_boxes:
++                    input_box.draw(screen)
++
+                 if event.key == pygame.K_SPACE:
+                     idx += 1
+                     if idx == 24: idx = 0
+@@ -106,8 +86,49 @@
+                     if button.check_hover(mouse.pos):
+                         pass
+ 
+-        pygame.display.flip()
++        pygame.display.update()
+ 
+ 
+ if __name__ == '__main__':
+-   main()
+\ No newline at end of file
++   main()
++
++
++"""
++    from NeuralNetwork import NeuralNetwork
++from Layers.Convolutional import Convolutional
++from Layers.MaxPooling import MaxPooling
++from Layers.Flatten import Flatten
++from Layers.Activations import Softmax, Sigmoid, Relu
++from Layers.Dense import Dense
++import numpy as np
++    #""
++            The Neural Network will consist of the following Layers
++            1. Convolutional Layer
++            2. Max Pooling Layer
++            3  Convolutional Layer
++            4. Max Pooling Layer
++            5. Flatter Layer
++            6. Softmax Activation Layer
++    #""
++    network = NeuralNetwork()
++
++
++    network.initialize([
++        Convolutional(num_filters=4, stride=2, kernel_size=3),
++        Relu(),
++        MaxPooling(stride=2, pool_size=2),
++        Convolutional(num_filters=4, stride=2, kernel_size=3),
++        Relu(),
++        MaxPooling(stride=2, pool_size=2),
++        Flatten(),
++        Dense(100, 5),
++        Sigmoid(),
++    ])
++
++    #network.train(train_x, train_y, epochs=400)
++    network.load("Model/AplCrtCrwnMstchPza")
++
++
++    #print(network.model[0])
++    network.validate(test_x, test_y)
++"""
+\ No newline at end of file
+Index: FileParser.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import numpy as np\r\nimport math\r\n\r\nclass FileParser:\r\n\r\n    def __init__(self):\r\n\r\n        self.filenames = [\r\n            'apple.npy',\r\n            'carrot.npy',\r\n            'crown.npy',\r\n            'moustache.npy',\r\n            'pizza.npy'\r\n        ]\r\n\r\n    def load_all(self, train_limit= 100, test_limit= 20, seed=99):\r\n        \"\"\"\r\n        Loads all drawings that appear in self.filename\r\n        :param seed: optional, for numpy.random\r\n        :return: train_x, train_y, test_x, test_y\r\n        \"\"\"\r\n        np.random.seed(seed)\r\n\r\n        amount_of_files = len(self.filenames)\r\n        offset = train_limit * amount_of_files\r\n\r\n        # preallocate space for arrays\r\n        training_data = []\r\n        test_data = []\r\n\r\n\r\n        # Loop through files\r\n        for i, filename in enumerate(self.filenames):\r\n\r\n            # Compute start and end indices\r\n            train_start = i * train_limit\r\n            train_end = i * train_limit + train_limit - 1\r\n\r\n            test_start = i * test_limit\r\n            test_end = i * test_limit + test_limit - 1\r\n\r\n\r\n\r\n            # Get all drawings of that file\r\n            drawings = np.load(f\"data/{filename}\").astype('float64') / 255.\r\n            drawings = drawings.reshape(-1, 1, 28, 28)\r\n\r\n\r\n            # Loop through drawings\r\n            y = np.zeros((amount_of_files, 1)).astype('float64')\r\n            y[i] = 1\r\n\r\n            # insert into data from start to end indices a tuple(x, y)\r\n            # X- np.array() representing the pixels of the images with size 28*28\r\n            # Y- np.array() [binary] representing the location of filename is self.filenames\r\n\r\n            #training_data[train_start:train_end] = list(zip(\r\n            #    drawings[train_start:train_end], [y] * train_limit))\r\n\r\n            #test_data[test_start:test_end] = list(zip(\r\n            #    drawings[test_start + offset:test_end + offset], [y] * test_limit))\r\n\r\n            training_data.extend(list(zip(drawings[train_start:train_end], [y] * train_limit)))\r\n            test_data.extend(list(zip(drawings[test_start + offset:train_end + offset], [y] * test_limit)))\r\n\r\n        # Shuffle data and training for better result\r\n        np.random.shuffle(training_data)\r\n        np.random.shuffle(test_data)\r\n\r\n        train_x, train_y = list(zip(*training_data))\r\n        test_x, test_y = list(zip(*training_data))\r\n\r\n\r\n        return train_x, train_y, test_x, test_y\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- FileParser.py	(revision ac59d39392425a261ca3fb43bf8a4fac76f906ba)
++++ FileParser.py	(date 1644847414766)
+@@ -68,7 +68,7 @@
+         np.random.shuffle(test_data)
+ 
+         train_x, train_y = list(zip(*training_data))
+-        test_x, test_y = list(zip(*training_data))
++        test_x, test_y = list(zip(*test_data))
+ 
+ 
+         return train_x, train_y, test_x, test_y
+Index: Ui/Button.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nGRAY = (235, 232, 232)\r\nHOVER_GRAY = (196, 191, 191)\r\nBLACK = (0, 0, 0)\r\n\r\n\r\nclass Button:\r\n    \"\"\"\r\n        This class represents an editable button that can be added onto a pygame screen\r\n    \"\"\"\r\n    def __init__(self, rect,\r\n                 text=None,\r\n                 font=\"Ariel\",\r\n                 font_size=30,\r\n                 image=None,\r\n                 color=GRAY,\r\n                 hover_color=HOVER_GRAY,\r\n                 border_color=BLACK,\r\n                 border_width=2,\r\n                 on_click=lambda: print(\"No command activated for this button\")):\r\n\r\n        self.on_click = on_click\r\n        self.color = color\r\n\r\n        self.hover_color = hover_color\r\n        self.border_color = border_color\r\n        self.border_width = border_width\r\n\r\n        self.hover = False\r\n\r\n        # Get the rect of the button\r\n        self.x, self.y, self.w, self.h = rect\r\n        self.rect = pygame.Rect(self.x, self.y, self.w, self.h)\r\n\r\n        # Button contains an image\r\n        if image:\r\n            self.data = image\r\n        # Button contains a text\r\n        elif text:\r\n            font = pygame.font.SysFont(font, font_size)\r\n            self.data = font.render(text, True, BLACK)\r\n\r\n        self.data_rect = self.data.get_rect()\r\n\r\n        # Center the image/text in relation to the button\r\n        self.data_rect.center = self.rect.center\r\n\r\n    def draw(self, screen):\r\n        \"\"\"\r\n        Draw 4 lines (Borders) around the button and then fills them with color\r\n        :return: None\r\n        \"\"\"\r\n        # Rect between lines\r\n        if not self.hover:\r\n            pygame.draw.rect(screen, self.color, (self.x, self.y, self.w, self.h))\r\n        else:\r\n            pygame.draw.rect(screen, self.hover_color, (self.x, self.y, self.w, self.h))\r\n\r\n        # Vertical Border Lines\r\n        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x, self.y + self.h),\r\n                         self.border_width)\r\n        pygame.draw.line(screen, self.border_color, (self.x + self.w, self.y), (self.x + self.w, self.y + self.h),\r\n                         self.border_width)\r\n        # Horizontal Border Lines\r\n        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x + self.w, self.y),\r\n                         self.border_width)\r\n        pygame.draw.line(screen, self.border_color, (self.x, self.y + self.h), (self.x + self.w, self.y + self.h),\r\n                         self.border_width)\r\n\r\n        # Draw image/text (inside button)\r\n        screen.blit(self.data, self.data_rect)\r\n\r\n    def is_click(self, mouse_pos):\r\n        \"\"\"\r\n        Check if mouse hovering on top of button\r\n        \"\"\"\r\n        if self.rect.contains(pygame.Rect(*mouse_pos, 1, 1)):\r\n            self.hover = True\r\n            return True\r\n        self.hover = False\r\n        return False\r\n\r\n    def on_click(self):\r\n        \"\"\"\r\n            Check if mouse clicking buton\r\n        \"\"\"\r\n        if self.hover:\r\n            self.hover = False\r\n            self.on_click()\r\n            return True\r\n        return False\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Ui/Button.py	(revision ac59d39392425a261ca3fb43bf8a4fac76f906ba)
++++ Ui/Button.py	(date 1644861812833)
+@@ -1,9 +1,41 @@
+ import pygame
++from typing import Tuple, Optional, Callable
+ GRAY = (235, 232, 232)
+ HOVER_GRAY = (196, 191, 191)
+ BLACK = (0, 0, 0)
+ 
+ 
++class Button2:
++
++    def __init__(self, rect: Tuple[int, int, int, int], color: Tuple[int, int, int],
++                 func: Optional[Callable] = None, **kwargs):
++
++        self.rect = pygame.Rect(rect)
++        self.color = color
++        self.func = func
++
++        self._process_kwargs(kwargs)
++
++
++
++    def _process_kwargs(self, **kwargs):
++
++        options = {
++            "text": None,
++            "font": "Ariel",
++            "font_size": 30,
++            "image": None,
++            "hover_color": None,
++            "border_color": (0, 0, 0),  # Black
++            "border_width": int
++        }
++
++        for key, value in kwargs:
++            options[key] = value
++
++        self.__dict__.update(options)
++        print(self.__dict__)
++
+ class Button:
+     """
+         This class represents an editable button that can be added onto a pygame screen
+Index: NeuralNetwork.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import numpy as np\r\n\r\nfrom Layers.Convolutional import Convolutional\r\nfrom Layers.MaxPooling import MaxPooling\r\nfrom Layers.Flatten import Flatten\r\nfrom Layers.Activations import Softmax\r\nimport pickle\r\n\r\n\r\nclass NeuralNetwork:\r\n\r\n    def __init__(self):\r\n        self.model = []\r\n\r\n    @staticmethod\r\n    def mse(y_true, y_pred):\r\n        return np.mean(np.power(y_true - y_pred, 2))\r\n\r\n    @staticmethod\r\n    def mse_prime(y_true, y_pred):\r\n        return 2 * (y_pred - y_true) / np.size(y_true)\r\n\r\n    @staticmethod\r\n    def binary_cross_entropy(y_true, y_pred):\r\n        return np.mean(-y_true * np.log(y_pred) - (1 - y_true) * np.log(1 - y_pred))\r\n\r\n    @staticmethod\r\n    def binary_cross_entropy_prime(y_true, y_pred):\r\n        return ((1 - y_true) / (1 - y_pred) - y_true / y_pred) / np.size(y_true)\r\n\r\n    @staticmethod\r\n    def get_cost_value(output, y):\r\n        cost = output - y\r\n        cost = np.square(cost)\r\n        return np.sum(cost)\r\n\r\n    def initialize(self, model: []):\r\n        self.model = model\r\n\r\n    def predict(self, inputs):\r\n\r\n        output = inputs\r\n        for layer in self.model:\r\n            output = layer.forward(output)\r\n\r\n        return output\r\n\r\n    def backwards_propagate(self, gradient, lr):\r\n        for layer in reversed(self.model):\r\n            gradient = layer.backward(gradient, lr)\r\n\r\n\r\n    def train(self, train_x, train_y, epochs=400, lr=0.01, verbose= True):\r\n\r\n        for epoch in range(epochs):\r\n            error = 0\r\n            for x, y in zip(train_x, train_y):\r\n\r\n                output = self.predict(x)\r\n\r\n                error += self.mse(y, output)\r\n\r\n                gradient = self.binary_cross_entropy_prime(y, output)\r\n\r\n                self.backwards_propagate(gradient, lr)\r\n\r\n\r\n            if verbose:\r\n                print(f\"{epoch + 1}/{epochs}, error= {error}\")\r\n\r\n    def validate(self, test_x, test_y, verbose= True):\r\n\r\n        accuracy = 0\r\n        for x, y in zip(test_x, test_y):\r\n\r\n            output = self.predict(x)\r\n            if np.argmax(output) == np.argmax(y):\r\n                print(output)\r\n                print(y)\r\n                accuracy += 1\r\n\r\n        if verbose:\r\n            print(f\"Accuracy: {accuracy / len(test_y)}\")\r\n\r\n    def save(self, filename):\r\n        pickle.dump(self.model, open(f'{filename}.pkl', 'wb'))\r\n\r\n    def load(self, filename):\r\n        self.model = pickle.load(open(f'{filename}.pkl', 'rb'))
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- NeuralNetwork.py	(revision ac59d39392425a261ca3fb43bf8a4fac76f906ba)
++++ NeuralNetwork.py	(date 1644847482943)
+@@ -51,7 +51,7 @@
+ 
+ 
+     def train(self, train_x, train_y, epochs=400, lr=0.01, verbose= True):
+-
++        print("Running...")
+         for epoch in range(epochs):
+             error = 0
+             for x, y in zip(train_x, train_y):
+@@ -60,13 +60,14 @@
+ 
+                 error += self.mse(y, output)
+ 
+-                gradient = self.binary_cross_entropy_prime(y, output)
++                gradient = self.mse_prime(y, output)
+ 
+                 self.backwards_propagate(gradient, lr)
+ 
+-
+             if verbose:
+                 print(f"{epoch + 1}/{epochs}, error= {error}")
++            if epoch % 50 == 0:
++               self.save("Model/AplCrtCrwnMstchPza")
+ 
+     def validate(self, test_x, test_y, verbose= True):
+ 
+@@ -74,10 +75,7 @@
+         for x, y in zip(test_x, test_y):
+ 
+             output = self.predict(x)
+-            if np.argmax(output) == np.argmax(y):
+-                print(output)
+-                print(y)
+-                accuracy += 1
++            print(output, y)
+ 
+         if verbose:
+             print(f"Accuracy: {accuracy / len(test_y)}")
