@@ -96,8 +96,8 @@ class FileParser:
         np.random.shuffle(train_data)
         np.random.shuffle(test_data)
 
-        train_x, train_y = test_data.transpose()
-        test_x, test_y = train_data.transpose()
+        train_x, train_y = train_data.transpose()
+        test_x, test_y = test_data.transpose()
 
         return test_x, train_y, test_x, test_y
 

@@ -75,13 +75,3 @@ class Pooling(Layer):
                             output_gradient[i, y, x, f] * (image_slice == np.max(image_slice))
 
         return output_gradient_out
-
-"""
-image_slice = self.input[i, top:bottom, left:right, f]
-                        # Get indecies of max position
-                        y_offset, x_offset = np.unravel_index(np.argmax(image_slice), image_slice.shape)
-
-                        # Puts zero in indices that arent max in each images slice
-                        output_gradient_out[i, top + y_offset, left + x_offset, f] += output_gradient[i, y, x, f]
-
-"""

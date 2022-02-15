@@ -10,7 +10,7 @@ from Layers.Pooling import Pooling
 from Layers.Dense import Dense
 from Layers.Flatten import Flatten
 from Layers.Activations import Relu, Softmax
-
+import cnn_numpy_sg as cnn
 
 def main():
  
@@ -24,35 +24,25 @@ def main():
     canvas = Canvas(screen, 0, 0, 500, 500)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=300, test_amount=20)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
 
-    network = NeuralNetwork()
-    network.initialize([
-        Convolutional(filters_num=4, kernel_shape=(2, 2)),
-        Relu(),
-        Pooling((2, 2), 1),
-        Convolutional(filters_num=4, kernel_shape=(2, 2)),
-        Relu(),
-        Pooling((2, 2), 1),
-        Flatten(),
-        Dense(4),
-        Softmax()
+    net = cnn.Network([
+        cnn.ConvLayer(32, 5),
+        cnn.PoolLayer_Max(2, 2),
+        cnn.ConvLayer(64, 5),
+        cnn.PoolLayer_Max(2, 2),
+        cnn.FlatLayer(),
+        cnn.FCLayer_ReLU(512),
+        cnn.FCLayer_ReLU(128),
+        cnn.FCLayer_Softmax(4)
     ])
-    network.train(train_x, train_y, test_x, test_y)
-    network.save("Models/first.pkl")
 
+    for i in range(1000):
+        for x, y, in zip(train_x, train_y):
+            _, a, b = net.train(x, y, 0.01)
+        print(a, i)
 
     idx = 0
-
-    """
-            The Neural Network will consist of the following Layers
-            1. Convolutional Layer
-            2. Max Pooling Layer
-            3  Convolutional Layer
-            4. Max Pooling Layer
-            5. Flatter Layer
-            6. Softmax Activation Layer
-    """
     #network = NeuralNetwork()
     #network.train(train_x, train_y)
 
@@ -111,3 +101,34 @@ def main():
 
 if __name__ == '__main__':
    main()
+
+   """"
+       network = NeuralNetwork()
+       network.initialize([
+           Convolutional(filters_num=32, kernel_shape=(5, 5)),
+           Relu(),
+           Pooling((2, 2), 2),
+           Convolutional(filters_num=32, kernel_shape=(5, 5)),
+           Relu(),
+           Pooling((2, 2), 2),
+           Flatten(),
+           Dense(512),
+           Relu(),
+           Dense(128),
+           Relu(),
+           Dense(4),
+           Softmax()
+       ])
+       network.train(train_x, train_y, test_x, test_y)
+       network.save("Models/first.pkl")
+   """
+
+   """
+               The Neural Network will consist of the following Layers
+               1. Convolutional Layer
+               2. Max Pooling Layer
+               3  Convolutional Layer
+               4. Max Pooling Layer
+               5. Flatter Layer
+               6. Softmax Activation Layer
+   """

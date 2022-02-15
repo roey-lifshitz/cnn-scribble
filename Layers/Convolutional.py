@@ -26,18 +26,17 @@ class Convolutional(Layer):
         # Pad input if needed using numpy built-in function
         if self.padding != 0:
             # array, (top, bottom), (left, right), mode constant= pad with zeros
-            #self.input = np.pad(inputs, (self.padding, self.padding), (self.padding, self.padding), mode='constant')
-            shape = ((0, 0), (self.padding, self.padding), (self.padding, self.padding), (0, 0))
-            self.input = np.pad(inputs, shape, mode='constant', constant_values=(0, 0))
+            self.input = np.pad(inputs, (self.padding, self.padding), (self.padding, self.padding), mode='constant')
+
 
         # Unpack shapes
-        n, in_h, in_w, filters = self.input.shape
+        n, in_h, in_w, c = self.input.shape
         kernel_h, kernel_w = self.kernel_shape
         # Initialize weighs and biases
         if self.weights is None:
-            self.weights = np.random.randn(*self.kernel_shape, filters, self.filters_num) * 0.01
+            self.weights = np.random.randn(*self.kernel_shape, c, self.filters_num) * 0.1
         if self.biases is None:
-            self.biases = np.random.randn(self.filters_num) * 0.01
+            self.biases = np.random.randn(1, 1, 1, self.filters_num) * 0.1
 
         # Compute output shape
         out_h = 1 + (in_h - kernel_h + 2 * self.padding) // self.stride
@@ -62,7 +61,8 @@ class Convolutional(Layer):
                         # Calculate output
                         self.output[i, y, x, f] = np.sum(
                             self.input[i, top:bottom, left:right, :] * self.weights[:, :, :, f])
-                        self.output[:, :, :, f] += self.biases[f]
+
+                        self.output += self.biases[:, :, :, f]
 
         return self.output
 
@@ -91,7 +91,7 @@ class Convolutional(Layer):
                     right = left + kernel_w
                     # Loop through amount of filters
                     for f in range(self.filters_num):
-                        delta_biases[f] += output_gradient[i, y, x, f]
+                        delta_biases[:, :, :, f] += output_gradient[i, y, x, f]
 
                         delta_weights[:, :, :, f] += \
                             output_gradient[i, y, x, f] * self.input[i, top:bottom, left:right, :]

@@ -10,7 +10,7 @@ class Dense(Layer):
 
     def forward_propagate(self, input):
         if self.W is None:
-            self.W = np.random.random((self.num_neurons, input.shape[1] + 1)) * 0.0001
+            self.W = np.random.random((self.num_neurons, input.shape[1] + 1)) * 0.1
         self.input = np.hstack([input, np.ones((input.shape[0], 1))])  # add bias inputs
         self.Z = np.dot(self.input, self.W.transpose())
         return self.Z
