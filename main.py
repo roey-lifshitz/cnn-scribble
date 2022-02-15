@@ -26,25 +26,23 @@ def main():
     file_parser = FileParser()
     train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
 
-    net = cnn.Network([
-        cnn.ConvLayer(32, 5),
-        cnn.PoolLayer_Max(2, 2),
-        cnn.ConvLayer(64, 5),
-        cnn.PoolLayer_Max(2, 2),
-        cnn.FlatLayer(),
-        cnn.FCLayer_ReLU(512),
-        cnn.FCLayer_ReLU(128),
-        cnn.FCLayer_Softmax(4)
-    ])
 
-    for i in range(1000):
-        for x, y, in zip(train_x, train_y):
-            _, a, b = net.train(x, y, 0.01)
-        print(a, i)
 
     idx = 0
-    #network = NeuralNetwork()
-    #network.train(train_x, train_y)
+    network = NeuralNetwork()
+    network.initialize([
+        Convolutional(filters_num=8, filter_size=5),
+        Relu(),
+        Pooling(filter_size=2, stride=2),
+        Convolutional(filters_num=16, filter_size=5),
+        Relu(),
+        Pooling(filter_size=2, stride=2),
+        Flatten(),
+        Dense(4),
+        Softmax()
+    ])
+    network.train(train_x, train_y, test_x, test_y)
+    network.save("Models/first.pkl")
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
@@ -103,24 +101,7 @@ if __name__ == '__main__':
    main()
 
    """"
-       network = NeuralNetwork()
-       network.initialize([
-           Convolutional(filters_num=32, kernel_shape=(5, 5)),
-           Relu(),
-           Pooling((2, 2), 2),
-           Convolutional(filters_num=32, kernel_shape=(5, 5)),
-           Relu(),
-           Pooling((2, 2), 2),
-           Flatten(),
-           Dense(512),
-           Relu(),
-           Dense(128),
-           Relu(),
-           Dense(4),
-           Softmax()
-       ])
-       network.train(train_x, train_y, test_x, test_y)
-       network.save("Models/first.pkl")
+      
    """
 
    """
@@ -131,4 +112,20 @@ if __name__ == '__main__':
                4. Max Pooling Layer
                5. Flatter Layer
                6. Softmax Activation Layer
+               
+               net = cnn.Network([
+        cnn.ConvLayer(32, 5),
+        cnn.PoolLayer_Max(2, 2),
+        cnn.ConvLayer(64, 5),
+        cnn.PoolLayer_Max(2, 2),
+        cnn.FlatLayer(),
+        cnn.FCLayer_ReLU(512),
+        cnn.FCLayer_ReLU(128),
+        cnn.FCLayer_Softmax(4)
+    ])
+
+    for i in range(1000):
+        for x, y, in zip(train_x, train_y):
+            _, a, b = net.train(x, y, 0.01)
+        print(a, i)
    """

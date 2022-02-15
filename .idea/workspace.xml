@@ -8,14 +8,15 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Neural network">
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Test Neural Network!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FileParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/FileParser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/canvas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/anvil.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/arm.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/dog.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/sun.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Layers/Activations.py" beforeDir="false" afterPath="$PROJECT_DIR$/Layers/Activations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Layers/Convolutional.py" beforeDir="false" afterPath="$PROJECT_DIR$/Layers/Convolutional.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Layers/Dense.py" beforeDir="false" afterPath="$PROJECT_DIR$/Layers/Dense.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Layers/Flatten.py" beforeDir="false" afterPath="$PROJECT_DIR$/Layers/Flatten.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Layers/Pooling.py" beforeDir="false" afterPath="$PROJECT_DIR$/Layers/Pooling.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
@@ -44,13 +45,13 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../test" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble" />
       <recent name="C:\Users\rnm24\PycharmProjects\scribble\data" />
       <recent name="C:\Users\rnm24\PycharmProjects\scribble\Ui" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble" />
     </key>
   </component>
   <component name="RunManager">
@@ -98,6 +99,9 @@
     </configuration>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\rnm24\AppData\Roaming\Subversion</configuration>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="" />
@@ -248,7 +252,63 @@
       <option name="project" value="LOCAL" />
       <updated>1644863935113</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network">
+      <created>1644869862368</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1644869862368</updated>
+    </task>
+    <task id="LOCAL-00022" summary="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network">
+      <created>1644869962808</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1644869962808</updated>
+    </task>
+    <task id="LOCAL-00023" summary="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network">
+      <created>1644870331467</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1644870331467</updated>
+    </task>
+    <task id="LOCAL-00024" summary="FInished FileParser.py with documentations">
+      <created>1644872327325</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1644872327325</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Finished with convolutional.py">
+      <created>1644876394421</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1644876394421</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Implemented all neural network layers hopefully">
+      <created>1644878742871</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1644878742871</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Test Neural Network!">
+      <created>1644886039856</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1644886039856</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Test Neural Network!">
+      <created>1644890908644</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1644890908644</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -325,7 +385,12 @@
     <MESSAGE value="finished base for neural network, needed debugging&#10;neural network reaches really big minuse numbers" />
     <MESSAGE value="save" />
     <MESSAGE value="Neural network" />
-    <option name="LAST_COMMIT_MESSAGE" value="Neural network" />
+    <MESSAGE value="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network" />
+    <MESSAGE value="FInished FileParser.py with documentations" />
+    <MESSAGE value="Finished with convolutional.py" />
+    <MESSAGE value="Implemented all neural network layers hopefully" />
+    <MESSAGE value="Test Neural Network!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test Neural Network!" />
   </component>
   <component name="WindowStateProjectService">
     <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
@@ -340,50 +405,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644545778352" />
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1642059950134">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1644886488177">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1642059950134" />
-    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog" timestamp="1644864219248">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644886488177" />
+    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog" timestamp="1644869980333">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644864219248" />
+    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644869980333" />
     <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1644696279628">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1644696279628" />
-    <state width="1899" height="264" key="GridCell.Tab.0.bottom" timestamp="1644869781943">
+    <state width="936" height="288" key="GridCell.Tab.0.bottom" timestamp="1644951543165">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
-    <state width="1899" height="264" key="GridCell.Tab.0.center" timestamp="1644869781943">
+    <state width="936" height="288" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1644951543165" />
+    <state width="936" height="288" key="GridCell.Tab.0.center" timestamp="1644951543164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="264" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
-    <state width="1899" height="264" key="GridCell.Tab.0.left" timestamp="1644869781943">
+    <state width="936" height="288" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1644951543164" />
+    <state width="936" height="288" key="GridCell.Tab.0.left" timestamp="1644951543164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="264" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
-    <state width="1899" height="264" key="GridCell.Tab.0.right" timestamp="1644869781943">
+    <state width="936" height="288" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1644951543164" />
+    <state width="936" height="288" key="GridCell.Tab.0.right" timestamp="1644951543164">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="264" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1644869781943" />
-    <state width="1899" height="347" key="GridCell.Tab.1.bottom" timestamp="1644865489688">
+    <state width="936" height="288" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1644951543164" />
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1644949697064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
-    <state width="1899" height="347" key="GridCell.Tab.1.center" timestamp="1644865489688">
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1644949697064" />
+    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1644949697064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
-    <state width="1899" height="347" key="GridCell.Tab.1.left" timestamp="1644865489688">
+    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1644949697064" />
+    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1644949697064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
-    <state width="1899" height="347" key="GridCell.Tab.1.right" timestamp="1644865489688">
+    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1644949697064" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1644949697064">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="347" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1644865489688" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1644949697064" />
     <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -392,22 +457,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="598" y="281" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644862017054" />
-    <state x="761" y="222" key="RollbackChangesDialog" timestamp="1644862641980">
+    <state x="761" y="222" key="RollbackChangesDialog" timestamp="1644951332940">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="761" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644862641980" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1637853704381">
+    <state x="761" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644951332940" />
+    <state x="461" y="164" key="SettingsEditor" timestamp="1644870280822">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1637853704381" />
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1644870280822" />
     <state x="807" y="433" key="VCS.ChangelistChooser" timestamp="1644862182928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644862182928" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1644864183541">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1644886045030">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1644864183541" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1644886045030" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1644863907092">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -420,9 +485,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="432" key="git4idea.rebase.GitUnstructuredEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1644862010495" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1644595234886">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1644942213441">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1644595234886" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1644942213441" />
   </component>
 </project>

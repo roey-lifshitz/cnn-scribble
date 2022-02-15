@@ -4,21 +4,32 @@ import numpy as np
 
 class Dense(Layer):
 
-    def __init__(self, num_neurons):
-        self.num_neurons = num_neurons;
-        self.W = None
+    def __init__(self, out_dim):
 
-    def forward_propagate(self, input):
-        if self.W is None:
-            self.W = np.random.random((self.num_neurons, input.shape[1] + 1)) * 0.1
-        self.input = np.hstack([input, np.ones((input.shape[0], 1))])  # add bias inputs
-        self.Z = np.dot(self.input, self.W.transpose())
-        return self.Z
+        self.out_dim = out_dim
 
-    def backward_propagate(self, dA, learning_rate):
-        dZ = dA
-        dW = np.dot(self.input.transpose(), dZ).transpose() / dA.shape[0]
-        dA_prev = np.dot(dZ, self.W)
-        dA_prev = np.delete(dA_prev, dA_prev.shape[1] - 1, 1)  # remove bias inputs
-        self.W = self.W - learning_rate * dW
-        return dA_prev
+        self.weights = None
+        self.biases = np.random.rand(1, out_dim)
+
+        self.input = None
+
+    def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
+
+        self.input = inputs
+
+        if self.weights is None:
+            n = inputs.shape[1]
+            self.weights = np.random.rand(self.out_dim, n)
+
+        return np.dot(inputs, self.weights.T) + self.biases
+
+    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+        n = self.input.shape[1]
+        delta_weights = np.dot(output_gradient.T, self.input) / n
+        delta_biases = np.sum(output_gradient, axis=0, keepdims=True) / n
+
+        self.weights -= delta_weights * learning_rate
+        self.biases -= delta_biases * learning_rate
+
+        output_gradient_out = np.dot(output_gradient, self.weights)
+        return output_gradient_out

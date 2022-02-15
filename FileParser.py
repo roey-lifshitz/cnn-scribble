@@ -77,7 +77,7 @@ class FileParser:
             # Load images from .npy file
             images = np.load(f"data/{file}").astype('float64') / 255.
             # Reshape that each image will be in a 1X28X28 format
-            images = images.reshape(-1, 1, 28, 28, 1)
+            images = images.reshape(-1, 1, 1, 28, 28)
 
             # binary array that represents the location of the file in self.files
             y = np.zeros(amount_of_files).astype('float64')
