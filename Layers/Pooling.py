@@ -18,7 +18,7 @@ class Pooling(Layer):
 
         # Unpack shapes
         n, in_h, in_w, filters_num = self.input.shape
-        pool_h, pool_w, _ = self.pool_shape
+        pool_h, pool_w = self.pool_shape
         # Compute output shape
         out_h = 1 + (in_h - pool_h) // self.stride
         out_w = 1 + (in_w - pool_w) // self.stride
@@ -47,7 +47,7 @@ class Pooling(Layer):
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
         # Unpack shapes
         n, in_h, in_w, filters_num = self.input.shape
-        pool_h, pool_w, _ = self.pool_shape
+        pool_h, pool_w = self.pool_shape
         # Compute output shape
         out_h = 1 + (in_h - pool_h) // self.stride
         out_w = 1 + (in_w - pool_w) // self.stride
@@ -69,8 +69,19 @@ class Pooling(Layer):
                     # Loop through amount of filters
                     for f in range(filters_num):
                         image_slice = self.input[i, top:bottom, left:right, f]
+
                         # Puts zero in indices that arent max in each images slice
-                        output_gradient_out[i, top:bottom, left:right] += \
-                            output_gradient[i, y, x, f] * (image_slice == np.max(slice))
+                        output_gradient_out[i, top:bottom, left:right, f] += \
+                            output_gradient[i, y, x, f] * (image_slice == np.max(image_slice))
 
         return output_gradient_out
+
+"""
+image_slice = self.input[i, top:bottom, left:right, f]
+                        # Get indecies of max position
+                        y_offset, x_offset = np.unravel_index(np.argmax(image_slice), image_slice.shape)
+
+                        # Puts zero in indices that arent max in each images slice
+                        output_gradient_out[i, top + y_offset, left + x_offset, f] += output_gradient[i, y, x, f]
+
+"""

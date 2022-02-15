@@ -24,10 +24,9 @@ class Softmax(Layer):
         self.output = None
 
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
-        self.input = inputs
-        tmp = np.exp(1.0 / (1.0 + np.exp(-inputs)))
-        return tmp / np.expand_dims(np.sum(tmp, axis=1), 1)
+
+        tmp = np.exp(inputs - inputs.max(axis=1, keepdims=True))
+        return tmp / np.sum(tmp, axis=1, keepdims=True)
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-        return output_gradient / (1.0 + np.exp(-self.input)) * (1.0 - (1.0 / (1.0 + np.exp(-self.inputs))))
-    
+        return output_gradient

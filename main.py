@@ -6,6 +6,11 @@ from FileParser import FileParser
 from NeuralNetwork import NeuralNetwork
 from matplotlib import pyplot as plt
 from Layers.Convolutional import Convolutional
+from Layers.Pooling import Pooling
+from Layers.Dense import Dense
+from Layers.Flatten import Flatten
+from Layers.Activations import Relu, Softmax
+
 
 def main():
  
@@ -21,6 +26,20 @@ def main():
     file_parser = FileParser()
     train_x, train_y, test_x, test_y = file_parser.load(train_amount=300, test_amount=20)
 
+    network = NeuralNetwork()
+    network.initialize([
+        Convolutional(filters_num=4, kernel_shape=(2, 2)),
+        Relu(),
+        Pooling((2, 2), 1),
+        Convolutional(filters_num=4, kernel_shape=(2, 2)),
+        Relu(),
+        Pooling((2, 2), 1),
+        Flatten(),
+        Dense(4),
+        Softmax()
+    ])
+    network.train(train_x, train_y, test_x, test_y)
+    network.save("Models/first.pkl")
 
 
     idx = 0

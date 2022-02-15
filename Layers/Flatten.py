@@ -10,7 +10,7 @@ class Flatten(Layer):
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
         self.input_shape = inputs.shape
         n = inputs.shape[0]
-        return np.ravel(inputs).reshape(n, -1)
+        return np.reshape(inputs, (n, inputs.size // n))
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-        return output_gradient.reshape(self.input_shape)
+        return np.reshape(output_gradient, self.input_shape)
