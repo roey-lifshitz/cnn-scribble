@@ -31,10 +31,10 @@ def main():
     idx = 0
     network = NeuralNetwork()
     network.initialize([
-        Convolutional(filters_num=8, filter_size=5),
+        Convolutional(filters_num=8, filter_size=5, channels=1),
         Relu(),
         Pooling(filter_size=2, stride=2),
-        Convolutional(filters_num=16, filter_size=5),
+        Convolutional(filters_num=16, filter_size=5, channels=8),
         Relu(),
         Pooling(filter_size=2, stride=2),
         Flatten(),

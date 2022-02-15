@@ -1,110 +1,91 @@
 from typing import Tuple
 from Layers.Layer import Layer
+from scipy import signal
 import numpy as np
 
 
 class Convolutional(Layer):
 
-    def __init__(self, filters_num: int = 8, filter_size: int = 2, stride: int = 1,
-                 padding: int = 0) -> None:
+    def __init__(self, filters_num: int, filter_size: int, channels: int = 1, stride: int = 1) -> None:
 
         self.filters_num = filters_num
-        self.kernel_shape = filter_size, filter_size
+        self.filter_size = filter_size
+        self.channels = channels
         self.stride = stride
-        self.padding = padding
 
-        # Initialize weights and biases
-
-        self.weights = None
-        self.biases = None
+        self.filters = np.random.randn(filters_num, channels, filter_size, filter_size) * 0.1
+        self.biases = np.random.randn(filters_num, 1)
 
         self.input = None
-        self.output = None
 
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
-        self.input = inputs
-        # Pad input if needed using numpy built-in function
-        if self.padding != 0:
-            # array, (top, bottom), (left, right), mode constant= pad with zeros
-            #self.input = np.pad(inputs, (self.padding, self.padding), (self.padding, self.padding), mode='constant')
-            shape = ((0, 0), (self.padding, self.padding), (self.padding, self.padding), (0, 0))
-            self.input = np.pad(inputs, shape, mode='constant', constant_values=(0, 0))
 
-        # Unpack shapes
-        n, c, in_h, in_w = self.input.shape
-        kernel_h, kernel_w = self.kernel_shape
-        # Initialize weighs and biases
-        if self.weights is None:
-            self.weights = np.random.randn(*self.kernel_shape, c, self.filters_num) * 0.01
-        if self.biases is None:
-            self.biases = np.random.randn(self.filters_num) * 0.01
+        self.input = inputs
+
+        # Unpack Shapes
+        n_c, h_in, w_in = inputs.shape
+        n_f, n_c, f_h, f_w = self.filters.shape
 
         # Compute output shape
-        out_h = 1 + (in_h - kernel_h + 2 * self.padding) // self.stride
-        out_w = 1 + (in_w - kernel_w + 2 * self.padding) // self.stride
+        h_out = 1 + (h_in - f_h) // self.stride
+        w_out = 1 + (w_in - f_w) // self.stride
+        # n_f will be the depth of the filters
+
         # Initialize output
-        self.output = np.zeros((n, out_h, out_w, self.filters_num))
+        output = np.zeros((n_f, h_out, w_out))
 
-        # Loop through amount of inputs
-        for i in range(n):
-            # Loop through output height
-            for y in range(out_h):
-                # Calculate coordinates for input image slice
-                top = y * self.stride
-                bottom = top + kernel_h
-                # Loop though output width
-                for x in range(out_w):
-                    # Calculate coordinates for input image slice
-                    left = x * self.stride
-                    right = left + kernel_w
-                    # Loop through amount of filters
-                    for f in range(self.filters_num):
-                        # Calculate output
-                        self.output[i, y, x, f] = np.sum(
-                            self.input[i, top:bottom, left:right, :] * self.weights[:, :, :, f])
-                        self.output[:, :, :, f] += self.biases[f]
+        # foreach filter
+        for i in range(n_f):
+            # Slide filters vertically across image
+            for h in range(h_out):
+                top = h * self.stride
+                bottom = top + f_h
+                # Slide filters horizontally across image
+                for w in range(w_out):
+                    left = w * self.stride
+                    right = left + f_w
 
-        return self.output
+                    output[i, h, w] = \
+                        np.sum(self.filters[i] * inputs[:, top:bottom, left:right])
+
+                    output[i, h, w] += self.biases[i]
+
+        return output
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-        # Unpack shapes
-        n, in_h, in_w, _ = self.input.shape
-        kernel_h, kernel_w = self.kernel_shape
+
+        # Unpack Shapes
+        n_c, h_in, w_in = self.input.shape
+        n_f, n_c, f_h, f_w = self.filters.shape
+
         # Compute output shape
-        out_h = 1 + (in_h - kernel_h + 2 * self.padding) // self.stride
-        out_w = 1 + (in_w - kernel_w + 2 * self.padding) // self.stride
-        # Initialize output
-        output_gradient_out = np.zeros((n, in_h, in_h, self.filters_num))
-        delta_weights = np.zeros(self.weights.shape)
+        h_out = 1 + (h_in - f_h) // self.stride
+        w_out = 1 + (w_in - f_w) // self.stride
+
+        # Initialize gradients
+        output_gradient_out = np.zeros(self.input.shape)
+        delta_filters = np.zeros(self.filters.shape)
         delta_biases = np.zeros(self.biases.shape)
-        # Loop through amount of inputs
-        for i in range(n):
-            # Loop through output height
-            for y in range(out_h):
-                # Calculate coordinates for input image slice
-                top = y * self.stride
-                bottom = top + kernel_h
-                # Loop though output width
-                for x in range(out_w):
-                    # Calculate coordinates for input image slice
-                    left = x * self.stride
-                    right = left + kernel_w
-                    # Loop through amount of filters
-                    for f in range(self.filters_num):
-                        delta_biases[f] += output_gradient[i, y, x, f]
 
-                        delta_weights[:, :, :, f] += \
-                            output_gradient[i, y, x, f] * self.input[i, top:bottom, left:right, :]
+        # foreach filter
+        for i in range(n_f):
+            # Slide filters vertically across image
+            for h in range(h_out):
+                top = h * self.stride
+                bottom = top + f_h
+                # Slide filters horizontally across image
+                for w in range(w_out):
+                    left = w * self.stride
+                    right = left + f_w
 
-                        output_gradient_out[i, top:bottom, left:right, :] += \
-                            output_gradient[i, y, x, f] * self.weights[:, :, :, f]
+                    delta_filters[i] += \
+                        output_gradient[i, h, w] * self.input[:, top:bottom, left:right]
 
-        # Update weights and biases according to gradient descent
-        self.weights -= delta_weights * learning_rate
-        self.biases -= delta_biases * learning_rate
+                    output_gradient_out[:, top:bottom, left:right] += \
+                        output_gradient[i, h, w] * self.filters[i]
 
-        # Remove padding
-        if self.padding > 0:
-            output_gradient_out = output_gradient_out[:, self.padding:-self.padding, self.padding:-self.padding, :]
+                delta_biases[i] = np.sum(output_gradient[i])
 
         return output_gradient_out
+
+
