@@ -10,7 +10,6 @@ from Layers.Pooling import Pooling
 from Layers.Dense import Dense
 from Layers.Flatten import Flatten
 from Layers.Activations import Relu, Softmax
-import cnn_numpy_sg as cnn
 
 def main():
  
@@ -24,7 +23,7 @@ def main():
     canvas = Canvas(screen, 0, 0, 500, 500)
     mouse = Mouse(pygame.mouse.get_pos(), 2)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=300, test_amount=20)
 
 
 
@@ -42,7 +41,7 @@ def main():
         Softmax()
     ])
     network.train(train_x, train_y, test_x, test_y)
-    network.save("Models/first.pkl")
+    network.save("Models/0model.pkl")
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")

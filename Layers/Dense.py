@@ -5,7 +5,6 @@ import numpy as np
 class Dense(Layer):
 
     def __init__(self, out_dim):
-
         self.out_dim = out_dim
 
         self.weights = None
@@ -14,7 +13,6 @@ class Dense(Layer):
         self.input = None
 
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
-
         self.input = inputs
 
         if self.weights is None:
