@@ -4,30 +4,31 @@ import numpy as np
 
 class Dense(Layer):
 
-    def __init__(self, out_dim):
-        self.out_dim = out_dim
+    def __init__(self, dim_in, dim_out):
 
-        self.weights = None
-        self.biases = np.random.rand(1, out_dim)
+        self.dim_in = dim_in
+        self.dim_out = dim_out
+
+        self.weights = np.random.rand(dim_out, dim_in) * 0.1
+        self.biases = np.random.rand(dim_out, 1) * 0.1
 
         self.input = None
 
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
+
         self.input = inputs
-
-        if self.weights is None:
-            n = inputs.shape[1]
-            self.weights = np.random.rand(self.out_dim, n)
-
-        return np.dot(inputs, self.weights.T) + self.biases
+        return np.dot(self.weights, inputs) + self.biases
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-        n = self.input.shape[1]
-        delta_weights = np.dot(output_gradient.T, self.input) / n
-        delta_biases = np.sum(output_gradient, axis=0, keepdims=True) / n
+
+        n = self.input.shape[0]
+
+        delta_weights = np.dot(output_gradient, self.input.T) / n
+        delta_biases = np.sum(output_gradient, axis=1, keepdims=True) / n
 
         self.weights -= delta_weights * learning_rate
         self.biases -= delta_biases * learning_rate
 
-        output_gradient_out = np.dot(output_gradient, self.weights)
+        output_gradient_out = np.dot(self.weights.T, output_gradient)
+
         return output_gradient_out

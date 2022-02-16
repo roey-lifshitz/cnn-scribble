@@ -11,12 +11,20 @@ class NeuralNetwork:
 
         self.model = None
 
+
+    @staticmethod
+    def softmax(y_pred):
+        e = np.exp(y_pred)
+        return e / np.sum(e, axis=0)
+
+
     # Categorical cross-entropy loss function
     @staticmethod
     def cross_entropy_loss(y_pred, y_true):
-        n = y_pred.shape[1]
-        loss = -np.sum(y_true * np.log(y_pred)) / n
-        return loss
+
+        loss = -np.sum(y_true * np.log(y_pred))
+        return loss / y_pred.shape[0]
+
 
     def initialize(self, layers: List[Layer]):
         self.model = layers
@@ -28,12 +36,10 @@ class NeuralNetwork:
         for x, y, in zip(test_x, test_y):
 
             output = self.predict(x)
+
             losses.append(self.cross_entropy_loss(output, y))
 
-            _pred = np.argmax(output, axis=1)
-
-            for p in _pred:
-                predictions.append(p == np.argmax(y))
+            predictions.append(int(np.argmax(y) == np.argmax(output)))
 
         return np.mean(losses), np.mean(predictions) * 100
 
@@ -51,7 +57,8 @@ class NeuralNetwork:
         for layer in reversed(self.model):
             output_gradient = layer.backward_propagate(output_gradient, learning_rate)
 
-    def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=0.01, verbose=True):
+    def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=1, verbose=True, seed= 99):
+        np.random.seed(seed)
 
         for epoch in range(epochs):
             start_time = dt.now()
@@ -59,19 +66,21 @@ class NeuralNetwork:
             for x, y, in zip(train_x, train_y):
                 # Feed forwards
                 output = self.predict(x)
+
                 # Compute Error
                 output_gradient = output - y
+
                 # Feed backwards
                 self._backpropagate(output_gradient, learning_rate)
 
-            cost, accuracy = self.evaluate(test_x, test_y)
+            cost, accuracy = self.evaluate(train_x, train_y)
 
             if verbose:
                 epoch_time = (dt.now() - start_time).seconds
                 print(f"Epoch: {epoch + 1} / {epochs} | cost: {cost} | accuracy: {accuracy} | time: {epoch_time}")
 
             if epoch % 50 == 0:
-                self.save("Models/tmp.pkl")
+                self.save("Models/tmp2.pkl")
 
     def save(self, file):
         with open(file, 'wb') as f:

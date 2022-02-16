@@ -14,8 +14,8 @@ class FileParser:
         self.files = [
             'apple.npy',
             'duck.npy',
-            'foot.npy',
-            'sun.npy'
+            #'foot.npy',
+            #'sun.npy'
         ]
 
     def clear(self) -> None:
@@ -53,7 +53,7 @@ class FileParser:
         # Cannot load less than one drawing per file
         if 0 < test_amount < len(self.files) or 0 < train_amount < len(self.files):
 
-            raise ValueError("amount is smaller than files in Class, Cannot load less than one file per file")
+            raise ValueError("Amount is smaller than files in Class, Cannot load less than one file per file")
 
         # Cannot load from zero files
         if not len(self.files):
@@ -80,7 +80,7 @@ class FileParser:
             images = images.reshape(-1, 1, 28, 28)
 
             # binary array that represents the location of the file in self.files
-            y = np.zeros(amount_of_files).astype('float32')
+            y = np.zeros((amount_of_files, 1)).astype('float32')
             y[i] = 1
 
             # Indices for storing data

@@ -14,7 +14,7 @@ class Convolutional(Layer):
         self.stride = stride
 
         self.filters = np.random.randn(filters_num, channels, filter_size, filter_size) * 0.1
-        self.biases = np.random.randn(filters_num, 1)
+        self.biases = np.random.randn(filters_num, 1) * 0.1
 
         self.input = None
 

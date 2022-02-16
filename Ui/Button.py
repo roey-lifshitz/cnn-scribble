@@ -1,3 +1,4 @@
+from typing import Tuple, Callable
 import pygame
 GRAY = (235, 232, 232)
 HOVER_GRAY = (196, 191, 191)
@@ -7,17 +8,20 @@ BLACK = (0, 0, 0)
 class Button:
     """
         This class represents an editable button that can be added onto a pygame screen
+        Draws either a string or an image on top of the button
+        Must receive either a image or test param
     """
-    def __init__(self, rect,
-                 text=None,
-                 font="Ariel",
-                 font_size=30,
-                 image=None,
-                 color=GRAY,
-                 hover_color=HOVER_GRAY,
-                 border_color=BLACK,
-                 border_width=2,
-                 on_click=lambda: print("No command activated for this button")):
+    def __init__(self,
+                 rect: Tuple[int, int, int, int],
+                 text: str = None,
+                 font: str = "Ariel",
+                 font_size: int = 30,
+                 image: pygame.Surface = None,
+                 color: Tuple[int, int, int] = GRAY,
+                 hover_color: Tuple[int, int, int] = HOVER_GRAY,
+                 border_color: Tuple[int, int, int] = BLACK,
+                 border_width: int = 2,
+                 on_click: Callable = lambda: print("No command activated for this button")) -> None:
 
         self.on_click = on_click
         self.color = color
@@ -26,6 +30,7 @@ class Button:
         self.border_color = border_color
         self.border_width = border_width
 
+        # if mouse is hovering
         self.hover = False
 
         # Get the rect of the button
@@ -39,15 +44,18 @@ class Button:
         elif text:
             font = pygame.font.SysFont(font, font_size)
             self.data = font.render(text, True, BLACK)
+        else:
+            raise Exception('Not specified if text or image!')
 
         self.data_rect = self.data.get_rect()
 
         # Center the image/text in relation to the button
         self.data_rect.center = self.rect.center
 
-    def draw(self, screen):
+    def draw(self, screen: pygame.display):
         """
         Draw 4 lines (Borders) around the button and then fills them with color
+        :param screen: display of game
         :return: None
         """
         # Rect between lines
@@ -74,7 +82,7 @@ class Button:
         """
         Check if mouse hovering on top of button
         """
-        if self.rect.contains(pygame.Rect(*mouse_pos, 1, 1)):
+        if self.rect.collidepoint(*mouse_pos):
             self.hover = True
             return True
         self.hover = False

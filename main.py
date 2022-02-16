@@ -10,7 +10,7 @@ from Layers.Pooling import Pooling
 from Layers.Dense import Dense
 from Layers.Flatten import Flatten
 from Layers.Activations import Relu, Softmax
-
+import numpy as np
 def main():
  
     pygame.font.init()
@@ -37,11 +37,14 @@ def main():
         Relu(),
         Pooling(filter_size=2, stride=2),
         Flatten(),
-        Dense(4),
+        Dense(256, 128),
+        Dense(128, 2),
         Softmax()
     ])
-    network.train(train_x, train_y, test_x, test_y)
-    network.save("Models/0model.pkl")
+    #network.train(train_x, train_y, test_x, test_y, learning_rate=0.1)
+
+    network.train(train_x, train_y, test_x, test_y, learning_rate=0.1)
+    network.save("Models/1model.pkl")
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")

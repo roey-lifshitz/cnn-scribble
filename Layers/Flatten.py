@@ -10,11 +10,10 @@ class Flatten(Layer):
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
         """
         :param inputs: ND vector with shape of (n, ...., c)
-        :return: 1D vector with shape of (n, 1)
+        :return: 1D vector with shape of (n)
         """
         self.input_shape = inputs.shape
-        n = inputs.shape[0]
-        return np.ravel(inputs).reshape(n, -1)
+        return np.ravel(inputs).reshape(-1, 1)
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
         """
@@ -22,4 +21,4 @@ class Flatten(Layer):
         :param learning_rate: Not trainable so doesnt matter
         :return: ND vector with shape (n, ...., c)
         """
-        return np.reshape(output_gradient, self.input_shape)
+        return output_gradient.reshape(self.input_shape)
