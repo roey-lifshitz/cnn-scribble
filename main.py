@@ -21,36 +21,34 @@ def main():
     screen.fill(background_colour)
 
     canvas = Canvas(screen, 0, 0, 500, 500)
-    mouse = Mouse(pygame.mouse.get_pos(), 2)
+    mouse = Mouse(pygame.mouse.get_pos(), 5)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=300, test_amount=20)
-
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
 
 
     idx = 0
     network = NeuralNetwork()
     network.initialize([
-        Convolutional(filters_num=8, filter_size=5, channels=1),
+        Convolutional(filters_num=2, filter_size=5, channels=1),
         Relu(),
         Pooling(filter_size=2, stride=2),
-        Convolutional(filters_num=16, filter_size=5, channels=8),
+        Convolutional(filters_num=2, filter_size=5, channels=2),
         Relu(),
         Pooling(filter_size=2, stride=2),
         Flatten(),
-        Dense(256, 128),
-        Dense(128, 2),
+        Dense(32, 4),
         Softmax()
     ])
-    #network.train(train_x, train_y, test_x, test_y, learning_rate=0.1)
-
-    network.train(train_x, train_y, test_x, test_y, learning_rate=0.1)
-    network.save("Models/1model.pkl")
+    #network.train(train_x, train_y, test_x, test_y, epochs=5000, learning_rate=5)
+    #network.save("Models/quick4itmes.pkl")
+    #network.compute_graphs()
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = [
         Button((540, 550, 50, 40), image=img, on_click=canvas.clear),
-        Button((540, 500, 50, 40), text="show", on_click=canvas.get_data)
+        Button((540, 500, 50, 40), text="show", on_click=canvas.get_data),
+        Button((540, 450, 50, 40), text="save", on_click=canvas.capture)
     ]
      #b3 = Button((540, 450, 50, 40), text="load", on_click=lambda: canvas.draw_loaded_data(train_x[idx], 2))
 
@@ -76,13 +74,14 @@ def main():
             elif event.type == pygame.MOUSEBUTTONUP:
                 mouse.pressed = False
                 mouse.prev_pos = None
-                canvas.append_line()
+                if canvas.contains(*mouse.pos) and mouse.prev_pos is not None:
+                    canvas.append_line()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse.pressed = True
 
                 for button in buttons:
-                    if button.on_click():
+                    if button.click():
                         pass
 
             elif event.type == pygame.MOUSEMOTION:

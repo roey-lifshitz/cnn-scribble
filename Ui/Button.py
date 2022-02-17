@@ -88,11 +88,12 @@ class Button:
         self.hover = False
         return False
 
-    def on_click(self):
+    def click(self):
         """
             Check if mouse clicking buton
         """
         if self.hover:
+            print(self.hover)
             self.hover = False
             self.on_click()
             return True

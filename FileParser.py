@@ -1,7 +1,7 @@
 from typing import Tuple, List
 import warnings
 import numpy as np
-
+from matplotlib import pyplot as plt
 
 class FileParser:
     """
@@ -14,8 +14,8 @@ class FileParser:
         self.files = [
             'apple.npy',
             'duck.npy',
-            #'foot.npy',
-            #'sun.npy'
+            'foot.npy',
+            'sun.npy'
         ]
 
     def clear(self) -> None:
@@ -42,6 +42,30 @@ class FileParser:
             if file not in self.files:
                 self.files.append(file)
 
+    @staticmethod
+    def _shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, np.ndarray]:
+        """
+        Randomizes two nd.arrays with the same length in unison
+        :param x: images
+        :param y: hot one encoding of y
+        :param seed:
+        :return: Randomized x, y
+        """
+        if len(x) != len(y):
+            raise ValueError('x, y cannot have different lengths!')
+
+        # Allocate space
+        shuffled_x = np.empty(x.shape, dtype=x.dtype)
+        shuffled_y = np.empty(y.shape, dtype=x.dtype)
+        # All indexes in random order
+        permutation = np.random.permutation(len(x))
+        # Shuffle
+        for old_index, new_index in enumerate(permutation):
+            shuffled_x[new_index] = x[old_index]
+            shuffled_y[new_index] = y[old_index]
+
+        return shuffled_x, shuffled_y
+
     def load(self, train_amount: int = 300, test_amount: int = 50, seed: int = 99) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Returns training and test data sets
@@ -59,28 +83,35 @@ class FileParser:
         if not len(self.files):
             raise ValueError(f"self.files is currently Empty, Wont load anything!")
 
-        np.random.seed(seed)
-
         # Prepare variables for loading
         amount_of_files = len(self.files)
         train_amount_per_file = train_amount // amount_of_files
         test_amount_per_file = test_amount // amount_of_files
         offset = train_amount_per_file
 
-        # numpy arrays with 2 columns: 1. 1X28X28 pixels of image, 2. Vector of corresponding output
-        train_data = np.empty((train_amount, 2), dtype=object)
-        test_data = np.empty((test_amount, 2), dtype=object)
+        train_x = np.empty((train_amount_per_file * amount_of_files, 1, 28, 28), dtype='float32')
+        train_y = np.empty((train_amount_per_file * amount_of_files, amount_of_files, 1), dtype='int')
+
+        test_x = np.empty((test_amount_per_file * amount_of_files, 1, 28, 28), dtype='float32')
+        test_y = np.empty((test_amount_per_file * amount_of_files, amount_of_files, 1), dtype='int')
 
         # Loop through all files
         for i, file in enumerate(self.files):
 
             # Load images from .npy file
             images = np.load(f"data/{file}").astype('float32') / 255.
+
             # Reshape that each image will be in a 1X28X28 format
             images = images.reshape(-1, 1, 28, 28)
+            #images[images > 0.5] = 1
+            #images[images <= 0.5] = 0
 
-            # binary array that represents the location of the file in self.files
-            y = np.zeros((amount_of_files, 1)).astype('float32')
+            #plt.imshow(images[0, 0])
+            #plt.show()
+
+
+            # hot one encoding of labels
+            y = np.zeros((amount_of_files, 1))
             y[i] = 1
 
             # Indices for storing data
@@ -89,15 +120,15 @@ class FileParser:
             test_start = i * test_amount_per_file
             test_end = test_start + test_amount_per_file
 
-            train_data[train_start:train_end] = list(zip(images[train_start:train_end], [y] * train_amount_per_file))
-            test_data[test_start:test_end] = list(zip(images[test_start + offset:test_end + offset], [y] * test_amount_per_file))
+            train_x[train_start:train_end] = images[train_start:train_end]
+            train_y[train_start:train_end] = y
 
-        # Shuffle the array
-        np.random.shuffle(train_data)
-        np.random.shuffle(test_data)
+            test_x[test_start:test_end] = images[test_start + offset:test_end + offset]
+            test_y[test_start:test_end] = y
 
-        train_x, train_y = train_data.transpose()
-        test_x, test_y = test_data.transpose()
+        # Shuffle the data
+        train_x, train_y = self._shuffle(train_x, train_y, seed)
+        test_x, test_x = self._shuffle(test_x, test_x, seed)
 
         return test_x, train_y, test_x, test_y
 
