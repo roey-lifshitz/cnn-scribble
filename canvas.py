@@ -142,11 +142,14 @@ class Canvas:
     def capture(self):
         # capture screen
         image = pygame.surfarray.array3d(self.screen)[:, :, 1]
+
         # max value of pixel in 2^32
         image ^= 2 ** 32 - 1
         image = np.rot90(image)
         image = np.flip(image)
         image = np.flip(image, axis=1)
+
+        algorithms.bounding_rect(image)
 
 
 
