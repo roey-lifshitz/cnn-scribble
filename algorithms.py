@@ -1,5 +1,6 @@
 from math import sqrt
 from pygame import Rect
+import numpy as np
 
 
 def dist(a, b):
@@ -130,3 +131,13 @@ def rescale(point_list, bound, size=255):
     new_bounds = bounds(result_list)
 
     return result_list, new_bounds
+
+
+def bounding_rect(image: np.ndarray) -> None:
+
+    # returns array
+    print(image[0])
+    without_zeros = np.where(image != 0)
+    print(without_zeros[0])
+    print(without_zeros)
+    return

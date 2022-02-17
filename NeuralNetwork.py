@@ -2,7 +2,6 @@ from typing import List
 from Layers.Layer import Layer
 import numpy as np
 import pickle
-import matplotlib.pyplot as plt
 from datetime import datetime as dt
 
 
@@ -11,30 +10,24 @@ class NeuralNetwork:
     def __init__(self):
 
         self.model = None
-        self.epochs = None
-        self.cost_history = []
-        self.accuracy_history = []
+
+
+    @staticmethod
+    def softmax(y_pred):
+        e = np.exp(y_pred)
+        return e / np.sum(e, axis=0)
+
 
     # Categorical cross-entropy loss function
     @staticmethod
     def cross_entropy_loss(y_pred, y_true):
 
         loss = -np.sum(y_true * np.log(y_pred))
-        return loss / y_pred.shape[0]
+        return loss
+
 
     def initialize(self, layers: List[Layer]):
         self.model = layers
-
-    def compute_graphs(self):
-
-        plt.plot(range(self.epochs), self.accuracy_history, 'g', label='Accuracy')
-        plt.plot(range(self.epochs), self.cost_history, 'b', label='Cost')
-        plt.title('Training Accuracy and Cost')
-        plt.xlabel('Epochs')
-        plt.legend()
-        plt.show()
-
-
 
     def evaluate(self, test_x, test_y):
         losses = []
@@ -48,7 +41,7 @@ class NeuralNetwork:
 
             predictions.append(int(np.argmax(y) == np.argmax(output)))
 
-        return np.mean(losses) * 100, np.mean(predictions) * 100
+        return np.mean(losses), np.mean(predictions) * 100
 
     def predict(self, inputs):
         output = inputs
@@ -66,7 +59,7 @@ class NeuralNetwork:
 
     def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=1, verbose=True, seed= 99):
         np.random.seed(seed)
-        self.epochs = epochs
+
         for epoch in range(epochs):
             start_time = dt.now()
 
@@ -82,15 +75,12 @@ class NeuralNetwork:
 
             cost, accuracy = self.evaluate(test_x, test_y)
 
-            self.cost_history.append(cost)
-            self.accuracy_history.append(accuracy)
-
             if verbose:
                 epoch_time = (dt.now() - start_time).seconds
                 print(f"Epoch: {epoch + 1} / {epochs} | cost: {cost} | accuracy: {accuracy} | time: {epoch_time}")
 
-            if epoch % 50 == 0:
-                self.save("Models/tmp5.pkl")
+            if (epoch + 1) % 50 == 0:
+                self.save("Models/4ItemsModelTmp.pkl")
 
     def save(self, file):
         with open(file, 'wb') as f:

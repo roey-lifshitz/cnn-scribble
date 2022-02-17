@@ -29,19 +29,20 @@ def main():
     idx = 0
     network = NeuralNetwork()
     network.initialize([
-        Convolutional(filters_num=2, filter_size=5, channels=1),
+        Convolutional(filters_num=8, filter_size=5, channels=1),
         Relu(),
         Pooling(filter_size=2, stride=2),
-        Convolutional(filters_num=2, filter_size=5, channels=2),
+        Convolutional(filters_num=16, filter_size=5, channels=8),
         Relu(),
         Pooling(filter_size=2, stride=2),
         Flatten(),
-        Dense(32, 4),
+        Dense(256, 4),
         Softmax()
     ])
-    #network.train(train_x, train_y, test_x, test_y, epochs=5000, learning_rate=5)
-    #network.save("Models/quick4itmes.pkl")
-    #network.compute_graphs()
+
+    network.train(train_x, train_y, test_x, test_y, epochs=16000, learning_rate=5)
+    network.save("Models/4ItemsModel.pkl")
+    network.compute_graphs()
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
