@@ -40,7 +40,7 @@ def main():
         Softmax()
     ])
 
-    network.train(train_x, train_y, test_x, test_y, epochs=16000, learning_rate=5)
+    network.train(train_x, train_y, test_x, test_y, epochs=16000, learning_rate=0.01)
     network.save("Models/4ItemsModel.pkl")
     network.compute_graphs()
 
