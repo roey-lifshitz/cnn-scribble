@@ -13,9 +13,9 @@ class FileParser:
 
         self.files = [
             'apple.npy',
-            'duck.npy',
-            'foot.npy',
-            'sun.npy'
+            'computer.npy',
+            'tree.npy',
+            'pencil.npy'
         ]
 
     def clear(self) -> None:
@@ -103,12 +103,6 @@ class FileParser:
 
             # Reshape that each image will be in a 1X28X28 format
             images = images.reshape(-1, 1, 28, 28)
-            #images[images > 0.5] = 1
-            #images[images <= 0.5] = 0
-
-            #plt.imshow(images[0, 0])
-            #plt.show()
-
 
             # hot one encoding of labels
             y = np.zeros((amount_of_files, 1))

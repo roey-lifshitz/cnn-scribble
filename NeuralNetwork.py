@@ -11,13 +11,6 @@ class NeuralNetwork:
 
         self.model = None
 
-
-    @staticmethod
-    def softmax(y_pred):
-        e = np.exp(y_pred)
-        return e / np.sum(e, axis=0)
-
-
     # Categorical cross-entropy loss function
     @staticmethod
     def cross_entropy_loss(y_pred, y_true):
@@ -79,7 +72,7 @@ class NeuralNetwork:
                 epoch_time = (dt.now() - start_time).seconds
                 print(f"Epoch: {epoch + 1} / {epochs} | cost: {cost} | accuracy: {accuracy} | time: {epoch_time}")
 
-            if (epoch + 1) % 50 == 0:
+            if epoch % 50 == 0:
                 self.save("Models/4ItemsModelTmp.pkl")
 
     def save(self, file):
