@@ -8,15 +8,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Restructured canvas drawing&#10;Added graph computation for neural network">
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="event handling for ui components is now in the class and not in main game loop">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/canvas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FileParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/InputBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/input_box.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/input_box.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mouse.py" beforeDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
     <list id="70e296d0-f9f9-4205-946d-5a11e9e7da8b" name="rebasing" comment="undo commit" />
@@ -352,7 +348,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645124296146</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="event handling for ui components is now in the class and not in main game loop">
+      <created>1645197473871</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1645197473871</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -439,7 +442,8 @@
     <MESSAGE value="Neural Network Finally Working, Added annotations to Buttons class" />
     <MESSAGE value="Fileparser can work with multiple file, starting work on canvas capture" />
     <MESSAGE value="Restructured canvas drawing&#10;Added graph computation for neural network" />
-    <option name="LAST_COMMIT_MESSAGE" value="Restructured canvas drawing&#10;Added graph computation for neural network" />
+    <MESSAGE value="event handling for ui components is now in the class and not in main game loop" />
+    <option name="LAST_COMMIT_MESSAGE" value="event handling for ui components is now in the class and not in main game loop" />
   </component>
   <component name="WindowStateProjectService">
     <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
@@ -454,10 +458,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644545778352" />
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1644967072468">
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1645197889987">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644967072468" />
+    <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1645197889987" />
     <state x="184" y="85" width="1536" height="860" key="DiffContextDialog" timestamp="1644869980333">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -466,38 +470,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1645103113367" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645197321016">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645202334422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645197321016">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645202334422" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645202334422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645197321016">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645202334422" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645202334422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645197321016">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645202334422" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645202334422">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
-    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645136509269">
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645202334422" />
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645200832584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
-    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1645136509269">
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645200832584" />
+    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1645200832584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
-    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1645136509269">
+    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645200832584" />
+    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1645200832584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
-    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1645136509269">
+    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645200832584" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1645200832584">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645200832584" />
     <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
