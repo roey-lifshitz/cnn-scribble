@@ -31,7 +31,7 @@ class Button:
         self.border_width = border_width
 
         # if mouse is hovering
-        self.hover = False
+        self._hover = False
 
         # Get the rect of the button
         self.x, self.y, self.w, self.h = rect
@@ -59,7 +59,7 @@ class Button:
         :return: None
         """
         # Rect between lines
-        if not self.hover:
+        if not self._hover:
             pygame.draw.rect(screen, self.color, (self.x, self.y, self.w, self.h))
         else:
             pygame.draw.rect(screen, self.hover_color, (self.x, self.y, self.w, self.h))
@@ -78,25 +78,21 @@ class Button:
         # Draw image/text (inside button)
         screen.blit(self.data, self.data_rect)
 
-    def is_click(self, mouse_pos):
+    def update(self, event: pygame.event) -> None:
         """
-        Check if mouse hovering on top of button
+        Updates the button every frame
+        :param event: current user event
+        :return: None
         """
-        if self.rect.collidepoint(*mouse_pos):
-            self.hover = True
-            return True
-        self.hover = False
-        return False
 
-    def click(self):
-        """
-            Check if mouse clicking buton
-        """
-        if self.hover:
-            self.hover = False
-            self.on_click()
-            return True
-        return False
+        if self.rect.collidepoint(*pygame.mouse.get_pos()):
+            self._hover = True
+        else:
+            self._hover = False
 
+        if self._hover:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if self.rect.collidepoint(*pygame.mouse.get_pos()):
+                    self.on_click()
 
 

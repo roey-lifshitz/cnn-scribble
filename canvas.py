@@ -2,7 +2,7 @@ import pygame
 import numpy as np
 from matplotlib import pyplot as plt
 from typing import Optional, Tuple
-import Algorithms
+import algorithms
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 
@@ -11,7 +11,8 @@ class Canvas:
     """
         Drawing Board for a pygame display Surface.
     """
-    def __init__(self, screen: pygame.Surface, x: int, y: int, width: int, height: int, colorful: bool = False) -> None:
+    def __init__(self, screen: pygame.Surface, x: int, y: int, width: int, height: int, brush_radius: int = 6,
+                 colorful: bool = False) -> None:
         """
         Initialize function
         :param screen: display surface
@@ -25,13 +26,34 @@ class Canvas:
         self.y = y
         self.width = width
         self.height = height
+        self.border_color = (0, 0, 0)
+        self.border_width = 2
+        self.radius = brush_radius
 
         # if screen is only in black and white
         self.colorful = colorful
 
-        # since self.screen is a sub screen of pygame.screen, if we draw to self.screen in position (0, 0)
-        # it will draw to the display screen in pos (self.x, self.y)
+        # Variable for the update loop
+        self._prev_mouse_pos = None
+        self._draw = False
+
+        # Make sure canvas can only draw to a certain part of the display
         self.screen = screen.subsurface(x, y, width, height)
+        # fill canvas with white
+        self.fill()
+        # draw borders for the screen
+        # Vertical Border Lines
+        pygame.draw.line(screen, self.border_color, (self.x - self.border_width, self.y - self.border_width),
+                         (self.x - self.border_width, self.y - self.border_width + self.height), self.border_width)
+
+        pygame.draw.line(screen, self.border_color, (self.x + self.width, self.y), (self.x + self.width, self.y + self.height),
+                         self.border_width)
+        # Horizontal Border Lines
+        pygame.draw.line(screen, self.border_color, (self.x - self.border_width, self.y - self.border_width),
+                         (self.x - self.border_width + self.width, self.y - self.border_width), self.border_width)
+
+        pygame.draw.line(screen, self.border_color, (self.x, self.y + self.height), (self.x + self.width, self.y + self.height),
+                         self.border_width)
 
     def contains(self, x: int, y: int):
         """
@@ -42,7 +64,7 @@ class Canvas:
         """
         in_x_axis = self.x < x < self.x + self.width
         in_y_axis = self.y < y < self.y + self.height
-        return in_x_axis and in_y_axis
+        return in_x_axis and in_y_axis and True
 
     def fill(self, color: Optional[Tuple[int, int, int]] = (255, 255, 255)) -> None:
         """
@@ -72,8 +94,9 @@ class Canvas:
         else:
             # Draw a line
 
-            x, y = start
-            end_x, end_y = end
+            # tuple subtraction: sub both points with (self.x, self.y)
+            x, y = (a - b for a, b, in zip(start, (self.x, self.y)))
+            end_x, end_y = (a - b for a, b, in zip(end, (self.x, self.y)))
 
             # Calculate amount of points in line
             steps = max(abs(x - end_x), abs(y - end_y))
@@ -89,6 +112,22 @@ class Canvas:
                 # Update point
                 x += dx
                 y += dy
+
+    def update(self, event: pygame.event) -> None:
+
+        if event.type == pygame.MOUSEBUTTONUP:
+            self._prev_mouse_pos = None
+            self._draw = False
+
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            self._draw = True
+
+        elif event.type == pygame.MOUSEMOTION:
+            if self._draw:
+                mouse_pos = pygame.mouse.get_pos()
+                if self.contains(*mouse_pos) and self._prev_mouse_pos is not None:
+                    self.draw(self._prev_mouse_pos, mouse_pos, self.radius)
+                self._prev_mouse_pos = mouse_pos
 
     def capture(self) -> np.ndarray:
         """
@@ -120,11 +159,11 @@ class Canvas:
         # normalize the image
         image = image.astype('float32') / 255.
         # crop all whitespace surrounding drawing in image
-        image = Algorithms.crop_whitespaces(image)
+        image = algorithms.crop_whitespaces(image)
         # pad image so width == height
-        image = Algorithms.add_border(image, same_scale=True)
+        image = algorithms.add_border(image, same_scale=True)
         # down sample to training data size for neural network
-        image = Algorithms.down_sample(image, (28, 28))
+        image = algorithms.down_sample(image, (28, 28))
 
         plt.imshow(image)
         plt.show()

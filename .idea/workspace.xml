@@ -8,14 +8,14 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Fileparser can work with multiple file, starting work on canvas capture">
-      <change afterPath="$PROJECT_DIR$/Models/4ItemsModelTmp.pkl" afterDir="false" />
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Restructured canvas drawing&#10;Added graph computation for neural network">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FileParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/FileParser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/Button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/Algorithms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FileParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork.py" beforeDir="false" afterPath="$PROJECT_DIR$/neural_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/Button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/InputBox.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/input_box.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
@@ -42,7 +42,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../scribbleTraining" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
@@ -345,7 +345,14 @@
       <option name="project" value="LOCAL" />
       <updated>1645058271653</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Restructured canvas drawing&#10;Added graph computation for neural network">
+      <created>1645124296146</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1645124296146</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -431,7 +438,8 @@
     <MESSAGE value="FIxed accuracy" />
     <MESSAGE value="Neural Network Finally Working, Added annotations to Buttons class" />
     <MESSAGE value="Fileparser can work with multiple file, starting work on canvas capture" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fileparser can work with multiple file, starting work on canvas capture" />
+    <MESSAGE value="Restructured canvas drawing&#10;Added graph computation for neural network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Restructured canvas drawing&#10;Added graph computation for neural network" />
   </component>
   <component name="WindowStateProjectService">
     <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
@@ -458,38 +466,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1645103113367" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645119808529">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645197321016">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645119808529" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645119808529">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645197321016">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645119808529" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645119808528">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645197321016">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645119808528" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645119808529">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645197321016">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645119808529" />
-    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645107869062">
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645197321016" />
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645136509269">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645107869062" />
-    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1645107869062">
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
+    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1645136509269">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645107869062" />
-    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1645107869062">
+    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
+    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1645136509269">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645107869062" />
-    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1645107869062">
+    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1645136509269">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645107869062" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645136509269" />
     <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
