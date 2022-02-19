@@ -1,7 +1,8 @@
 from typing import Tuple, List
-import warnings
+
 import numpy as np
-from matplotlib import pyplot as plt
+import warnings
+
 
 class FileParser:
     """
@@ -17,6 +18,31 @@ class FileParser:
             'tree.npy',
             'pencil.npy'
         ]
+
+    @staticmethod
+    def _shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, np.ndarray]:
+        np.random.seed(seed)
+        """
+        Randomizes two nd.arrays with the same length in unison
+        :param x: images
+        :param y: hot one encoding of y
+        :param seed:
+        :return: Randomized x, y
+        """
+        if len(x) != len(y):
+            raise ValueError('x, y cannot have different lengths!')
+
+        # Allocate space
+        shuffled_x = np.empty(x.shape, dtype=x.dtype)
+        shuffled_y = np.empty(y.shape, dtype=x.dtype)
+        # All indexes in random order
+        permutation = np.random.permutation(len(x))
+        # Shuffle
+        for old_index, new_index in enumerate(permutation):
+            shuffled_x[new_index] = x[old_index]
+            shuffled_y[new_index] = y[old_index]
+
+        return shuffled_x, shuffled_y
 
     def clear(self) -> None:
         """
@@ -41,30 +67,6 @@ class FileParser:
             # Check that does not already exist
             if file not in self.files:
                 self.files.append(file)
-
-    @staticmethod
-    def _shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Randomizes two nd.arrays with the same length in unison
-        :param x: images
-        :param y: hot one encoding of y
-        :param seed:
-        :return: Randomized x, y
-        """
-        if len(x) != len(y):
-            raise ValueError('x, y cannot have different lengths!')
-
-        # Allocate space
-        shuffled_x = np.empty(x.shape, dtype=x.dtype)
-        shuffled_y = np.empty(y.shape, dtype=x.dtype)
-        # All indexes in random order
-        permutation = np.random.permutation(len(x))
-        # Shuffle
-        for old_index, new_index in enumerate(permutation):
-            shuffled_x[new_index] = x[old_index]
-            shuffled_y[new_index] = y[old_index]
-
-        return shuffled_x, shuffled_y
 
     def load(self, train_amount: int = 300, test_amount: int = 50, seed: int = 99) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """

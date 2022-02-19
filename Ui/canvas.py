@@ -1,10 +1,10 @@
-import pygame
-import numpy as np
-from matplotlib import pyplot as plt
 from typing import Optional, Tuple
+from matplotlib import pyplot as plt
+
+import numpy as np
+import pygame
+
 import algorithms
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
 
 
 class Canvas:

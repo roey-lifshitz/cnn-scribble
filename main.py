@@ -1,11 +1,11 @@
 import pygame
 import numpy as np
-from canvas import Canvas
+from Ui.canvas import Canvas
 from Ui.button import Button
 from Ui.input_box import InputBox
 from file_parser import FileParser
 from neural_network import NeuralNetwork
-from matplotlib import pyplot as plt
+
 
 def main():
  
