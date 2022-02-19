@@ -126,7 +126,7 @@ class FileParser:
         train_x, train_y = self._shuffle(train_x, train_y, seed)
         test_x, test_x = self._shuffle(test_x, test_x, seed)
 
-        return test_x, train_y, test_x, test_y
+        return train_x, train_y, test_x, test_y
 
 
 
