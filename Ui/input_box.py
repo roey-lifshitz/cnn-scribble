@@ -26,7 +26,7 @@ class InputBox:
 
         # Get the rect of the button
         self.x, self.y, self.w, self.h = rect
-        self.rect = pygame.Rect(self.x, self.y, self.w, self.h)
+        self.rect = pygame.Rect(rect)
 
         self.text = ""
 

@@ -1,9 +1,5 @@
 from typing import Tuple, Callable
 import pygame
-GRAY = (235, 232, 232)
-HOVER_GRAY = (196, 191, 191)
-BLACK = (0, 0, 0)
-
 
 class Button:
     """
@@ -17,9 +13,10 @@ class Button:
                  font: str = "Ariel",
                  font_size: int = 30,
                  image: pygame.Surface = None,
-                 color: Tuple[int, int, int] = GRAY,
-                 hover_color: Tuple[int, int, int] = HOVER_GRAY,
-                 border_color: Tuple[int, int, int] = BLACK,
+                 color: Tuple[int, int, int] = (235, 232, 232),  # Gary
+                 hover_color: Tuple[int, int, int] = (196, 191, 191),  # Dark Gray
+                 text_color: Tuple[int, int, int] = (0, 0, 0),
+                 border_color: Tuple[int, int, int] = (0, 0, 0),
                  border_width: int = 2,
                  on_click: Callable = lambda: print("No command activated for this button")) -> None:
 
@@ -43,7 +40,7 @@ class Button:
         # Button contains a text
         elif text:
             font = pygame.font.SysFont(font, font_size)
-            self.data = font.render(text, True, BLACK)
+            self.data = font.render(text, True, text_color)
         else:
             raise Exception('Not specified if text or image!')
 

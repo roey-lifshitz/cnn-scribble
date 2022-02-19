@@ -44,7 +44,7 @@ class Canvas:
         # draw borders for the screen
         # Vertical Border Lines
         pygame.draw.line(screen, self.border_color, (self.x - self.border_width, self.y - self.border_width),
-                         (self.x - self.border_width, self.y - self.border_width + self.height), self.border_width)
+                         (self.x - self.border_width, self.y + self.height), self.border_width)
 
         pygame.draw.line(screen, self.border_color, (self.x + self.width, self.y), (self.x + self.width, self.y + self.height),
                          self.border_width)
