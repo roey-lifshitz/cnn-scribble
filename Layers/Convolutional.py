@@ -86,6 +86,8 @@ class Convolutional(Layer):
 
                 delta_biases[i] = np.sum(output_gradient[i])
 
+        self.filters -= delta_filters * learning_rate
+
         return output_gradient_out
 
 
