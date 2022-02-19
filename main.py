@@ -3,6 +3,7 @@ import numpy as np
 from Ui.canvas import Canvas
 from Ui.button import Button
 from Ui.input_box import InputBox
+from Ui.timer import Timer
 from file_parser import FileParser
 from neural_network import NeuralNetwork
 
@@ -41,6 +42,9 @@ def main():
     ]
     input_boxes = [
         InputBox((880, 510, 100, 40))
+    ]
+    timers = [
+        Timer((880, 1000, 100, 40), '0h:0m:20s')
     ]
 
 
