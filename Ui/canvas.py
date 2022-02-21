@@ -89,29 +89,36 @@ class Canvas:
         :return: None
         """
         # Draw a point
-        if start == end:
+        if False:
             pygame.draw.circle(self.screen, color, end, radius)
         else:
             # Draw a line
-
             # tuple subtraction: sub both points with (self.x, self.y)
             x, y = (a - b for a, b, in zip(start, (self.x, self.y)))
             end_x, end_y = (a - b for a, b, in zip(end, (self.x, self.y)))
 
+            pygame.draw.line(self.screen, color, (x, y), (end_x, end_y), self.radius)
+
+            return
             # Calculate amount of points in line
             steps = max(abs(x - end_x), abs(y - end_y))
 
             # Calculate the offset between each point
-            dx = (x - end_x) // steps
-            dy = (y - end_y) // steps
+            dx = (x - end_x) / steps
+            dy = (y - end_y) / steps
+
+            print(dx, dy)
 
             # Loop through points in line
             for _ in range(steps):
                 # Draw point in line
-                pygame.draw.circle(self.screen, color, (x, y), radius)
+                pygame.draw.circle(self.screen, color, (round(x), round(y)), radius)
                 # Update point
                 x += dx
                 y += dy
+
+            # Draw last circle
+            pygame.draw.circle(self.screen, color, (round(x), round(y)), radius)
 
     def update(self, event: pygame.event) -> None:
 

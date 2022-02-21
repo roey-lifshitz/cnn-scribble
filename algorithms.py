@@ -69,72 +69,6 @@ def douglas_peucker(point_list, epsilon):
     return result_list
 
 
-def bounds(point_list):
-
-    # Find edges of drawing
-    #  need to implement- instead of hardcoded min values we can do the width, height of canvas
-    min_x, min_y = 1000, 1000
-    max_x, max_y = 0, 0
-
-    # find the biggest and smallest x,y values between all points:
-    # Loop through lines
-    for line in point_list:
-        # loop through points in line
-        for point in line:
-            # find min x
-            if point[0] < min_x:
-                min_x = point[0]
-            # find max x
-            elif point[0] > max_x:
-                max_x = point[0]
-            # find min y
-            if point[1] < min_y:
-                min_y = point[1]
-            # find max y
-            elif point[1] > max_y:
-                max_y = point[1]
-
-    width = max(max_x - min_x, 1)
-    height = max(max_y - min_y, 1)
-    return pygame.Rect(min_x, min_y, width, height)
-
-
-def relocate(point_list, bound):
-
-    # put top left of drawing at 0, 0
-    result_list = []
-    for line in point_list:
-        new_line = []
-        for point in line:
-            new_point = (point[0] - bound[0], point[1] - bound[1])
-            new_line.append(new_point)
-
-        result_list.append(new_line)
-
-    return result_list
-
-
-def rescale(point_list, bound, size=255):
-
-    # find max between image width and image height
-    dmax = max(bound.w, bound.h)
-
-    # if we multiply each point by this value, we will receive a scaled image of [MAX_SIZE, MAX_SIZE]
-    multiplier = size / dmax
-
-    result_list = []
-    for line in point_list:
-        new_line = []
-        for point in line:
-            new_point = (round(point[0] * multiplier), round(point[1] * multiplier))
-            new_line.append(new_point)
-        result_list.append(new_line)
-
-    new_bounds = bounds(result_list)
-
-    return result_list, new_bounds
-
-
 def crop_whitespaces(image: np.ndarray) -> np.ndarray:
 
     # Returns a tuple:
@@ -179,7 +113,7 @@ def add_border(image: np.ndarray, padding: Optional[Tuple[int, int]] = (0, 0),
     return border_image
 
 
-def down_sample(image: np.ndarray, size: Tuple[int, int], threshold: float = 0.5) -> np.ndarray:
+def down_sample(image: np.ndarray, size: Tuple[int, int], threshold: float = 1) -> np.ndarray:
     width, height = image.shape
 
     # if image has different width and height then we pad it
@@ -195,9 +129,10 @@ def down_sample(image: np.ndarray, size: Tuple[int, int], threshold: float = 0.5
         for i in range(width // 2):
             for j in range(height // 2):
                 # list of all values in image slice in decreasing order
-                pixels = image[i*2:i*2+2, j*2:j*2+2].ravel()[::-1]
+                pixels = image[i*2:i*2+2, j*2:j*2+2].ravel()
+                print(np.sort(pixels)[0::-1])
                 # average the largest 3 values
-                value = min(np.mean(np.sort(pixels)[0:3]) / threshold, 1)
+                value = min(np.mean(np.sort(pixels)[0::-1]) / threshold, 1)
                 down_sample_image[i, j] = value
 
         # Call recursively to down sample again
