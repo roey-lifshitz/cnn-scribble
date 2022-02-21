@@ -27,6 +27,8 @@ def main():
     file_parser = FileParser()
     train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
 
+    clock = pygame.time.Clock()
+    clock.tick(60)
 
     idx = 0
     network = NeuralNetwork()
@@ -52,7 +54,6 @@ def main():
     while running:
 
         for event in pygame.event.get():
-
             canvas.update(event)
 
             for button in buttons:
