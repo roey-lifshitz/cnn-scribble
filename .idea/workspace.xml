@@ -8,11 +8,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="forgot to update filters according to delta filters">
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="removed print messages">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/canvas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/input_box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
@@ -420,7 +419,28 @@
       <option name="project" value="LOCAL" />
       <updated>1645307665065</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Focus Bar on input box">
+      <created>1645467028194</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1645467028194</updated>
+    </task>
+    <task id="LOCAL-00046" summary="slight upgrades to drawing function">
+      <created>1645467049430</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1645467049430</updated>
+    </task>
+    <task id="LOCAL-00047" summary="removed print messages">
+      <created>1645467070362</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1645467070362</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -488,9 +508,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Finished unpacking images and preparing training and test data!!!! finally, next step: complete neural netwrok" />
-    <MESSAGE value="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)" />
-    <MESSAGE value="added comments" />
     <MESSAGE value="finished base for neural network, needed debugging&#10;neural network reaches really big minuse numbers" />
     <MESSAGE value="save" />
     <MESSAGE value="Neural network" />
@@ -513,7 +530,10 @@
     <MESSAGE value="add timer class- havent finished yet" />
     <MESSAGE value="general testing changes" />
     <MESSAGE value="forgot to update filters according to delta filters" />
-    <option name="LAST_COMMIT_MESSAGE" value="forgot to update filters according to delta filters" />
+    <MESSAGE value="Focus Bar on input box" />
+    <MESSAGE value="slight upgrades to drawing function" />
+    <MESSAGE value="removed print messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed print messages" />
   </component>
   <component name="WindowStateProjectService">
     <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
@@ -540,22 +560,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1645103113367" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645466971473">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645470280531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645466971473">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645470280531" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645470280531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645466971473">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645470280531" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645470280531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645466971473">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645470280531" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645470280531">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645470280531" />
     <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645463906494">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -592,10 +612,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644862182928" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1645307670388">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1645467081827">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645307670388" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645467081827" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1644863907092">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

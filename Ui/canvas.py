@@ -117,13 +117,20 @@ class Canvas:
             pygame.draw.circle(self.screen, color, (round(x), round(y)), radius)
 
     def update(self, event: pygame.event) -> None:
-
+        """
+            Updates the canvas every frame
+            :param event: current user event
+            :return: None
+        """
         if event.type == pygame.MOUSEBUTTONUP:
             self._prev_mouse_pos = None
             self._draw = False
 
         elif event.type == pygame.MOUSEBUTTONDOWN:
             self._draw = True
+            mouse_pos = pygame.mouse.get_pos()
+            if self.contains(*mouse_pos):
+                self.draw(mouse_pos, mouse_pos, self.radius)
 
         elif event.type == pygame.MOUSEMOTION:
             if self._draw:
