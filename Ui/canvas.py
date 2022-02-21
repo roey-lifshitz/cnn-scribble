@@ -11,7 +11,7 @@ class Canvas:
     """
         Drawing Board for a pygame display Surface.
     """
-    def __init__(self, screen: pygame.Surface, x: int, y: int, width: int, height: int, brush_radius: int = 6,
+    def __init__(self, screen: pygame.Surface, x: int, y: int, width: int, height: int, radius: int = 6,
                  colorful: bool = False) -> None:
         """
         Initialize function
@@ -28,7 +28,7 @@ class Canvas:
         self.height = height
         self.border_color = (0, 0, 0)
         self.border_width = 2
-        self.radius = brush_radius
+        self.radius = radius
 
         # if screen is only in black and white
         self.colorful = colorful
@@ -89,25 +89,21 @@ class Canvas:
         :return: None
         """
         # Draw a point
-        if False:
-            pygame.draw.circle(self.screen, color, end, radius)
+        if start == end:
+            x, y = (a - b for a, b, in zip(start, (self.x, self.y)))
+            pygame.draw.circle(self.screen, color, (x, y), radius)
         else:
             # Draw a line
             # tuple subtraction: sub both points with (self.x, self.y)
             x, y = (a - b for a, b, in zip(start, (self.x, self.y)))
             end_x, end_y = (a - b for a, b, in zip(end, (self.x, self.y)))
 
-            pygame.draw.line(self.screen, color, (x, y), (end_x, end_y), self.radius)
-
-            return
             # Calculate amount of points in line
             steps = max(abs(x - end_x), abs(y - end_y))
 
             # Calculate the offset between each point
             dx = (x - end_x) / steps
             dy = (y - end_y) / steps
-
-            print(dx, dy)
 
             # Loop through points in line
             for _ in range(steps):
