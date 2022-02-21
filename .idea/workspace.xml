@@ -8,11 +8,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="uploaded images">
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="forgot to update filters according to delta filters">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/canvas.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Ui/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/input_box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/canvas.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_parser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/algorithms.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
@@ -371,7 +371,56 @@
       <option name="project" value="LOCAL" />
       <updated>1645202718002</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="uploaded images">
+      <created>1645229659131</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1645229659131</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Shuffle training set before each epoch">
+      <created>1645302424385</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302424385</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Fixed load function">
+      <created>1645302442979</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302442979</updated>
+    </task>
+    <task id="LOCAL-00041" summary="updated ui classes">
+      <created>1645302459516</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302459516</updated>
+    </task>
+    <task id="LOCAL-00042" summary="add timer class- havent finished yet">
+      <created>1645302474744</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302474744</updated>
+    </task>
+    <task id="LOCAL-00043" summary="general testing changes">
+      <created>1645302487455</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1645302487455</updated>
+    </task>
+    <task id="LOCAL-00044" summary="forgot to update filters according to delta filters">
+      <created>1645307665065</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1645307665065</updated>
+    </task>
+    <option name="localTasksCounter" value="45" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -439,9 +488,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Worked on Drawing function, added mouse classes and handled interpolation" />
-    <MESSAGE value="Studied loading files, Succesfully loaded a file.&#10;Files are a [(x1)(y1)] where arr[0][i] arr[1][j] are position where pixel is black&#10;&#10;TO DO:&#10; restructuring the to_binary function, data needs to be as mention [(x1), (x2)] and not an array of 1, 0&#10; &#10;saving strokes of canvas&#10;&#10;finish file loading function" />
-    <MESSAGE value="Restructed data to [[(x1, y1), (x2, y2)], [(x3, y3)]]&#10;- added button to relocate rmd of data to top left of the screen&#10;&#10;TO DO:&#10;work on unpacking files from quick draw open source" />
     <MESSAGE value="Finished unpacking images and preparing training and test data!!!! finally, next step: complete neural netwrok" />
     <MESSAGE value="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)" />
     <MESSAGE value="added comments" />
@@ -461,7 +507,13 @@
     <MESSAGE value="event handling for ui components is now in the class and not in main game loop" />
     <MESSAGE value="Updated input_box.py, need to fix padding" />
     <MESSAGE value="uploaded images" />
-    <option name="LAST_COMMIT_MESSAGE" value="uploaded images" />
+    <MESSAGE value="Shuffle training set before each epoch" />
+    <MESSAGE value="Fixed load function" />
+    <MESSAGE value="updated ui classes" />
+    <MESSAGE value="add timer class- havent finished yet" />
+    <MESSAGE value="general testing changes" />
+    <MESSAGE value="forgot to update filters according to delta filters" />
+    <option name="LAST_COMMIT_MESSAGE" value="forgot to update filters according to delta filters" />
   </component>
   <component name="WindowStateProjectService">
     <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
@@ -488,38 +540,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1645103113367" />
-    <state width="1899" height="346" key="GridCell.Tab.0.bottom" timestamp="1645217740770">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1645466971473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740770" />
-    <state width="1899" height="346" key="GridCell.Tab.0.center" timestamp="1645217740770">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1645466971473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740770" />
-    <state width="1899" height="346" key="GridCell.Tab.0.left" timestamp="1645217740770">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1645466971473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740770" />
-    <state width="1899" height="346" key="GridCell.Tab.0.right" timestamp="1645217740770">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1645466971473">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740770" />
-    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645217740771">
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645466971473" />
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom" timestamp="1645463906494">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740771" />
-    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1645217740771">
+    <state width="1899" height="346" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645463906494" />
+    <state width="1899" height="346" key="GridCell.Tab.1.center" timestamp="1645463906494">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740771" />
-    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1645217740771">
+    <state width="1899" height="346" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645463906494" />
+    <state width="1899" height="346" key="GridCell.Tab.1.left" timestamp="1645463906494">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740771" />
-    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1645217740771">
+    <state width="1899" height="346" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645463906494" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right" timestamp="1645463906494">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645217740771" />
+    <state width="1899" height="346" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645463906494" />
     <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -540,18 +592,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644862182928" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1645202720129">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1645307670388">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645202720129" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645307670388" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1644863907092">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644863907092" />
-    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1644970832121">
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1645454259910">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1644970832121" />
+    <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645454259910" />
     <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1645212024627">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -560,9 +612,9 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="804" y="432" key="git4idea.rebase.GitUnstructuredEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1644862010495" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1645212910856">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1645454932008">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1645212910856" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1645454932008" />
   </component>
 </project>
