@@ -125,14 +125,13 @@ def down_sample(image: np.ndarray, size: Tuple[int, int], threshold: float = 1) 
         return add_border(image, padding=(size[0] - width, size[1] - height))
     else:
         down_sample_image = np.empty((width // 2, (height // 2)))
-
         for i in range(width // 2):
             for j in range(height // 2):
                 # list of all values in image slice in decreasing order
-                pixels = image[i*2:i*2+2, j*2:j*2+2].ravel()
-                print(np.sort(pixels)[0::-1])
+                pixels = np.sort(image[i*2:i*2+2, j*2:j*2+2].ravel())[::-1]
                 # average the largest 3 values
-                value = min(np.mean(np.sort(pixels)[0::-1]) / threshold, 1)
+                value = min(np.mean(pixels[0:3]) / threshold, 1)
+
                 down_sample_image[i, j] = value
 
         # Call recursively to down sample again
