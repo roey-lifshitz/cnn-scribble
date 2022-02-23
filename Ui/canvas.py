@@ -43,16 +43,25 @@ class Canvas:
         self.fill()
         # draw borders for the screen
         # Vertical Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x - self.border_width, self.y - self.border_width),
-                         (self.x - self.border_width, self.y + self.height), self.border_width)
-
-        pygame.draw.line(screen, self.border_color, (self.x + self.width, self.y), (self.x + self.width, self.y + self.height),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x - self.border_width, self.y + self.height + self.border_width),
                          self.border_width)
-        # Horizontal Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x - self.border_width, self.y - self.border_width),
-                         (self.x - self.border_width + self.width, self.y - self.border_width), self.border_width)
 
-        pygame.draw.line(screen, self.border_color, (self.x, self.y + self.height), (self.x + self.width, self.y + self.height),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x + self.width, self.y - self.border_width),
+                         (self.x + self.width, self.y + self.height + self.border_width),
+                         self.border_width)
+
+        # Horizontal Border Lines
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x + self.width + self.border_width, self.y - self.border_width),
+                         self.border_width)
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y + self.height),
+                         (self.x + self.width - self.border_width, self.y + self.height),
                          self.border_width)
 
     def contains(self, x: int, y: int):

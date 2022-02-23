@@ -31,7 +31,7 @@ class Button:
         self._hover = False
 
         # Get the rect of the button
-        self.x, self.y, self.w, self.h = rect
+        self.x, self.y, self.width, self.height = rect
         self.rect = pygame.Rect(rect)
 
         # Button contains an image
@@ -57,19 +57,29 @@ class Button:
         """
         # Rect between lines
         if not self._hover:
-            pygame.draw.rect(screen, self.color, (self.x, self.y, self.w, self.h))
+            pygame.draw.rect(screen, self.color, self.rect)
         else:
-            pygame.draw.rect(screen, self.hover_color, (self.x, self.y, self.w, self.h))
+            pygame.draw.rect(screen, self.hover_color, self.rect)
 
-        # Vertical Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x, self.y + self.h),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x - self.border_width, self.y + self.height + self.border_width),
                          self.border_width)
-        pygame.draw.line(screen, self.border_color, (self.x + self.w, self.y), (self.x + self.w, self.y + self.h),
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x + self.width, self.y - self.border_width),
+                         (self.x + self.width, self.y + self.height + self.border_width),
                          self.border_width)
+
         # Horizontal Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x + self.w, self.y),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x + self.width + self.border_width, self.y - self.border_width),
                          self.border_width)
-        pygame.draw.line(screen, self.border_color, (self.x, self.y + self.h), (self.x + self.w, self.y + self.h),
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y + self.height),
+                         (self.x + self.width - self.border_width, self.y + self.height),
                          self.border_width)
 
         # Draw image/text (inside button)

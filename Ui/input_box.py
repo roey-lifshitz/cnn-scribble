@@ -1,15 +1,16 @@
 from typing import Tuple
 import pygame
 
+
 class InputBox:
     """
     Static input box
     """
     def __init__(self, rect,
                  padding: int = 10,
+                 color: Tuple[int, int, int] = (255, 255, 255),
                  font: str = "Ariel",
                  font_size: int = 30,
-                 color: Tuple[int, int, int] = (255, 255, 255),
                  text_color: Tuple[int, int, int] = (0, 0, 0),
                  border_color: Tuple[int, int, int] = (0, 0, 0),
                  border_width: int = 2,
@@ -39,7 +40,7 @@ class InputBox:
         self.hover = False
 
         # Get the rect of the button
-        self.x, self.y, self.w, self.h = rect
+        self.x, self.y, self.width, self.height = rect
         self.rect = pygame.Rect(rect)
 
 
@@ -49,6 +50,9 @@ class InputBox:
         :return:
         """
         print(self.text)
+        self.text = ""
+        self.index = 0
+        self.hover = False
 
     def _draw_focus(self, screen: pygame.Surface, color: Tuple[int, int, int]) -> None:
         """
@@ -62,7 +66,7 @@ class InputBox:
         # Add small offset
         x += self.focus_offset
 
-        pygame.draw.line(screen, color, (x, self.y * 1.01), (x, self.y * 0.99 + self.h), 2)
+        pygame.draw.line(screen, color, (x, self.y * 1.01), (x, self.y * 0.99 + self.height), 2)
 
     def draw(self, screen):
         """
@@ -70,18 +74,28 @@ class InputBox:
         :param screen:
         :return:
         """
-        # draw box
-        pygame.draw.rect(screen, self.color, (self.x, self.y, self.w, self.h))
+        # Draw main box
+        pygame.draw.rect(screen, self.color, self.rect)
 
-        # Vertical Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x, self.y + self.h),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x - self.border_width, self.y + self.height + self.border_width),
                          self.border_width)
-        pygame.draw.line(screen, self.border_color, (self.x + self.w, self.y), (self.x + self.w, self.y + self.h),
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x + self.width, self.y - self.border_width),
+                         (self.x + self.width, self.y + self.height + self.border_width),
                          self.border_width)
+
         # Horizontal Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x + self.w, self.y),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x + self.width + self.border_width, self.y - self.border_width),
                          self.border_width)
-        pygame.draw.line(screen, self.border_color, (self.x, self.y + self.h), (self.x + self.w, self.y + self.h),
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y + self.height),
+                         (self.x + self.width - self.border_width, self.y + self.height),
                          self.border_width)
 
         # render text
@@ -122,18 +136,28 @@ class InputBox:
         if self.hover:
             # handles text in input box
             if event.type == pygame.KEYDOWN:
+                # Entered space
                 if event.key == pygame.K_RETURN:
                     self._finish()
+
+                # Backspace- remove character
                 elif event.key == pygame.K_BACKSPACE:
                     self.index = max(0, self.index - 1)
                     self.text = self.text[:self.index] + self.text[self.index + 1:]
+
+                # Keys- update index location
                 elif event.key == pygame.K_LEFT:
                     self.index = max(0, self.index - 1)
                 elif event.key == pygame.K_RIGHT:
                     self.index = min(len(self.text), self.index + 1)
+
+                # Character- add to text
                 else:
-                    # Check if can add a new letter
-                    new_width = self.font.render(self.text + event.unicode, True, self.text_color).get_rect()
-                    if new_width.w < self.w - self.padding * 2:
-                        self.index += 1
-                        self.text = self.text[:self.index - 1] + event.unicode + self.text[self.index - 1:]
+                    # Check if in english alphabet or space bar
+                    # a-z: 97-122, A-Z: 65-90, Space= 32
+                    if 97 <= event.key <= 122 or 65 <= event.key <= 90 or event.key == 32:
+                        # Check if can add a new letter
+                        new_width = self.font.render(self.text + event.unicode, True, self.text_color).get_rect()
+                        if new_width.w < self.width - self.padding * 2:
+                            self.index += 1
+                            self.text = self.text[:self.index - 1] + event.unicode + self.text[self.index - 1:]
