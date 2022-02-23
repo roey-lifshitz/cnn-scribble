@@ -1,5 +1,5 @@
 from typing import Tuple, List
-
+from algorithms import shuffle
 import numpy as np
 import warnings
 
@@ -14,35 +14,10 @@ class FileParser:
 
         self.files = [
             'apple.npy',
-            'computer.npy',
-            'tree.npy',
+            #'computer.npy',
+            #'tree.npy',
             'pencil.npy'
         ]
-
-    @staticmethod
-    def _shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, np.ndarray]:
-        np.random.seed(seed)
-        """
-        Randomizes two nd.arrays with the same length in unison
-        :param x: images
-        :param y: hot one encoding of y
-        :param seed:
-        :return: Randomized x, y
-        """
-        if len(x) != len(y):
-            raise ValueError('x, y cannot have different lengths!')
-
-        # Allocate space
-        shuffled_x = np.empty(x.shape, dtype=x.dtype)
-        shuffled_y = np.empty(y.shape, dtype=x.dtype)
-        # All indexes in random order
-        permutation = np.random.permutation(len(x))
-        # Shuffle
-        for old_index, new_index in enumerate(permutation):
-            shuffled_x[new_index] = x[old_index]
-            shuffled_y[new_index] = y[old_index]
-
-        return shuffled_x, shuffled_y
 
     def clear(self) -> None:
         """
@@ -123,8 +98,8 @@ class FileParser:
             test_y[test_start:test_end] = y
 
         # Shuffle the data
-        train_x, train_y = self._shuffle(train_x, train_y, seed)
-        test_x, test_x = self._shuffle(test_x, test_x, seed)
+        train_x, train_y = shuffle(train_x, train_y, seed)
+        test_x, test_y = shuffle(test_x, test_y, seed)
 
         return train_x, train_y, test_x, test_y
 
