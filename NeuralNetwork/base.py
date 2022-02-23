@@ -21,3 +21,25 @@ class Layer(ABC):
         :return: Output gradient for previous layer
         """
         pass
+
+class Loss(ABC):
+
+    @abstractmethod
+    def compute_cost(self, labels: np.ndarray, predictions: np.ndarray) -> np.float:
+        """
+        Calculates the cost of a single output
+        :param labels: hot one encoding of answer
+        :param predictions: output of forward propagate
+        :return: cost of single output
+        """
+        pass
+
+    @abstractmethod
+    def compute_derivative(self, labels: np.ndarray, predictions: np.ndarray) -> np.ndarray:
+        """
+        Calculated the error of a single output
+        :param labels: hot one encoding of answer
+        :param predictions: output of forward propagate
+        :return: error of a single output
+        """
+        pass

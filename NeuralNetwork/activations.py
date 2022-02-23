@@ -1,5 +1,4 @@
-from typing import Tuple
-from Layers.Layer import Layer
+from NeuralNetwork.base import Layer
 import numpy as np
 
 

@@ -5,7 +5,10 @@ from Ui.button import Button
 from Ui.input_box import InputBox
 from Ui.timer import Timer
 from file_parser import FileParser
-from neural_network import NeuralNetwork
+from NeuralNetwork.neural_network import NeuralNetwork
+from NeuralNetwork.layers import Convolutional, Pooling, Flatten, Dense
+from NeuralNetwork.activations import Relu, Softmax
+from NeuralNetwork.losses import CrossEntropyLoss
 
 
 def main():
@@ -25,17 +28,32 @@ def main():
 
     canvas = Canvas(screen, 150, 150, 700, 500)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=100, test_amount=20)
 
     clock = pygame.time.Clock()
     clock.tick(60)
 
     idx = 0
-    network = NeuralNetwork()
-    network.load("Models/4ItemsModelTmp.pkl")
+    network = NeuralNetwork(
+        [
+            Convolutional(filters_num=8, filter_size=5, channels=1),
+            Relu(),
+            Pooling(filter_size=2, stride=2),
+            Convolutional(filters_num=16, filter_size=5, channels=8),
+            Relu(),
+            Pooling(filter_size=2, stride=2),
+            Flatten(),
+            Dense(256, 2),
+            Softmax()
+        ],
+        loss=CrossEntropyLoss(),
+        objects=file_parser.files
+        )
+
+    network.train(train_x, train_y, test_x, test_y, epochs=120, learning_rate=0.01)
+    network.save("NeuralNetwork/Models/2items.pkl")
 
 
-    #"""
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = [

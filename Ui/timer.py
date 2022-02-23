@@ -43,12 +43,20 @@ class Timer:
 
     def _create_surface(self):
 
-        i = 0;
         # move index forward until reaches first number that is different from zero
-        for i in len(self.numbers):
-            if self.numbers[i] != 0:
-                break
-            i += 1
+        hours = self.start_time[0]
+        minutes = self.start_time[1]
+        seconds = self.start_time[2]
+
+        if hours == 0:
+            if minutes == 0:
+                if seconds == 0:
+                    raise ValueError('Timer is set to zero')
+
+                if seconds < 10:
+                    surf = pygame.Surface()
+
+
 
         # Timers is set to 0h:0m:0s
         if i == len(self.numbers):
@@ -62,15 +70,25 @@ class Timer:
         :param screen: display of game
         :return: None
         """
-        # Rect between lines
-        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x, self.y + self.h),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x - self.border_width, self.y + self.height + self.border_width),
                          self.border_width)
-        pygame.draw.line(screen, self.border_color, (self.x + self.w, self.y), (self.x + self.w, self.y + self.h),
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x + self.width + self.border_width, self.y - self.border_width),
+                         (self.x + self.width + self.border_width, self.y + self.height + self.border_width),
                          self.border_width)
+
         # Horizontal Border Lines
-        pygame.draw.line(screen, self.border_color, (self.x, self.y), (self.x + self.w, self.y),
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y - self.border_width),
+                         (self.x + self.width + self.border_width, self.y - self.border_width),
                          self.border_width)
-        pygame.draw.line(screen, self.border_color, (self.x, self.y + self.h), (self.x + self.w, self.y + self.h),
+
+        pygame.draw.line(screen, self.border_color,
+                         (self.x - self.border_width, self.y + self.height + self.border_width),
+                         (self.x + self.width - self.border_width, self.y + self.height + self.border_width),
                          self.border_width)
 
         # Draw Numbers
