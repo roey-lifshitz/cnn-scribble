@@ -1,7 +1,7 @@
 from typing import List, Tuple
 from NeuralNetwork.base import Layer, Loss
 from algorithms import shuffle
-
+from matplotlib import pyplot as plt
 import numpy as np
 import pickle
 from datetime import datetime as dt
@@ -38,6 +38,7 @@ class NeuralNetwork:
 
         # limit the values in the array to avoid log(0)
         output = np.clip(output, 1e-15, None)
+
         return output
 
     def _back_propagate(self, output_gradient, learning_rate):
@@ -54,10 +55,8 @@ class NeuralNetwork:
             for x, y, in zip(*shuffle(train_x, train_y)):
                 # Feed forwards
                 output = self.predict(x)
-
                 # Compute Error
                 output_gradient = self.loss.compute_derivative(y, output)
-
                 # Feed backwards
                 self._back_propagate(output_gradient, learning_rate)
 
@@ -69,10 +68,23 @@ class NeuralNetwork:
                 epoch_time = (dt.now() - start_time).seconds
                 print(f"Epoch: {epoch + 1} / {epochs} | cost: {cost} | accuracy: {accuracy} | time: {epoch_time}")
 
+            if epoch % 50 == 0:
+                self.save("NeuralNetwork/Models/tmp.pkl")
+
+
+    def compute_graph(self):
+        x = np.linspace(0, len(self.cost_history))
+        y = self.cost_history
+        plt.plot(x, y)
+        plt.show()
+        y = self.accuracy_history
+        plt.plot(x, y)
+        plt.show()
+
     def save(self, file):
         with open(file, 'wb') as f:
-            pickle.dump(self.model, f)
+            pickle.dump(self.__dict__, f)
 
     def load(self, file):
         with open(file, 'rb') as f:
-            self.model = pickle.load(f)
+            self.__dict__.update(pickle.load(f))

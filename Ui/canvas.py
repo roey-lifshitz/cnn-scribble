@@ -184,8 +184,8 @@ class Canvas:
         # down sample to training data size for neural network
         image = algorithms.down_sample(image, (28, 28))
 
-        plt.imshow(image)
-        plt.show()
+        #plt.imshow(image)
+        #plt.show()
 
         return image.reshape(1, 28, 28)
 

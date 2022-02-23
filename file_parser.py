@@ -15,8 +15,9 @@ class FileParser:
         self.files = [
             'apple.npy',
             #'computer.npy',
-            #'tree.npy',
-            'pencil.npy'
+            'tree.npy'
+            #'pencil.npy',
+            #'duck.npy'
         ]
 
     def clear(self) -> None:
@@ -43,7 +44,7 @@ class FileParser:
             if file not in self.files:
                 self.files.append(file)
 
-    def load(self, train_amount: int = 300, test_amount: int = 50, seed: int = 99) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    def load(self, train_amount: int, test_amount: int, seed: int = 99) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
         """
         Returns training and test data sets
         :param train_amount: Total amount of training data to parse
@@ -71,7 +72,6 @@ class FileParser:
 
         test_x = np.empty((test_amount_per_file * amount_of_files, 1, 28, 28), dtype='float32')
         test_y = np.empty((test_amount_per_file * amount_of_files, amount_of_files, 1), dtype='int')
-
         # Loop through all files
         for i, file in enumerate(self.files):
 

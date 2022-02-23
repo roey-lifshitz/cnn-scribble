@@ -83,7 +83,7 @@ def shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, n
 
     # Allocate space
     shuffled_x = np.empty(x.shape, dtype=x.dtype)
-    shuffled_y = np.empty(y.shape, dtype=x.dtype)
+    shuffled_y = np.empty(y.shape, dtype=y.dtype)
     # All indexes in random order
     permutation = np.random.permutation(len(x))
     # Shuffle

@@ -28,7 +28,7 @@ def main():
 
     canvas = Canvas(screen, 150, 150, 700, 500)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=100, test_amount=20)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=100, test_amount=30)
 
     clock = pygame.time.Clock()
     clock.tick(60)
@@ -50,9 +50,10 @@ def main():
         objects=file_parser.files
         )
 
-    network.train(train_x, train_y, test_x, test_y, epochs=120, learning_rate=0.01)
-    network.save("NeuralNetwork/Models/2items.pkl")
-
+    #network.train(train_x, train_y, test_x, test_y, epochs=200, learning_rate=0.01)
+    #network.save("NeuralNetwork/Models/5items.pkl")
+    network.load("NeuralNetwork/Models/apple_tree.pkl")
+    #network.compute_graph()
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
