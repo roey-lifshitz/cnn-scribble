@@ -1,5 +1,5 @@
 from typing import Tuple, List
-from algorithms import shuffle
+from utils import shuffle
 import numpy as np
 import warnings
 
@@ -14,10 +14,10 @@ class FileParser:
 
         self.files = [
             'apple.npy',
-            #'computer.npy',
-            'tree.npy'
-            #'pencil.npy',
-            #'duck.npy'
+            'computer.npy',
+            'tree.npy',
+            'pencil.npy',
+            'duck.npy'
         ]
 
     def clear(self) -> None:

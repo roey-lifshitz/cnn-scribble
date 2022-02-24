@@ -1,6 +1,6 @@
 from typing import List, Tuple
 from NeuralNetwork.base import Layer, Loss
-from algorithms import shuffle
+from utils import shuffle
 from matplotlib import pyplot as plt
 import numpy as np
 import pickle
@@ -37,7 +37,7 @@ class NeuralNetwork:
             output = layer.forward_propagate(output)
 
         # limit the values in the array to avoid log(0)
-        output = np.clip(output, 1e-15, None)
+        output = np.clip(output, 1e-8, None)
 
         return output
 
@@ -46,7 +46,7 @@ class NeuralNetwork:
         for layer in reversed(self.model):
             output_gradient = layer.backward_propagate(output_gradient, learning_rate)
 
-    def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=1, verbose=True, seed= 99):
+    def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=1, verbose=True, seed=99):
         np.random.seed(seed)
         print("Started Training!")
         for epoch in range(epochs):

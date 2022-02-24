@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import pygame
 
-import algorithms
+import utils
 
 
 class Canvas:
@@ -176,13 +176,13 @@ class Canvas:
         # swap from (height, width) to (width, height)
         image = np.swapaxes(image, 0, 1)
         # normalize the image
-        image = image.astype('float32') / 255.
+        image = image.astype('float64') / 255.
         # crop all whitespace surrounding drawing in image
-        image = algorithms.crop_whitespaces(image)
+        image = utils.crop_whitespaces(image)
         # pad image so width == height
-        image = algorithms.add_border(image, same_scale=True)
+        image = utils.add_border(image, same_scale=True)
         # down sample to training data size for neural network
-        image = algorithms.down_sample(image, (28, 28))
+        image = utils.down_sample(image, (28, 28))
 
         #plt.imshow(image)
         #plt.show()

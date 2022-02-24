@@ -1,6 +1,7 @@
 from math import sqrt
 from typing import Optional, Tuple
 from matplotlib import pyplot as plt
+
 import pygame
 import numpy as np
 
@@ -95,13 +96,19 @@ def shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, n
 
 
 def crop_whitespaces(image: np.ndarray) -> np.ndarray:
+    """
+    Crops the white border (Represented with zeros) from an image
+    represented by a 2D numpy array
+    :param image: shape (width, height)
+    :return: Cropped image
+    """
 
-    # Returns a tuple:
+    # np.where Returns a tuple:
     # [0]-> x pixel location of all pixels with value != 0
     # [1]-> y pixel location of all pixels with value != 0
-
     pixels_x, pixels_y = np.where(image != 0)
 
+    # Find image border
     min_x = np.min(pixels_x)
     max_x = np.max(pixels_x)
 
@@ -115,6 +122,13 @@ def crop_whitespaces(image: np.ndarray) -> np.ndarray:
 
 def add_border(image: np.ndarray, padding: Optional[Tuple[int, int]] = (0, 0),
                same_scale: Optional[bool] = False) -> np.ndarray:
+    """
+    Adds a border to an image represented by a 2d numpy array
+    :param image: shape (width, height)
+    :param padding: (width, height) of padding to add to the image
+    :param same_scale: if we want the width and height of image to be the same before padding
+    :return: Image with border
+    """
 
     width, height = image.shape
 
@@ -139,9 +153,25 @@ def add_border(image: np.ndarray, padding: Optional[Tuple[int, int]] = (0, 0),
 
 
 def down_sample(image: np.ndarray, size: Tuple[int, int], threshold: float = 1) -> np.ndarray:
+    """
+    Down samples an image represented by a numpy 2d array recursively.
+    Every time down samples an image by two until it reaches a (width, height) that is <= than size
+    then add adds a border if image is smaller than size
+
+    does the down sampling by:
+        calculating the average of the three largest pixels in each 2x2 slice
+    :param image: shape (width, height)
+    :param size: (width, height) to downscale
+    :param threshold: effects the calculation of each output pixel
+    :return: Down sampled image
+    """
     width, height = image.shape
 
+    if threshold > 1:
+        raise ValueError('Threshold bigger than one')
+
     # if image has different width and height then we pad it
+    # can only be true in the first call of the function
     if width != height:
         # Add padding to image
         image = add_border(image, same_scale=True)

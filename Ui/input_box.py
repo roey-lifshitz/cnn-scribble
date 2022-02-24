@@ -52,7 +52,6 @@ class InputBox:
         print(self.text)
         self.text = ""
         self.index = 0
-        self.hover = False
 
     def _draw_focus(self, screen: pygame.Surface, color: Tuple[int, int, int]) -> None:
         """

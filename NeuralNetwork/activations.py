@@ -25,6 +25,8 @@ class Softmax(Layer):
     def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
         # Subtract every value by the maximum value to avoid overflow error
         e = np.exp(inputs - inputs.max(keepdims=True))
+        if e.any() == np.NaN:
+            breakpoint()
         return e / np.sum(e, axis=0)
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
