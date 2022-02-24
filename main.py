@@ -6,10 +6,12 @@ from Ui.input_box import InputBox
 from Ui.timer import Timer
 from file_parser import FileParser
 from NeuralNetwork.neural_network import NeuralNetwork
-from NeuralNetwork.layers import Convolutional, Pooling, Flatten, Dense
-from NeuralNetwork.activations import Relu, Softmax
+from NeuralNetwork.layers import Convolutional, Pooling, Flatten, Dense, Dropout
+from NeuralNetwork.activations import Relu, Softmax, Sigmoid
 from NeuralNetwork.losses import CrossEntropyLoss
+from NeuralNetwork.optimizers import Adam
 
+from matplotlib import pyplot as plt
 
 def main():
  
@@ -39,21 +41,25 @@ def main():
             Convolutional(filters_num=8, filter_size=5, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=16, filter_size=5, channels=8),
-            Relu(),
+            #Convolutional(filters_num=4, filter_size=5, channels=2),
+            #Relu(),
             Pooling(filter_size=2, stride=2),
             Flatten(),
-            Dense(256, 5),
-            Relu(),
+            Dense(218, 5),
             Softmax()
         ],
         loss=CrossEntropyLoss(),
+        optimizer=None,
         objects=file_parser.files
         )
 
-    network.train(train_x, train_y, test_x, test_y, epochs=100, learning_rate=0.01)
-    network.save("NeuralNetwork/Models/2itemlarge.pkl")
-    #network.load("NeuralNetwork/Models/apple_tree_large.pkl")
+    #network.train(train_x, train_y, test_x, test_y, epochs=100, learning_rate=0.01)
+    #network.save("NeuralNetwork/Models/5items.pkl")
+    network.load("NeuralNetwork/Models/5items.pkl")
+    #network.train(train_x, train_y, test_x, test_y, epochs=400, learning_rate=0.01)
+    #network.save("NeuralNetwork/Models/5items2.pkl")
+
+
     #network.compute_graph()
 
     # Adding buttons to the screen

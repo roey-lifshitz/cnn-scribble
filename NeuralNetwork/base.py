@@ -4,10 +4,11 @@ import numpy as np
 class Layer(ABC):
 
     @abstractmethod
-    def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
+    def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
         """
         Forward pass logic of a Layer
         :param inputs: Output of previous layer
+        :param training: bool if forward_propagate is for training
         :return: Output of this layer
         """
         pass
@@ -21,6 +22,11 @@ class Layer(ABC):
         :return: Output gradient for previous layer
         """
         pass
+
+    @abstractmethod
+    def update(self):
+        pass
+
 
 class Loss(ABC):
 

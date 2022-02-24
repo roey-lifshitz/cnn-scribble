@@ -14,9 +14,12 @@ class Convolutional(Layer):
         self.filters = np.random.randn(filters_num, channels, filter_size, filter_size) * 0.1
         self.biases = np.random.randn(filters_num, 1) * 0.1
 
+        self.delta_filters = None
+        self.delta_biases = None
+
         self.input = None
 
-    def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
+    def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
 
         self.input = inputs
 
@@ -62,8 +65,9 @@ class Convolutional(Layer):
 
         # Initialize gradients
         output_gradient_out = np.zeros(self.input.shape)
-        delta_filters = np.zeros(self.filters.shape)
-        delta_biases = np.zeros(self.biases.shape)
+
+        self.delta_filters = np.zeros(self.filters.shape)
+        self.delta_biases = np.zeros(self.biases.shape)
 
         # foreach filter
         for i in range(n_f):
@@ -76,17 +80,25 @@ class Convolutional(Layer):
                     left = w * self.stride
                     right = left + f_w
 
-                    delta_filters[i] += \
+                    self.delta_filters[i] += \
                         output_gradient[i, h, w] * self.input[:, top:bottom, left:right]
 
                     output_gradient_out[:, top:bottom, left:right] += \
                         output_gradient[i, h, w] * self.filters[i]
 
-                delta_biases[i] = np.sum(output_gradient[i])
+                self.delta_biases[i] = np.sum(output_gradient[i])
 
-        self.filters -= delta_filters * learning_rate
+        self.filters -= self.delta_filters * learning_rate
+        self.biases -= self.delta_biases * learning_rate
 
         return output_gradient_out
+
+    def get_params(self):
+        return [(self.filters, self.biases), (self.delta_filters, self.delta_biases)]
+
+    def set_params(self, filters, biases):
+        self.filters = filters
+        self.biases = biases
 
 
 class Pooling(Layer):
@@ -98,7 +110,7 @@ class Pooling(Layer):
 
         self.input = None
 
-    def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
+    def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
 
         self.input = inputs
 
@@ -164,58 +176,100 @@ class Pooling(Layer):
         return output_gradient_out
 
 
+    def get_params(self):
+        return None
+
+    def set_params(self, filters, biases):
+        return None
+
+
 class Flatten(Layer):
 
     def __init__(self):
         self.input_shape = None
 
-    def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
-        """
-        :param inputs: ND vector with shape of (n, ...., c)
-        :return: 1D vector with shape of (n)
-        """
+    def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
         self.input_shape = inputs.shape
         return np.ravel(inputs).reshape(-1, 1)
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-        """
-        :param output_gradient: 1D vector with shape (n, 1)
-        :param learning_rate: Not trainable so doesnt matter
-        :return: ND vector with shape (n, ...., c)
-        """
         return output_gradient.reshape(self.input_shape)
+
+    def get_params(self):
+        return None
+
+    def set_params(self, filters, biases):
+        return None
 
 
 class Dense(Layer):
 
     def __init__(self, dim_in, dim_out):
-
         self.dim_in = dim_in
         self.dim_out = dim_out
 
         self.weights = np.random.rand(dim_out, dim_in) * 0.1
         self.biases = np.random.rand(dim_out, 1) * 0.1
 
+        self.delta_weights = None
+        self.delta_biases = None
+
         self.input = None
 
-    def forward_propagate(self, inputs: np.ndarray) -> np.ndarray:
-
+    def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
         self.input = inputs
         return np.dot(self.weights, inputs) + self.biases
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-
         n = self.input.shape[0]
 
-        delta_weights = np.dot(output_gradient, self.input.T) / n
-        delta_biases = np.sum(output_gradient, axis=1, keepdims=True) / n
+        self.delta_weights = np.dot(output_gradient, self.input.T) / n
+        self.delta_biases = np.sum(output_gradient, axis=1, keepdims=True) / n
 
-        self.weights -= delta_weights * learning_rate
-        self.biases -= delta_biases * learning_rate
+        self.weights -= self.delta_weights * learning_rate
+        self.biases -= self.delta_biases * learning_rate
 
         output_gradient_out = np.dot(self.weights.T, output_gradient)
 
         return output_gradient_out
 
+    def get_params(self):
+        return [(self.weights, self.biases), (self.delta_weights, self.delta_biases)]
+
+    def set_params(self, weights, biases):
+        self.weights = weights
+        self.biases = biases
 
 
+class Dropout(Layer):
+
+    def __init__(self, prob):
+        """
+        :param prob - probability that given unit will not be dropped out
+        """
+        self.prob = prob
+        self._mask = None
+
+    def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
+        if training:
+            # mask of number values with same shape of input
+            self._mask = (np.random.rand(*inputs.shape) < self.prob)
+            # return only values that their position in the mask is smaller than some prob
+            return self._apply_mask(inputs, self._mask)
+        else:
+            return inputs
+
+    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+        output_gradient_out = self._apply_mask(output_gradient, self._mask)
+        return output_gradient_out
+
+    def _apply_mask(self, array: np.array, mask: np.array) -> np.array:
+        array *= mask
+        array /= self.prob
+        return array
+
+    def get_params(self):
+        return None
+
+    def set_params(self, filters, biases):
+        return None

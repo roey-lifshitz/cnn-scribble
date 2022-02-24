@@ -1,6 +1,7 @@
 from typing import List, Tuple
 from NeuralNetwork.base import Layer, Loss
-from utils import shuffle
+from utils import shuffle, generate_batches
+from NeuralNetwork.optimizers import Adam
 from matplotlib import pyplot as plt
 import numpy as np
 import pickle
@@ -9,10 +10,11 @@ from datetime import datetime as dt
 
 class NeuralNetwork:
 
-    def __init__(self, layers: List[Layer], loss: Loss, objects):
+    def __init__(self, layers: List[Layer], loss: Loss, optimizer: Adam, objects):
 
         self.model = layers
         self.loss = loss
+        self.optimizer = optimizer
         self.objects = objects
 
         self.cost_history = []
@@ -31,13 +33,13 @@ class NeuralNetwork:
 
         return np.mean(losses) * 100, np.mean(predictions) * 100
 
-    def predict(self, inputs):
+    def predict(self, inputs, training= False):
         output = inputs
         for layer in self.model:
-            output = layer.forward_propagate(output)
+            output = layer.forward_propagate(output, training)
 
-        # limit the values in the array to avoid log(0)
-        output = np.clip(output, 1e-8, None)
+        # clip gradient so their wont be log(0)
+        #output = np.clip(output, 1e-8, None)
 
         return output
 
@@ -45,8 +47,13 @@ class NeuralNetwork:
         # back propagate
         for layer in reversed(self.model):
             output_gradient = layer.backward_propagate(output_gradient, learning_rate)
+            # gradient clipping
+            # in some instances, after training a long time we get exploding gradients so we clip the gradients to
+            # remove that
+            output_gradient = np.clip(output_gradient, None, 0.5)
 
-    def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=1, verbose=True, seed=99):
+
+    def train(self, train_x, train_y, test_x, test_y, epochs=1000, learning_rate=0.01, verbose=True, seed=99):
         np.random.seed(seed)
         print("Started Training!")
         for epoch in range(epochs):
@@ -54,7 +61,7 @@ class NeuralNetwork:
 
             for x, y, in zip(*shuffle(train_x, train_y)):
                 # Feed forwards
-                output = self.predict(x)
+                output = self.predict(x, True)
                 # Compute Error
                 output_gradient = self.loss.compute_derivative(y, output)
                 # Feed backwards
