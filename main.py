@@ -30,7 +30,7 @@ def main():
 
     canvas = Canvas(screen, 150, 150, 700, 500)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=200, test_amount=40)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=200)
 
     clock = pygame.time.Clock()
     clock.tick(60)
@@ -38,27 +38,25 @@ def main():
     idx = 0
     network = NeuralNetwork(
         [
-            Convolutional(filters_num=8, filter_size=5, channels=1),
+            Convolutional(filters_num=12, filter_size=5, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            #Convolutional(filters_num=4, filter_size=5, channels=2),
-            #Relu(),
+            Convolutional(filters_num=24, filter_size=5, channels=12),
+            Relu(),
             Pooling(filter_size=2, stride=2),
             Flatten(),
-            Dense(218, 5),
+            Dense(384, 128),
+            Dropout(0.6),
+            Dense(128, 10),
             Softmax()
         ],
         loss=CrossEntropyLoss(),
         optimizer=None,
         objects=file_parser.files
         )
-
-    #network.train(train_x, train_y, test_x, test_y, epochs=100, learning_rate=0.01)
-    #network.save("NeuralNetwork/Models/5items.pkl")
-    network.load("NeuralNetwork/Models/5items.pkl")
-    #network.train(train_x, train_y, test_x, test_y, epochs=400, learning_rate=0.01)
-    #network.save("NeuralNetwork/Models/5items2.pkl")
-
+    network.load("NeuralNetwork/Models/tmpaa1.pkl")
+    network.train(train_x, train_y, test_x, test_y, epochs=500, learning_rate=1e-3)
+    network.load("NeuralNetwork/Models/10items.pkl")
 
     #network.compute_graph()
 
@@ -66,7 +64,7 @@ def main():
     img = pygame.image.load("images/eraser.png")
     buttons = [
         Button((880, 560, 100, 40), image=img, on_click=canvas.fill),
-        Button((880, 610, 100, 40), text="predict", on_click= lambda: print(file_parser.files[np.argmax(network.predict(canvas.capture()))]))
+        Button((880, 610, 100, 40), text="predict", on_click= lambda: print(network.files[np.argmax(network.predict(canvas.capture()))]))
     ]
     input_boxes = [
         InputBox((880, 510, 100, 40))

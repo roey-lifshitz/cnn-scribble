@@ -15,6 +15,9 @@ class Relu(Layer):
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
         return output_gradient * (self.input > 0.0)
 
+    def update(self, learning_rate):
+        pass
+
     def get_params(self):
         return None
 
@@ -34,6 +37,11 @@ class Sigmoid(Layer):
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
         return self.input * (1.0 - self.input)
+
+
+    def update(self, learning_rate):
+        pass
+
 
     def get_params(self):
         return None
@@ -55,6 +63,10 @@ class Softmax(Layer):
 
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
         return output_gradient
+
+    def update(self, learning_rate):
+        pass
+
 
     def get_params(self):
         return None
