@@ -29,6 +29,7 @@ def main():
     screen.blit(logo, ((1000 - 338) // 2, 10))
 
     canvas = Canvas(screen, 150, 150, 700, 500)
+    """
     file_parser = FileParser()
     train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=200)
 
@@ -54,29 +55,29 @@ def main():
         optimizer=None,
         objects=file_parser.files
         )
-    network.load("NeuralNetwork/Models/tmpaa1.pkl")
-    network.train(train_x, train_y, test_x, test_y, epochs=500, learning_rate=1e-3)
-    network.load("NeuralNetwork/Models/10items.pkl")
+    #network.load("NeuralNetwork/Models/tmpaa1.pkl")
+    #network.train(train_x, train_y, test_x, test_y, epochs=500, learning_rate=1e-3)
+    #network.load("NeuralNetwork/Models/10items.pkl")
 
     #network.compute_graph()
-
+    """
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
     buttons = [
         Button((880, 560, 100, 40), image=img, on_click=canvas.fill),
-        Button((880, 610, 100, 40), text="predict", on_click= lambda: print(network.files[np.argmax(network.predict(canvas.capture()))]))
+        #Button((880, 610, 100, 40), text="predict", on_click= lambda: print(network.files[np.argmax(network.predict(canvas.capture()))]))
     ]
     input_boxes = [
         InputBox((880, 510, 100, 40))
     ]
     timers = [
-        Timer((880, 1000, 100, 40), '0h:0m:20s')
+        Timer((0, 100, 100, 40), '00h:01m:5s', color=(156, 152, 152), text_color=(134, 255, 129))
     ]
 
-
+    clock = pygame.time.Clock()
     running = True
     while running:
-
+        dt = clock.tick(60)
         for event in pygame.event.get():
             canvas.update(event)
 
@@ -85,6 +86,9 @@ def main():
 
             for input_box in input_boxes:
                 input_box.update(event)
+
+            for timer in timers:
+                timer.update()
 
             if event.type == pygame.QUIT:
                 running = False
@@ -98,8 +102,10 @@ def main():
             button.draw(screen)
 
         for input_box in input_boxes:
-            input_box.draw(screen)
+            input_box.draw(screen, dt)
 
+        for timer in timers:
+            timer.draw(screen, dt)
 
 
         pygame.display.flip()
