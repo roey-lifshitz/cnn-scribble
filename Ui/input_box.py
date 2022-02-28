@@ -28,9 +28,7 @@ class InputBox:
         self.focus_interval = focus_interval
         self.font = pygame.font.SysFont(font, font_size)
 
-        # For focus bar
-        self.clock = pygame.time.Clock()
-        self.time = 0
+        self.total_time = 0
 
         # for text
         self.text = ""
@@ -67,7 +65,7 @@ class InputBox:
 
         pygame.draw.line(screen, color, (x, self.y * 1.01), (x, self.y * 0.99 + self.height), 2)
 
-    def draw(self, screen):
+    def draw(self, screen, dt):
         """
         Draws input box, text and focus bar
         :param screen:
@@ -102,15 +100,14 @@ class InputBox:
         data_rect = data.get_rect()
         data_rect.midleft = self.rect.midleft[0] + self.padding, self.rect.midleft[1]
 
-        # count time for focus color switch
         if self.hover:
-            self.time += self.clock.tick()
+            self.total_time += dt
 
         # self.time is in milliseconds so we multiply focus interval by 1000
-        if self.time > self.focus_interval * 1000:
+        if self.total_time > self.focus_interval * 1000:
             # swap color between black and white
             self.focus_color = tuple(c ^ 255 for c in self.focus_color)
-            self.time = 0
+            self.total_time = 0
 
         self._draw_focus(screen, self.focus_color)
         screen.blit(data, data_rect)
@@ -124,6 +121,7 @@ class InputBox:
         :param event: current user event
         :return: None
         """
+        # count time for focus color switch
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(*pygame.mouse.get_pos()):
                 self.hover = True
