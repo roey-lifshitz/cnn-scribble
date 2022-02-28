@@ -92,7 +92,7 @@ class NeuralNetwork:
                 print(f"Epoch: {epoch + 1} / {epochs} | cost: {cost} | accuracy: {accuracy} | time: {epoch_time}")
 
             if epoch % 50 == 0:
-                self.save(f"NeuralNetwork/Models/tmpaa{idx}.pkl")
+                self.save(f"NeuralNetwork/Models/TMP{idx}.pkl")
                 idx += 1
 
 

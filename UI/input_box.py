@@ -1,32 +1,27 @@
-from typing import Tuple
+from typing import Optional, Tuple, Dict
+from UI.base import UI
 import pygame
 
 
-class InputBox:
+class InputBox(UI):
     """
     Static input box
     """
     def __init__(self, rect,
                  padding: int = 10,
                  color: Tuple[int, int, int] = (255, 255, 255),
-                 font: str = "Ariel",
-                 font_size: int = 30,
-                 text_color: Tuple[int, int, int] = (0, 0, 0),
-                 border_color: Tuple[int, int, int] = (0, 0, 0),
-                 border_width: int = 2,
                  focus_offset: int = 9,
-                 focus_interval: float = 0.95
-                 ) -> None:
+                 focus_interval: float = 0.95,
+                 **kwargs: Optional[Dict]) -> None:
+
+        super().__init__(rect, kwargs)
 
         self.padding = padding
         self.color = color
-        self.text_color = text_color
-        self.border_color = border_color
-        self.border_width = border_width
         self.focus_color = (255, 255, 255)
         self.focus_offset = focus_offset
         self.focus_interval = focus_interval
-        self.font = pygame.font.SysFont(font, font_size)
+        self.font = pygame.font.SysFont(self.font, self.font_size)
 
         self.total_time = 0
 
@@ -36,11 +31,6 @@ class InputBox:
 
         # boolean when to update
         self.hover = False
-
-        # Get the rect of the button
-        self.x, self.y, self.width, self.height = rect
-        self.rect = pygame.Rect(rect)
-
 
     def _finish(self) -> None:
         """
@@ -71,29 +61,7 @@ class InputBox:
         :param screen:
         :return:
         """
-        # Draw main box
-        pygame.draw.rect(screen, self.color, self.rect)
-
-        pygame.draw.line(screen, self.border_color,
-                         (self.x - self.border_width, self.y - self.border_width),
-                         (self.x - self.border_width, self.y + self.height + self.border_width),
-                         self.border_width)
-
-        pygame.draw.line(screen, self.border_color,
-                         (self.x + self.width, self.y - self.border_width),
-                         (self.x + self.width, self.y + self.height + self.border_width),
-                         self.border_width)
-
-        # Horizontal Border Lines
-        pygame.draw.line(screen, self.border_color,
-                         (self.x - self.border_width, self.y - self.border_width),
-                         (self.x + self.width + self.border_width, self.y - self.border_width),
-                         self.border_width)
-
-        pygame.draw.line(screen, self.border_color,
-                         (self.x - self.border_width, self.y + self.height),
-                         (self.x + self.width - self.border_width, self.y + self.height),
-                         self.border_width)
+        super().draw(screen, self.color)
 
         # render text
         data = self.font.render(self.text, True, self.text_color)
@@ -113,9 +81,7 @@ class InputBox:
         screen.blit(data, data_rect)
 
 
-
-
-    def update(self, event: pygame.event) -> None:
+    def handle_event(self, event: pygame.event) -> None:
         """
         Updates the input box every frame
         :param event: current user event
