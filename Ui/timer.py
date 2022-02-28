@@ -43,7 +43,6 @@ class Timer:
 
         # find total amount of seconds
         total_seconds = int(self.clock[0]) * 60 * 60 + int(self.clock[1]) * 60 + int(self.clock[2])
-        print(total_seconds)
         if total_seconds > 0:
             total_seconds -= 1;
             h, remaining_seconds = divmod(total_seconds, 60 * 60)
