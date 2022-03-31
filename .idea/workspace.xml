@@ -8,14 +8,16 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="UPDATE">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="Models for neural network">
+      <change afterPath="$PROJECT_DIR$/Network/client.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Network/netlib.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Network/server.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NeuralNetwork/neural_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/neural_network.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/button.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/input_box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Ui/timer.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/timer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/input_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/input_box.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Ui/canvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/Ui/canvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
@@ -42,20 +44,20 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Trivia" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models\10itemsa" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Layers" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\Ui" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\images" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\rnm24\PycharmProjects\scribbleTraining" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\Network" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\data" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models\10itemsa" />
     </key>
   </component>
   <component name="RunManager">
@@ -115,20 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637851522366</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Finished unpacking images and preparing training and test data!!!! finally, next step: complete neural netwrok">
-      <created>1642974843371</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1642974843371</updated>
-    </task>
-    <task id="LOCAL-00009" summary="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)">
-      <created>1643052018600</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1643052018600</updated>
     </task>
     <task id="LOCAL-00010" summary="finished front propagattion, tweaked loading data;&#10;to do; finish neural network (maybe start class based layers)">
       <created>1643052233447</created>
@@ -459,7 +447,21 @@
       <option name="project" value="LOCAL" />
       <updated>1645736886399</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Base class for Ui implemented">
+      <created>1646084611572</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1646084611573</updated>
+    </task>
+    <task id="LOCAL-00058" summary="Models for neural network">
+      <created>1646084632316</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1646084632316</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -527,8 +529,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Implemented all neural network layers hopefully" />
-    <MESSAGE value="Test Neural Network!" />
     <MESSAGE value="NeuralNetwork Layers completed" />
     <MESSAGE value="FIxed accuracy" />
     <MESSAGE value="Neural Network Finally Working, Added annotations to Buttons class" />
@@ -552,21 +552,19 @@
     <MESSAGE value="update" />
     <MESSAGE value="Finisehf neural network!!!!!" />
     <MESSAGE value="UPDATE" />
-    <option name="LAST_COMMIT_MESSAGE" value="UPDATE" />
+    <MESSAGE value="Base class for Ui implemented" />
+    <MESSAGE value="Models for neural network" />
+    <option name="LAST_COMMIT_MESSAGE" value="Models for neural network" />
   </component>
   <component name="WindowStateProjectService">
     <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="698" y="343" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1644864090652" />
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1637853826619">
+    <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1646514255229">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="414" y="174" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1637853826619" />
-    <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1645704257556">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1645704257556" />
+    <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1646514255229" />
     <state x="690" y="266" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1645576802125">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -579,42 +577,46 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="184" y="85" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644869980333" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1646053018360">
+    <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl" timestamp="1648744757297">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1646053018360" />
-    <state width="1899" height="314" key="GridCell.Tab.0.bottom" timestamp="1646084555635">
+    <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1648744757297" />
+    <state width="1899" height="140" key="GridCell.Tab.0.bottom" timestamp="1646998163053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="314" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1646084555635" />
-    <state width="1899" height="314" key="GridCell.Tab.0.center" timestamp="1646084555635">
+    <state width="672" height="314" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
+    <state width="1899" height="140" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1646998163053" />
+    <state width="1899" height="140" key="GridCell.Tab.0.center" timestamp="1646998163053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="314" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1646084555635" />
-    <state width="1899" height="314" key="GridCell.Tab.0.left" timestamp="1646084555635">
+    <state width="672" height="314" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
+    <state width="1899" height="140" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1646998163053" />
+    <state width="1899" height="140" key="GridCell.Tab.0.left" timestamp="1646998163053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="314" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1646084555635" />
-    <state width="1899" height="314" key="GridCell.Tab.0.right" timestamp="1646084555635">
+    <state width="672" height="314" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
+    <state width="1899" height="140" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1646998163053" />
+    <state width="1899" height="140" key="GridCell.Tab.0.right" timestamp="1646998163053">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="314" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1646084555635" />
-    <state width="1899" height="372" key="GridCell.Tab.1.bottom" timestamp="1645802768029">
+    <state width="672" height="314" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
+    <state width="1899" height="140" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1646998163053" />
+    <state width="1899" height="372" key="GridCell.Tab.1.bottom" timestamp="1646297640322">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1645802768029" />
-    <state width="1899" height="372" key="GridCell.Tab.1.center" timestamp="1645802768029">
+    <state width="1899" height="372" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1646297640322" />
+    <state width="1899" height="372" key="GridCell.Tab.1.center" timestamp="1646297640322">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1645802768029" />
-    <state width="1899" height="372" key="GridCell.Tab.1.left" timestamp="1645802768029">
+    <state width="1899" height="372" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1646297640322" />
+    <state width="1899" height="372" key="GridCell.Tab.1.left" timestamp="1646297640322">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1645802768029" />
-    <state width="1899" height="372" key="GridCell.Tab.1.right" timestamp="1645802768029">
+    <state width="1899" height="372" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1646297640322" />
+    <state width="1899" height="372" key="GridCell.Tab.1.right" timestamp="1646297640322">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1645802768029" />
+    <state width="1899" height="372" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1646297640322" />
     <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -635,10 +637,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644862182928" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1645736889260">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1646084636233">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645736889260" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1646084636233" />
     <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1644863907092">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
