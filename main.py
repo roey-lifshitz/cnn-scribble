@@ -36,7 +36,7 @@ def main():
 
     canvas = Canvas(screen, 150, 150, 700, 500)
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=500, test_amount=80)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=2600, test_amount=520)
 
     clock = pygame.time.Clock()
     clock.tick(60)
@@ -44,14 +44,18 @@ def main():
     idx = 0
     network = NeuralNetwork(
         [
-            Convolutional(filters_num=8, filter_size=5, channels=1),
+            Convolutional(filters_num=32, filter_size=5, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=16, filter_size=5, channels=8),
+            Convolutional(filters_num=64, filter_size=5, channels=32),
             Relu(),
             Pooling(filter_size=2, stride=2),
             Flatten(),
-            Dense(256, 10),
+            Dense(1024, 512),
+            Relu(),
+            Dense(512, 256),
+            Relu(),
+            Dense(256, 26),
             Softmax()
         ],
         loss=CrossEntropyLoss(),
@@ -59,11 +63,9 @@ def main():
         objects=file_parser.files
         )
 
-    network.load("NeuralNetwork/Models/10_75%.pkl")
-    #network.train(train_x, train_y, test_x, test_y, epochs=100, learning_rate=1e-4)
-    #network.save("NeuralNetwork/Models/10.pkl")
+    network.load("NeuralNetwork/Models/tmp3.pkl")
+    network.train(train_x, train_y, test_x, test_y, epochs=10000000000, learning_rate=0.01)
 
-    #network.compute_graph()
 
     # Adding buttons to the screen
     img = pygame.image.load("images/eraser.png")
@@ -75,7 +77,7 @@ def main():
         InputBox((880, 510, 100, 40))
     ]
     timers = [
-        Timer((880, 200, 100, 40), '0h:0m:20s', color=(125, 125, 125), text_color= (100, 255, 100), border_width= 0)
+        Timer((880, 200, 100, 40), '01h:01m:05s', color=(125, 125, 125), text_color= (100, 255, 100), border_width= 0)
     ]
 
     clock = pygame.time.Clock()
@@ -112,8 +114,8 @@ def main():
             timer.draw(screen, dt)
 
         total_time += dt
-        if total_time > 2 * 1000:
-            predict(network, canvas)
+        if total_time > 5 * 1000:
+            #predict(network, canvas)
             total_time = 0
         pygame.display.flip()
 

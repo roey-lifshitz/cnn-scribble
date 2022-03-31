@@ -99,14 +99,17 @@ class InputBox(UI):
         if self.hover:
             # handles text in input box
             if event.type == pygame.KEYDOWN:
+                self.total_time = 0
+                self.focus_color = (0, 0, 0)
                 # Entered space
                 if event.key == pygame.K_RETURN:
                     self._finish()
 
                 # Backspace- remove character
                 elif event.key == pygame.K_BACKSPACE:
-                    self.index = max(0, self.index - 1)
-                    self.text = self.text[:self.index] + self.text[self.index + 1:]
+                    if self.index > 0:
+                        self.index = max(0, self.index - 1)
+                        self.text = self.text[:self.index] + self.text[self.index + 1:]
 
                 # Keys- update index location
                 elif event.key == pygame.K_LEFT:
