@@ -7,26 +7,33 @@ MAX_DATA_LENGTH = 10 ** LENGTH_FIELD_LENGTH - 1  # Max size of data field accord
 MSG_HEADER_LENGTH = CODE_FIELD_LENGTH + 1 + LENGTH_FIELD_LENGTH + 1  # Exact size of header (CMD+LENGTH fields)
 MAX_MSG_LENGTH = MSG_HEADER_LENGTH + MAX_DATA_LENGTH  # Max size of total message
 DELIMITER = "|"  # Delimiter character in protocol
-DATA_DELIMITER = "#"  # Delimiter in the data part of the message
+
+SERVER_PROTOCOL = {
+    'send_object': 'SEND_OBJECT'
+}
+
+CLIENT_PROTOCOL = {
+    'request_object': 'REQUEST_OBJECT'
+}
 
 
-def join_data(data_fields):
+def join_data(data_fields, data_delimiter='#'):
     """
     Helper method. Gets a list, joins all of it's fields to one string divided by the data delimiter.
     Returns: string that looks like a#b#c
     """
-    return DATA_DELIMITER.join(data_fields)
+    return data_delimiter.join(data_fields)
 
 
-def split_data(data, expected_fields):
+def split_data(data, expected_fields, data_delimiter='#'):
     """
     Helper method. gets a string and number of expected fields in it. Splits the string
     using protocol's data field delimiter (|#) and validates that there are correct number of fields.
     Returns: list of fields if all ok. If some error occured, returns None
     """
-    data_fields = data.split(DATA_DELIMITER)
+    data_fields = data.split(data_delimiter)
 
-    if len(data) == expected_fields:
+    if len(data_fields) == expected_fields:
         return data_fields
 
     return None
@@ -69,12 +76,12 @@ def unpack_message(message):
     :return: code, data
     """
 
-    message_fields = message.splt(DELIMITER)
+    message_fields = message.split(DELIMITER)
 
     if len(message_fields) == 3:
         code, length, data = message_fields
         # Remove whitespaces from code
-        code = code.strip(' ')
+        code = code.strip(" ")
 
         if len(length) == 4:
 
@@ -83,11 +90,37 @@ def unpack_message(message):
                 length = '0'
             else:
                 length = length.lstrip('0')
+                length = length.strip(' ')
 
             # Make sure that the given length is actually a number
             if length.isnumeric():
                 if int(length) == len(data):
                     return code, data
 
-
     return None, None
+
+""""def parse_message(data):
+    ""
+    Parses protocol message and returns command name and data field
+    Returns: cmd (str), data (str). If some error occured, returns None, None
+    ""
+    parsed = data.split(DELIMITER)
+    if len(parsed) == 3:
+        cmd, msg_len, msg = parsed
+        # Remove all whitespaces and unnecessary zeros
+        cmd = cmd.strip(" ")
+        if len(msg_len) == 4:
+            # Remove all whitespaces and unnecessary zeros
+            # if msg_len is 0000 then the strip will remove all characters
+            if msg_len != "0000":
+                msg_len = msg_len.lstrip("0")
+                msg_len = msg_len.strip(" ")
+            else:
+                msg_len = "0"
+
+            if msg_len.isnumeric():
+                if int(msg_len) == len(msg):
+                    return cmd, msg
+
+    return ERROR_RETURN, ERROR_RETURN
+"""
