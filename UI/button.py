@@ -45,7 +45,7 @@ class Button(UI):
         # if mouse is hovering
         self.hover = False
 
-    def draw(self, screen: pygame.display):
+    def draw(self, screen: pygame.display, dt):
         """
         Draw 4 lines (Borders) around the button and then fills them with color
         :param screen: display of game
@@ -73,7 +73,6 @@ class Button(UI):
 
         if self.hover:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if self.rect.collidepoint(*pygame.mouse.get_pos()):
-                    self.on_click()
+                self.on_click()
 
 

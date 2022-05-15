@@ -153,6 +153,7 @@ class Canvas:
         Calculates a 1x28x28 numpy array representing the image on the canvas
         :return: array with shape (channels, width, height)
         """
+
         # return a (height, width , channels) representation of the canvas
         image = pygame.surfarray.array3d(self.screen)
 
@@ -173,18 +174,21 @@ class Canvas:
             # white is represented with 0 and black is represented with 255
             image ^= 0b11111111
 
-        # swap from (height, width) to (width, height)
-        image = np.swapaxes(image, 0, 1)
         # normalize the image
         image = image.astype('float64') / 255.
+
+        # swap from (height, width) to (width, height)
+        image = np.swapaxes(image, 0, 1)
+
         # crop all whitespace surrounding drawing in image
-        image = utils.crop_whitespaces(image)
+        try:
+            image = utils.crop_whitespaces(image)
+        except Exception as e:
+            return None
+
         # pad image so width == height
         image = utils.add_border(image, same_scale=True)
         # down sample to training data size for neural network
         image = utils.down_sample(image, (28, 28))
-
-        #plt.imshow(image)
-        #plt.show()
 
         return image.reshape(1, 28, 28)

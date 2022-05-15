@@ -98,7 +98,7 @@ class FileParser:
         for i, file in enumerate(self.files):
 
             # Load images from .npy file
-            images = np.load(f"data/{file}").astype('float32') / 255.
+            images = np.load(f"Data/{file}").astype('float32') / 255.
 
             # Reshape that each image will be in a 1X28X28 format
             images = images.reshape(-1, 1, 28, 28)
