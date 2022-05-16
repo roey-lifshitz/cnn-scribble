@@ -97,7 +97,7 @@ class Client:
         clock.tick(60)
 
         ai = NeuralNetwork(None, None, None, file_parser.files)
-        ai.load("NeuralNetwork/Models/5items.pkl")
+        ai.load("NeuralNetwork/Models/dog_apple.pkl")
 
         img = pygame.image.load("images/eraser.png")
         ui_elements = [
@@ -131,6 +131,7 @@ class Client:
                     scoreboard.text = f"Score: {self.score}"
 
                     canvas.fill((255, 255, 255))
+                    time.sleep(5)
 
             time.sleep(1)
 

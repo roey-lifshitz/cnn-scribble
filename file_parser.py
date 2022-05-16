@@ -14,17 +14,16 @@ class FileParser:
 
         self.files = [
             'apple.npy',
-            'dog.npy'
-        ]
-
-        """ foot.npy',
+            'dog.npy',
+            'foot.npy',
             'house.npy',
             'mushroom.npy',
             'pencil.npy',
             'skateboard.npy',
             'snowman.npy',
             'stairs.npy',
-            'van.npy',"""
+            'van.npy'
+        ]
 
     def clear(self) -> None:
         """

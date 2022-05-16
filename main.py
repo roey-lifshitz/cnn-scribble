@@ -68,7 +68,7 @@ def main():
 
 
 
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=50, test_amount=20)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=400, test_amount=50)
 
     clock = pygame.time.Clock()
     clock.tick(60)
@@ -76,25 +76,28 @@ def main():
     idx = 0
     network = NeuralNetwork(
         [
-            Convolutional(filters_num=2, filter_size=5, channels=1),
+            Convolutional(filters_num=24, filter_size=5, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=4, filter_size=3, channels=2),
+            Convolutional(filters_num=48, filter_size=3, channels=24),
             Relu(),
             Pooling(filter_size=2, stride=2),
             Flatten(),
-            Dense(100, 2),
+            Dropout(0.2),
+            Dense(1200, 400),
             Relu(),
-            Dropout(0.4),
+            Dropout(0.2),
+            Dense(400, 10),
             Softmax()
         ],
 
         loss=CrossEntropyLoss(),
-        optimizer=Adam(3e-04),
+        optimizer=Adam(0.00001),
         objects=file_parser.files
-        )
+    )
 
-    network.train(train_x, train_y, test_x, test_y, epochs=1000, learning_rate=3e-4)
+
+    network.train(train_x, train_y, test_x, test_y, epochs=1000)
     network.save("NeuralNetwork/Models/10_new")
 
 

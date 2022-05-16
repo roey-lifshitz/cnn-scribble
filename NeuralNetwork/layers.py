@@ -5,7 +5,6 @@ import numpy as np
 class Convolutional(Layer):
 
     def __init__(self, filters_num: int, filter_size: int, channels: int = 1, stride: int = 1) -> None:
-
         self.filters_num = filters_num
         self.filter_size = filter_size
         self.channels = channels
@@ -20,7 +19,6 @@ class Convolutional(Layer):
         self.input = None
 
     def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
-
         self.input = inputs
 
         # Unpack Shapes
@@ -53,8 +51,7 @@ class Convolutional(Layer):
 
         return output
 
-    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-
+    def backward_propagate(self, output_gradient: np.ndarray) -> np.ndarray:
         # Unpack Shapes
         n_c, h_in, w_in = self.input.shape
         n_f, n_c, f_h, f_w = self.filters.shape
@@ -89,13 +86,6 @@ class Convolutional(Layer):
 
         return output_gradient_out
 
-    def update(self, learning_rate):
-        self.filters -= self.delta_filters * learning_rate
-        self.biases -= self.delta_biases * learning_rate
-
-        self.delta_filters = np.zeros(self.filters.shape)
-        self.delta_biases = np.zeros(self.biases.shape)
-
     def get_params(self):
         return [(self.filters, self.biases), (self.delta_filters, self.delta_biases)]
 
@@ -104,19 +94,15 @@ class Convolutional(Layer):
         self.biases = biases
 
 
-
-
 class Pooling(Layer):
 
     def __init__(self, filter_size: int, stride: int = 2) -> None:
-
         self.filter_size = filter_size
         self.stride = stride
 
         self.input = None
 
     def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
-
         self.input = inputs
 
         # Unpack shapes
@@ -146,8 +132,7 @@ class Pooling(Layer):
 
         return output
 
-    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
-
+    def backward_propagate(self, output_gradient: np.ndarray) -> np.ndarray:
         # Unpack shapes
         n_c, h_in, w_in = self.input.shape
         f_h, f_w = self.filter_size, self.filter_size
@@ -180,9 +165,6 @@ class Pooling(Layer):
 
         return output_gradient_out
 
-    def update(self, learning_rate):
-        pass
-
 
 class Flatten(Layer):
 
@@ -193,11 +175,8 @@ class Flatten(Layer):
         self.input_shape = inputs.shape
         return np.ravel(inputs).reshape(-1, 1)
 
-    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+    def backward_propagate(self, output_gradient: np.ndarray) -> np.ndarray:
         return output_gradient.reshape(self.input_shape)
-
-    def update(self, learning_rate):
-        pass
 
 
 class Dense(Layer):
@@ -215,9 +194,10 @@ class Dense(Layer):
 
     def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
         self.input = inputs
+
         return np.dot(self.weights, inputs) + self.biases
 
-    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+    def backward_propagate(self, output_gradient: np.ndarray) -> np.ndarray:
         n = self.input.shape[0]
 
         self.delta_weights = np.dot(output_gradient, self.input.T) / n
@@ -226,13 +206,6 @@ class Dense(Layer):
         output_gradient_out = np.dot(self.weights.T, output_gradient)
 
         return output_gradient_out
-
-    def update(self, learning_rate):
-        self.weights -= self.delta_weights * learning_rate
-        self.biases -= self.delta_biases * learning_rate
-
-        self.delta_weights = np.zeros(self.weights.shape)
-        self.delta_biases = np.zeros(self.biases.shape)
 
     def get_params(self):
         return [(self.weights, self.biases), (self.delta_weights, self.delta_biases)]
@@ -253,6 +226,7 @@ class Dropout(Layer):
         self._mask = None
 
     def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
+
         if training:
             # mask of number values with same shape of input
             self._mask = (np.random.rand(*inputs.shape) < self.prob)
@@ -261,15 +235,14 @@ class Dropout(Layer):
         else:
             return inputs
 
-    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+    def backward_propagate(self, output_gradient: np.ndarray) -> np.ndarray:
         output_gradient_out = self._apply_mask(output_gradient, self._mask)
+
         return output_gradient_out
 
     def _apply_mask(self, array: np.array, mask: np.array) -> np.array:
         array *= mask
         array /= self.prob
-        return array
 
-    def update(self, learning_rate):
-        pass
+        return array
 

@@ -14,17 +14,12 @@ class Layer(ABC):
         pass
 
     @abstractmethod
-    def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
+    def backward_propagate(self, output_gradient: np.ndarray) -> np.ndarray:
         """
         Backward pass logic of a Layer
         :param output_gradient: gradient of previous layer
-        :param learning_rate: jump size for trainable data manipulation
         :return: Output gradient for previous layer
         """
-        pass
-
-    @abstractmethod
-    def update(self):
         pass
 
     def get_params(self):
