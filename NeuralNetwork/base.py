@@ -27,6 +27,12 @@ class Layer(ABC):
     def update(self):
         pass
 
+    def get_params(self):
+        pass
+
+    def set_params(self, filters, biases):
+        pass
+
 
 class Loss(ABC):
 

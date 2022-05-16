@@ -10,6 +10,7 @@ import Network.netlib as netlib  # To use chatlib functions or consts, use chatl
 from UI.canvas import Canvas
 from UI.button import Button
 from UI.input_box import InputBox
+from UI.text_box import TextBox
 from UI.timer import Timer
 from NeuralNetwork.neural_network import NeuralNetwork
 from file_parser import FileParser
@@ -96,21 +97,19 @@ class Client:
         clock.tick(60)
 
         ai = NeuralNetwork(None, None, None, file_parser.files)
-        ai.load("NeuralNetwork/Models/10_75%_extra_large.pkl")
+        ai.load("NeuralNetwork/Models/5items.pkl")
 
         img = pygame.image.load("images/eraser.png")
         ui_elements = [
             Button((880, 560, 100, 40), image=img, color=(235, 232, 232), hover_color=(196, 191, 191),
                    on_click=canvas.fill),
-            Button((880, 610, 100, 40), text="predict",
-                   on_click=lambda: print(ai.objects[np.argmax(ai.predict(canvas.capture()))])),
             InputBox((880, 510, 100, 40)),
             Timer((880, 200, 100, 40), '00h:01m:05s', color=(125, 125, 125), text_color=(100, 255, 100), border_width=0)
         ]
 
         return screen, canvas, clock, ui_elements, file_parser, ai
 
-    def start_ai(self, ai, canvas):
+    def start_ai(self, ai, canvas, text_box, scoreboard):
 
         while self.run_ai:
             image = canvas.capture()
@@ -120,10 +119,18 @@ class Client:
                 prediction = ai.objects[np.argmax(output)].split(".")[0]
 
                 if prediction == self.to_draw:
-                    self.score += 1;
-                    self.to_draw = self.request_object(ai.objects)
 
-                print(prediction)
+                    new_object = self.request_object(ai.objects)
+                    while new_object == self.to_draw:
+                        new_object = self.request_object(ai.objects)
+
+                    self.to_draw = new_object
+                    text_box.text = self.to_draw
+
+                    self.score += 1;
+                    scoreboard.text = f"Score: {self.score}"
+
+                    canvas.fill((255, 255, 255))
 
             time.sleep(1)
 
@@ -132,12 +139,18 @@ class Client:
         self.connect()
 
         screen, canvas, clock, ui_elements, file_parser, ai = self.build_app()
+        print(ai.objects)
+        text_box = TextBox((880, 400, 100, 40), text_color=(122, 255, 100))
+
+        scoreboard = TextBox((880, 450, 100, 40), text_color=(100, 100, 100))
+        scoreboard.text = f"Score: {self.score}"
 
         # Start making ai predict
-        thread = threading.Thread(target=self.start_ai, args=(ai, canvas))
+        thread = threading.Thread(target=self.start_ai, args=(ai, canvas, text_box, scoreboard))
         thread.start()
 
         self.to_draw = self.request_object(ai.objects)
+        text_box.text = self.to_draw
 
         total_time = 0
         running = True
@@ -158,13 +171,16 @@ class Client:
                         new_object = self.request_object(ai.objects)
                         while new_object == self.to_draw:
                             new_object = self.request_object()
-                            
-                        self.to_draw = new_object
 
+                        canvas.fill((255, 255, 255))
+                        self.to_draw = new_object
+                        text_box.text = self.to_draw
 
             for element in ui_elements:
                 element.draw(screen, dt)
 
+            text_box.draw(screen, dt)
+            scoreboard.draw(screen, dt)
             pygame.display.flip()
             total_time += dt
 

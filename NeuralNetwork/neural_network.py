@@ -47,9 +47,6 @@ class NeuralNetwork:
         for layer in self.model:
             output = layer.forward_propagate(output, training)
 
-        # clip gradient so their wont be log(0)
-        #output = np.clip(output, 1e-8, None)
-
         return output
 
     def _back_propagate(self, output_gradient, learning_rate):
@@ -59,7 +56,7 @@ class NeuralNetwork:
             # gradient clipping
             # in some instances, after training a long time we get exploding gradients so we clip the gradients to
             # remove that
-            output_gradient = np.clip(output_gradient, -1, 1)
+            #output_gradient = np.clip(output_gradient, -1, 1)
 
     def _update(self, learning_rate):
         for layer in self.model:
@@ -72,16 +69,15 @@ class NeuralNetwork:
         for epoch in range(epochs):
             start_time = dt.now()
 
-            for batch in self.iterate_minibatches(train_x, train_y, 64, to_shuffle=True):
-                for x, y in zip(batch[0], batch[1]):
-                    # Feed forwards
-                    output = self.predict(x, True)
-                    # Compute Error
-                    output_gradient = self.loss.compute_derivative(y, output)
-                    # Feed backwards
-                    self._back_propagate(output_gradient, learning_rate)
-
-                self._update(learning_rate)
+            for x, y in zip(train_x, train_y):
+                # Feed forwards
+                output = self.predict(x, True)
+                # Compute Error
+                output_gradient = self.loss.compute_derivative(y, output)
+                # Feed backwards
+                self._back_propagate(output_gradient, learning_rate)
+                self.optimizer.update(self.model)
+                #self._update(learning_rate)
 
             cost, accuracy = self.evaluate(test_x, test_y)
             self.cost_history.append(cost)
@@ -112,3 +108,15 @@ class NeuralNetwork:
     def load(self, file):
         with open(file, 'rb') as f:
             self.__dict__.update(pickle.load(f))
+
+
+            """for batch in self.iterate_minibatches(train_x, train_y, 16, to_shuffle=True):
+                for x, y in zip(batch[0], batch[1]):
+                    # Feed forwards
+                    output = self.predict(x, True)
+                    # Compute Error
+                    output_gradient = self.loss.compute_derivative(y, output)
+                    # Feed backwards
+                    self._back_propagate(output_gradient, learning_rate)
+                    self._update(learning_rate)
+            """

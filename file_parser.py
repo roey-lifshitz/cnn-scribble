@@ -13,34 +13,18 @@ class FileParser:
     def __init__(self) -> None:
 
         self.files = [
-            'ant.npy',
             'apple.npy',
-            'bed.npy',
-            'bird.npy',
-            'birthday_cake.npy',
-            'bridge.npy',
-            'camera.npy',
-            'cat.npy',
-            'clock.npy',
-            'dog.npy',
-            'foot.npy',
+            'dog.npy'
+        ]
+
+        """ foot.npy',
             'house.npy',
-            'microphone.npy',
             'mushroom.npy',
             'pencil.npy',
-            'piano.npy',
             'skateboard.npy',
             'snowman.npy',
-            'sock.npy',
-            'spoon.npy',
             'stairs.npy',
-            'stop_sign.npy',
-            'sun.npy',
-            'sword.npy',
-            'tree.npy',
-            'van.npy',
-
-        ]
+            'van.npy',"""
 
     def clear(self) -> None:
         """

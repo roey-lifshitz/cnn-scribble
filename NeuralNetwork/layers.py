@@ -65,6 +65,8 @@ class Convolutional(Layer):
 
         # Initialize gradients
         output_gradient_out = np.zeros(self.input.shape)
+        self.delta_filters = np.zeros(self.filters.shape)
+        self.delta_biases = np.zeros(self.biases.shape)
 
         # foreach filter
         for i in range(n_f):
@@ -83,10 +85,7 @@ class Convolutional(Layer):
                     output_gradient_out[:, top:bottom, left:right] += \
                         output_gradient[i, h, w] * self.filters[i]
 
-                self.delta_biases[i] = np.sum(output_gradient[i])
-
-        #self.filters -= self.delta_filters * learning_rate
-        #self.biases -= self.delta_biases * learning_rate
+            self.delta_biases[i] = np.sum(output_gradient[i])
 
         return output_gradient_out
 
@@ -103,6 +102,7 @@ class Convolutional(Layer):
     def set_params(self, filters, biases):
         self.filters = filters
         self.biases = biases
+
 
 
 
@@ -183,12 +183,6 @@ class Pooling(Layer):
     def update(self, learning_rate):
         pass
 
-    def get_params(self):
-        return None
-
-    def set_params(self, filters, biases):
-        return None
-
 
 class Flatten(Layer):
 
@@ -204,12 +198,6 @@ class Flatten(Layer):
 
     def update(self, learning_rate):
         pass
-
-    def get_params(self):
-        return None
-
-    def set_params(self, filters, biases):
-        return None
 
 
 class Dense(Layer):
@@ -232,11 +220,8 @@ class Dense(Layer):
     def backward_propagate(self, output_gradient: np.ndarray, learning_rate: float) -> np.ndarray:
         n = self.input.shape[0]
 
-        self.delta_weights += np.dot(output_gradient, self.input.T) / n
-        self.delta_biases += np.sum(output_gradient, axis=1, keepdims=True) / n
-
-        #self.weights -= self.delta_weights * learning_rate
-        #self.biases -= self.delta_biases * learning_rate
+        self.delta_weights = np.dot(output_gradient, self.input.T) / n
+        self.delta_biases = np.sum(output_gradient, axis=1, keepdims=True) / n
 
         output_gradient_out = np.dot(self.weights.T, output_gradient)
 
@@ -245,14 +230,15 @@ class Dense(Layer):
     def update(self, learning_rate):
         self.weights -= self.delta_weights * learning_rate
         self.biases -= self.delta_biases * learning_rate
+
         self.delta_weights = np.zeros(self.weights.shape)
         self.delta_biases = np.zeros(self.biases.shape)
-
 
     def get_params(self):
         return [(self.weights, self.biases), (self.delta_weights, self.delta_biases)]
 
     def set_params(self, weights, biases):
+
         self.weights = weights
         self.biases = biases
 
@@ -287,8 +273,3 @@ class Dropout(Layer):
     def update(self, learning_rate):
         pass
 
-    def get_params(self):
-        return None
-
-    def set_params(self, filters, biases):
-        return None

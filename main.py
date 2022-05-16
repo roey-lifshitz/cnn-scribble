@@ -68,7 +68,7 @@ def main():
 
 
 
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=2600, test_amount=520)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=50, test_amount=20)
 
     clock = pygame.time.Clock()
     clock.tick(60)
@@ -76,28 +76,26 @@ def main():
     idx = 0
     network = NeuralNetwork(
         [
-            Convolutional(filters_num=32, filter_size=5, channels=1),
+            Convolutional(filters_num=2, filter_size=5, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=64, filter_size=5, channels=32),
+            Convolutional(filters_num=4, filter_size=3, channels=2),
             Relu(),
             Pooling(filter_size=2, stride=2),
             Flatten(),
-            Dense(1024, 512),
+            Dense(100, 2),
             Relu(),
-            Dense(512, 256),
-            Relu(),
-            Dense(256, 26),
+            Dropout(0.4),
             Softmax()
         ],
+
         loss=CrossEntropyLoss(),
-        optimizer=None,
+        optimizer=Adam(3e-04),
         objects=file_parser.files
         )
 
-    network.load("NeuralNetwork/Models/10_75%_extra_large.pkl")
-    print(network.objects)
-    #network.train(train_x, train_y, test_x, test_y, epochs=10000000000, learning_rate=0.01)
+    network.train(train_x, train_y, test_x, test_y, epochs=1000, learning_rate=3e-4)
+    network.save("NeuralNetwork/Models/10_new")
 
 
     # Adding buttons to the screen
