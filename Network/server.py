@@ -20,8 +20,14 @@ class Server:
         self.IP = SERVER_IP
         self.PORT = SERVER_PORT
 
+        # List of all connected players
+        self.client_sockets = []
+        self.players = {}
+
         # Queue of messages that server needs to send to connected clients
         self.messages_to_send = []
+        # Queue of all chat messages each socket needs to receive
+        self.chat_queue = {}
 
         self.socket = None
 
@@ -39,7 +45,8 @@ class Server:
         code, data = netlib.unpack_message(message)
 
         if PRINT_DEBUG:
-            print(f"[Client {conn.getpeername()}]: {message}")
+            if code != netlib.CLIENT_PROTOCOL['update_chat'] and message == "":
+                print(f"[Client {conn.getpeername()}]: {message}")
 
         return code, data
 
@@ -49,6 +56,8 @@ class Server:
         self.messages_to_send.append((conn, message))
 
         if PRINT_DEBUG:
+            if code == netlib.SERVER_PROTOCOL['send_chat'] and message == "SEND_CHAT       |0000|":
+                return
             print(f"[Server]: {message}")
 
     def send_messages(self, ready_to_write: List[Tuple[socket.socket, str]]):
@@ -60,37 +69,115 @@ class Server:
                 conn.send(message.encode())
                 self.messages_to_send.remove(packed_message)
 
+    def handle_client_login(self, conn: socket.socket, data: str) -> None:
+        """
+        Handles clients login request
+        :param conn: Clients socket
+        :param data: Clients name
+        :return: None
+        """
+        # if duplicate id
+        if data in self.players.keys():
+            self.append_message(conn, netlib.SERVER_PROTOCOL["login_failed_dup_id"], "")
+        else:
+            # Add client to dictionaries
+            self.players.update({data: 0})
+            self.chat_queue.update({conn: ""})
 
-    def handle_client_request_object(self, conn, data):
+            self.append_message(conn, netlib.SERVER_PROTOCOL["login_success"], "")
 
+    def handle_client_request_object(self, conn: socket.socket, data: str) -> None:
+        """
+        Handles clients object request, sends a random object to the client
+        :param conn: Clients socket
+        :param data: str: "amount_of_objects|object_a,object_b,object_c"
+        :return: None
+        """
+        # Unpack data
         amount, objects_list = netlib.split_data(data, 2)
-
         objects = netlib.split_data(objects_list, int(amount), data_delimiter=',')
+        # Send random object
         random_object = random.choice(objects)
+        self.append_message(conn, netlib.SERVER_PROTOCOL["send_object"], random_object)
 
-        self.append_message(conn, netlib.SERVER_PROTOCOL['send_object'], random_object)
+    def handle_client_update_score(self, conn: socket.socket, data: str) -> None:
+        """
+        Handles client score
+        :param conn: Clients socket
+        :param data: score
+        :return: None
+        """
+        name, score = netlib.split_data(data, 2)
 
-    def handle_client_message(self, conn, code, data):
+        self.players[name] = int(score)
+        self.append_message(conn, netlib.SERVER_PROTOCOL["score_received"], "")
 
-        if code == netlib.CLIENT_PROTOCOL['request_object']:
+    def handle_client_update_chat(self, conn: socket.socket, data: str) -> None:
+        """
+        Handles clients chat message, adds the message to the message dictionary queue
+        :param conn: Clients socket
+        :param data: message
+        :return: None
+        """
+        for client_socket in self.client_sockets:
+            self.chat_queue[client_socket] += f"#{data}"
+
+        self.append_message(conn, netlib.SERVER_PROTOCOL["chat_received"], "")
+
+    def handle_client_receive_chat(self, conn):
+        """
+        Handles client message request, sends all messages in the chat queue for the client
+        :param conn: Clients socket
+        :return:
+        """
+        self.append_message(conn, netlib.SERVER_PROTOCOL["send_chat"], self.chat_queue[conn])
+        self.chat_queue[conn] = ""
+
+    def handle_client_message(self, conn: socket.socket, code: str, data: str) -> None:
+        """
+        Calls the correct handle function according the given code by client
+        :param conn: Clients socket
+        :param code: Protocol code
+        :param data: Protocol Data
+        :return: None
+        """
+        if code == netlib.CLIENT_PROTOCOL["request_login"]:
+            self.handle_client_login(conn, data)
+        elif code == netlib.CLIENT_PROTOCOL["request_object"]:
             self.handle_client_request_object(conn, data)
+        elif code == netlib.CLIENT_PROTOCOL["update_score"]:
+            self.handle_client_update_score(conn, data)
+        elif code == netlib.CLIENT_PROTOCOL["update_chat"]:
+            self.handle_client_update_chat(conn, data)
+        elif code == netlib.CLIENT_PROTOCOL["request_chat"]:
+            self.handle_client_receive_chat(conn)
 
-    def run(self):
+    def run(self) -> None:
+        """
+        Server Running Loop
+        Communicates with all connected clients
+        Connects with new clients
+        :return: None
+        """
+        # Start socket
         self.initialize()
 
-        client_sockets = []
-
         running = True
-        # Implement code ...
         while running:
-            ready_to_read, ready_to_write, in_error = select.select([self.socket] + client_sockets, client_sockets, [])
 
+            # ready_to_read- all sockets we can read messages from
+            # ready_to_write- all sockets we can write messages to
+            # in_error- all sockets that had an error
+            ready_to_read, ready_to_write, in_error = select.select([self.socket] + self.client_sockets,
+                                                                    self.client_sockets,
+                                                                    [])
+            # Loop through all the sockets that sent a message
             for conn in ready_to_read:
-
                 # self.socket will be ready to read only when a new client is trying to connect
                 if conn is self.socket:
+                    # add socket that has connected to client socket list
                     client_socket, address = self.socket.accept()
-                    client_sockets.append(client_socket)
+                    self.client_sockets.append(client_socket)
 
                     if PRINT_DEBUG:
                         print("New Client Joined")
@@ -99,17 +186,15 @@ class Server:
                 else:
                     try:
                         code, data = self.receive_message(conn)
-
-                        # add to message_to_send
+                        # handle a the received message and send a response accordingly
                         self.handle_client_message(conn, code, data)
 
                     # if client crashed
                     except Exception as e:
                         print(str(e))
-                        #handle_logout_message(conn)
 
+            # send all messages in the message queue
             self.send_messages(ready_to_write)
-
 
 
 if __name__ == '__main__':

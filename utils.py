@@ -95,24 +95,6 @@ def shuffle(x: np.ndarray, y: np.ndarray, seed: int = 99) -> Tuple[np.ndarray, n
     return shuffled_x, shuffled_y
 
 
-def generate_batches(x: np.array, y: np.array, batch_size: int):
-    """
-    :param x - features array with (n, ...) shape
-    :param y - one hot ground truth array with (n, k) shape
-    :batch_size - number of elements in single batch
-    ----------------------------------------------------------------------------
-    n - number of examples in data set
-    k - number of classes
-    """
-    for i in range(0, x.shape[0], batch_size):
-        yield (
-            x.take(indices=range(
-                i, min(i + batch_size, x.shape[0])), axis=0),
-            y.take(indices=range(
-                i, min(i + batch_size, y.shape[0])), axis=0)
-        )
-
-
 def crop_whitespaces(image: np.ndarray) -> np.ndarray:
     """
     Crops the white border (Represented with zeros) from an image

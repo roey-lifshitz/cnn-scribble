@@ -1,6 +1,6 @@
 from typing import List, Tuple
 from NeuralNetwork.base import Layer, Loss
-from utils import shuffle, generate_batches
+from utils import shuffle
 from NeuralNetwork.optimizers import Adam
 from matplotlib import pyplot as plt
 import numpy as np
@@ -39,10 +39,10 @@ class NeuralNetwork:
 
         return output
 
-    def _back_propagate(self, output_gradient, learning_rate):
+    def _back_propagate(self, output_gradient):
 
         for layer in reversed(self.model):
-            output_gradient = layer.backward_propagate(output_gradient, learning_rate)
+            output_gradient = layer.backward_propagate(output_gradient)
 
     def _update(self, learning_rate):
 
@@ -52,11 +52,15 @@ class NeuralNetwork:
     def train(self, train_x, train_y, test_x, test_y, epochs=1000, verbose=True, seed=99):
         np.random.seed(seed)
 
+        self.optimizer.layers = self.model
+
         print("Started Training!")
         idx = 0
 
         for epoch in range(epochs):
             start_time = dt.now()
+
+            train_x, train_y = shuffle(train_x, train_y, seed)
 
             for x, y in zip(train_x, train_y):
                 # Feed forwards
@@ -66,7 +70,7 @@ class NeuralNetwork:
                 # Feed backwards
                 self._back_propagate(output_gradient)
                 # Optimize network- update params
-                self.optimizer.update(self.model)
+                self.optimizer.update()
 
             cost, accuracy = self.evaluate(test_x, test_y)
 
@@ -81,14 +85,23 @@ class NeuralNetwork:
                 self.save(f"NeuralNetwork/Models/tmp{idx}.pkl")
                 idx += 1
 
-
     def compute_graph(self):
-        x = np.linspace(0, len(self.cost_history))
-        y = self.cost_history
-        plt.plot(x, y)
-        plt.show()
-        y = self.accuracy_history
-        plt.plot(x, y)
+
+        plt.figure(1)
+        x = np.arange(1, len(self.cost_history) + 1)
+        y1 = self.cost_history
+        plt.xlabel("Epoch")
+        plt.ylabel("Cost")
+        plt.title("Cost History")
+        plt.plot(x, y1, label="Cost History")
+
+        plt.figure(2)
+        y2 = self.accuracy_history
+        plt.xlabel("Accuracy")
+        plt.ylabel("Cost")
+        plt.title("Accuracy History")
+        plt.plot(x, y2, label="Accuracy History")
+
         plt.show()
 
     def save(self, file):

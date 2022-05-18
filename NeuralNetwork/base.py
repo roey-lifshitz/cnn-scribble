@@ -1,7 +1,10 @@
+from typing import Optional, Tuple
 from abc import ABC, abstractmethod
 import numpy as np
 
+
 class Layer(ABC):
+    """ Base class for a layer in the Convolutional Neural Network """
 
     @abstractmethod
     def forward_propagate(self, inputs: np.ndarray, training: bool) -> np.ndarray:
@@ -22,14 +25,28 @@ class Layer(ABC):
         """
         pass
 
-    def get_params(self):
-        pass
+    def get_params(self) -> Optional[Tuple[Tuple[np.ndarray, np.ndarray], Tuple[np.ndarray, np.ndarray]]]:
+        """
+        Returns trainable params and their deltas for optimizer
+        if layers has no trainable values it returns None otherwise
+        it returns a tuple that contains (weights, biases), delta_weights, delta_biases)
+        :return: None or (weights, biases), delta_weights, delta_biases)
+        """
 
-    def set_params(self, filters, biases):
+        return None
+
+    def set_params(self, weights: np.ndarray, biases: np.ndarray) -> None:
+        """
+        Updates the trainable data of a layer
+        :param weights: filters/weights of layer
+        :param biases: bias of layer
+        :return:
+        """
         pass
 
 
 class Loss(ABC):
+    """ Base class for a lose function of a Neural Network"""
 
     @abstractmethod
     def compute_cost(self, labels: np.ndarray, predictions: np.ndarray) -> np.float:
@@ -48,5 +65,17 @@ class Loss(ABC):
         :param labels: hot one encoding of answer
         :param predictions: output of forward propagate
         :return: error of a single output
+        """
+        pass
+
+
+class Optimizer(ABC):
+    """ Base class for a Optimizer of a Neural Network"""
+
+    @abstractmethod
+    def update(self) -> None:
+        """
+        Updates the values of the trainable parameters
+        :return: None
         """
         pass

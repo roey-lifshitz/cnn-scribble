@@ -31,15 +31,17 @@ class InputBox(UI):
 
         # boolean when to update
         self.hover = False
+        self.type = "Input"
 
     def _finish(self) -> None:
         """
         Called when user finished writing his input (pressed enter)
         :return:
         """
-        print(self.text)
+        tmp = self.text
         self.text = ""
         self.index = 0
+        return tmp
 
     def _draw_focus(self, screen: pygame.Surface, color: Tuple[int, int, int]) -> None:
         """
@@ -81,11 +83,11 @@ class InputBox(UI):
         screen.blit(data, data_rect)
 
 
-    def handle_event(self, event: pygame.event) -> None:
+    def handle_event(self, event: pygame.event) -> Optional[str]:
         """
         Updates the input box every frame
         :param event: current user event
-        :return: None
+        :return: string of text when user presses enter
         """
         # count time for focus color switch
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -103,7 +105,7 @@ class InputBox(UI):
                 self.focus_color = (0, 0, 0)
                 # Entered space
                 if event.key == pygame.K_RETURN:
-                    self._finish()
+                    return self._finish()
 
                 # Backspace- remove character
                 elif event.key == pygame.K_BACKSPACE:

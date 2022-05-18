@@ -5,6 +5,13 @@ import numpy as np
 class Convolutional(Layer):
 
     def __init__(self, filters_num: int, filter_size: int, channels: int = 1, stride: int = 1) -> None:
+        """
+
+        :param filters_num: Number of filter in layer
+        :param filter_size: Width/Height of filters kernel
+        :param channels: depth of input channel
+        :param stride: jump size of filters movement
+        """
         self.filters_num = filters_num
         self.filter_size = filter_size
         self.channels = channels
@@ -87,10 +94,10 @@ class Convolutional(Layer):
         return output_gradient_out
 
     def get_params(self):
-        return [(self.filters, self.biases), (self.delta_filters, self.delta_biases)]
+        return (self.filters, self.biases), (self.delta_filters, self.delta_biases)
 
-    def set_params(self, filters, biases):
-        self.filters = filters
+    def set_params(self, weights, biases):
+        self.filters = weights
         self.biases = biases
 
 
@@ -187,8 +194,9 @@ class Dense(Layer):
 
         self.weights = np.random.rand(dim_out, dim_in) * 0.1
         self.biases = np.random.rand(dim_out, 1) * 0.1
-        self.delta_weights = np.zeros(self.weights.shape)
-        self.delta_biases = np.zeros(self.biases.shape)
+
+        self.delta_weights = None
+        self.delta_biases = None
 
         self.input = None
 
@@ -208,7 +216,7 @@ class Dense(Layer):
         return output_gradient_out
 
     def get_params(self):
-        return [(self.weights, self.biases), (self.delta_weights, self.delta_biases)]
+        return (self.weights, self.biases), (self.delta_weights, self.delta_biases)
 
     def set_params(self, weights, biases):
 

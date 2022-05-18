@@ -1,9 +1,10 @@
-from abc import ABC, abstractmethod
 from typing import Optional, Tuple, Dict
+from abc import ABC, abstractmethod
 
 import warnings
 import pygame
 
+""" Default kwargs for all Ui elements (although some don't use them) """
 default_kwargs = \
     {
         'has_border': True,
@@ -16,15 +17,17 @@ default_kwargs = \
 
 
 class UI(ABC):
+    """ Base class for a UI element """
 
     def __init__(self,
                  rect: Tuple[int, int, int, int],
                  params: Optional[Dict] = None) -> None:
 
+        # Variables for UI elements
         self.x, self.y, self.width, self.height = rect
         self.rect = pygame.Rect(rect)
 
-        # default values for key worded arguments
+        # add default values for key worded arguments
         self.__dict__.update(default_kwargs)
 
         # update values for given key worded arguments
@@ -36,12 +39,18 @@ class UI(ABC):
 
     @abstractmethod
     def handle_event(self, event: pygame.event) -> None:
+        """
+        Handles events of the UI element
+        Should be called for every event in the game inside the game main loop
+        :param event: pygame even
+        :return: None
+        """
         pass
-
 
     def draw(self, screen: pygame.Surface, color: Tuple[int, int, int]) -> None:
         """
-        Draws backgrounf and the borders of a ui element
+        Draws the basics of the UI element-
+         background and the borders
         :param screen: pygame display
         :param color r, g, b of color to fill borders with
         :return: None

@@ -8,6 +8,8 @@ class TextBox(UI):
     Static input box
     """
     def __init__(self, rect,
+                 text: str = None,
+                 align_left: bool = False,
                  color: Tuple[int, int, int] = (255, 255, 255),
                  **kwargs: Optional[Dict]) -> None:
 
@@ -16,11 +18,15 @@ class TextBox(UI):
         self.color = color
         self.font = pygame.font.SysFont(self.font, self.font_size)
 
-        self.text = "undefined"
+        self.align_left = align_left
+
+        self.text = " "
+        if text:
+            self.text = text
 
     def draw(self, screen, dt):
         """
-        Draws input box, text and focus bar
+        Draws text box
         :param screen:
         :return:
         """
@@ -30,6 +36,9 @@ class TextBox(UI):
         data = self.font.render(self.text, True, self.text_color)
         data_rect = data.get_rect()
         data_rect.center = self.rect.center
+
+        if self.align_left:
+            data_rect.left = self.rect.left
 
         screen.blit(data, data_rect)
 

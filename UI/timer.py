@@ -45,8 +45,6 @@ class Timer(UI):
             self.finish = True
             self.clock = self.start_time
 
-
-
     def draw(self, screen: pygame.display, dt):
         """
         Draw 4 lines (Borders) around the button and then fills them with color

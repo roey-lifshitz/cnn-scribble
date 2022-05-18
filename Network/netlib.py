@@ -9,11 +9,20 @@ MAX_MSG_LENGTH = MSG_HEADER_LENGTH + MAX_DATA_LENGTH  # Max size of total messag
 DELIMITER = "|"  # Delimiter character in protocol
 
 SERVER_PROTOCOL = {
-    'send_object': 'SEND_OBJECT'
+    'login_success': 'LOGIN_SUCCESS',
+    'login_failed_dup_id': 'LOGIN_FAILED',
+    'send_object': 'SEND_OBJECT',
+    'score_received': 'RECEIVE_SCORE',
+    'chat_received': 'RECEIVE_CHAT',
+    'send_chat': 'SEND_CHAT'
 }
 
 CLIENT_PROTOCOL = {
-    'request_object': 'REQUEST_OBJECT'
+    'request_login': 'REQUEST_LOGIN',
+    'request_object': 'REQUEST_OBJECT',
+    'update_score': 'UPDATE_SCORE',
+    'update_chat': 'UPDATE_CHAT',
+    'request_chat': 'REQUEST_CHAT'
 }
 
 
@@ -32,8 +41,8 @@ def split_data(data, expected_fields, data_delimiter='#'):
     Returns: list of fields if all ok. If some error occured, returns None
     """
     data_fields = data.split(data_delimiter)
-
-    if len(data_fields) == expected_fields:
+    print(data)
+    if len(data_fields) == expected_fields or expected_fields == -1:
         return data_fields
 
     return None

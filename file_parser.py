@@ -32,6 +32,13 @@ class FileParser:
         """
         self.files.clear()
 
+    def get_objects(self):
+
+        objects = list(map(lambda filename: filename.split('.')[0], self.files))
+        print(len(objects))
+        return objects
+
+
     def update(self, files: List[str]) -> None:
         """
         Update the files that self.load() is going to load drawings from

@@ -25,7 +25,6 @@ class Button(UI):
         self.on_click = on_click
 
         # Get the rect of the button
-        self.x, self.y, self.width, self.height = rect
         self.rect = pygame.Rect(rect)
 
         # Button contains an image
