@@ -12,7 +12,7 @@ class FileParser:
 
     def __init__(self) -> None:
 
-        self.files = [
+        """
             'apple.npy',
             'dog.npy',
             'foot.npy',
@@ -23,7 +23,43 @@ class FileParser:
             'snowman.npy',
             'stairs.npy',
             'van.npy'
+            """
+        self.files = [
+            'ant.npy',
+            'apple.npy',
+            'bed.npy',
+            'bird.npy',
+            'birthday_cake.npy',
+            'bridge.npy',
+            'camera.npy',
+            'cat.npy',
+            'clock.npy',
+            'dog.npy',
+            'foot.npy',
+            'house.npy',
+            'microphone.npy',
+            'mushroom.npy',
+            'pencil.npy',
+            'piano.npy',
+            'skateboard.npy',
+            'snowman.npy',
+            'sock.npy',
+            'spoon.npy',
+            'stairs.npy',
+            'stop_sign.npy',
+            'sun.npy',
+            'sword.npy',
+            'tree.npy',
+            'van.npy',
         ]
+
+    def get_objects(self) -> List[str]:
+        """
+        Remove all .npy endings from file list
+        :return: List of self.files without .npy ending
+        """
+        objects = list(map(lambda filename: filename.split('.')[0], self.files))
+        return objects
 
     def clear(self) -> None:
         """
@@ -32,18 +68,11 @@ class FileParser:
         """
         self.files.clear()
 
-    def get_objects(self):
-
-        objects = list(map(lambda filename: filename.split('.')[0], self.files))
-        print(len(objects))
-        return objects
-
-
     def update(self, files: List[str]) -> None:
         """
         Update the files that self.load() is going to load drawings from
         :param files: List of new files to add
-        :return:
+        :return: None
         """
         # Loop through new files
         for file in files:

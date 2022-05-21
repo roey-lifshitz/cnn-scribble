@@ -17,21 +17,23 @@ from NeuralNetwork.optimizers import Adam
 def main():
  
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=400, test_amount=50)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=1000, test_amount=100)
 
     network = NeuralNetwork(
         [
-            Convolutional(filters_num=24, filter_size=5, channels=1),
+            Convolutional(filters_num=32, filter_size=5, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=48, filter_size=3, channels=24),
+            Convolutional(filters_num=64, filter_size=3, channels=32),
             Relu(),
             Pooling(filter_size=2, stride=2),
             Flatten(),
             Dropout(0.2),
-            Dense(1200, 600),
+            Dense(1600, 600),
             Relu(),
-            Dense(600, 10),
+            Dense(600, 100),
+            Relu(),
+            Dense(100, 26),
             Softmax()
         ],
 
@@ -40,24 +42,10 @@ def main():
         objects=file_parser.get_objects()
     )
 
-    network.load("NeuralNetwork/Models/10_85.pkl")
-    print(network.model)
+    network.load("NeuralNetwork/Models/temp.pkl")
     network.train(train_x, train_y, test_x, test_y, epochs=900)
     network.save("NeuralNetwork/Models/10_new")
 
 
 if __name__ == '__main__':
    main()
-
-"""
-
-game states=
-menu, singleplayer, multiplayer
-
-game_state = menu
-while running:
-    game_manager.run()
-
-
-
-"""

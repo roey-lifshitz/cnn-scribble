@@ -20,37 +20,6 @@ SERVER_PORT = 8080
 PRINT_DEBUG = True
 os.chdir("..")
 
-
-def build_app():
-    pygame.init()
-    pygame.font.init()
-    pygame.display.set_caption('Scribble')
-
-    screen = pygame.display.set_mode((1200, 800))
-    screen.fill((122, 122, 122))
-
-    logo = pygame.image.load('images/logo.png')
-    screen.blit(logo, ((1200 - 338) // 2, 10))
-
-    canvas = Canvas(screen, 100, 150, 650, 500)
-    file_parser = FileParser()
-    ai = NeuralNetwork(None, None, None, None)
-    ai.load("NeuralNetwork/Models/10_85.pkl")
-
-    img = pygame.image.load("images/eraser.png")
-    ui_elements = [
-        Button((800, 610, 100, 40), image=img, color=(235, 232, 232), hover_color=(196, 191, 191),
-               on_click=canvas.fill),
-        InputBox((800, 500, 300, 40)),
-        Timer((1000, 610, 100, 40), '00h:01m:05s', color=(125, 125, 125), text_color=(100, 255, 100), border_width=0)
-    ]
-
-    clock = pygame.time.Clock()
-    clock.tick(60)
-
-    return screen, canvas, clock, ui_elements, file_parser, ai
-
-
 class Game:
 
     def __init__(self):
@@ -60,8 +29,8 @@ class Game:
         pygame.display.set_caption('Scribble')
 
         self.screen = pygame.display.set_mode((1200, 800))
-        self.screen.fill((122, 122, 122))
 
+        self.screen.fill((122, 122, 122))
         logo = pygame.image.load('images/logo.png')
         self.screen.blit(logo, ((1200 - 338) // 2, 10))
 
@@ -99,16 +68,20 @@ class Game:
 
     def handle_ui_events(self, event):
         self.canvas.update(event)
+        to_return = None
 
         for element in self.ui_elements:
             if isinstance(element, InputBox):
                 text = element.handle_event(event)
                 if text:
-                    return text
+                    to_return = text
             else:
                 element.handle_event(event)
 
-    def run(self):
+        return to_return
+
+    def update_object_textbox(self, text):
+
 
 
     def _thread(self, ai, canvas, text_box, scoreboard, chat_box):
@@ -143,6 +116,7 @@ class Game:
 
         self.connect()
         self.login()
+
 
         screen, canvas, clock, ui_elements, file_parser, ai = build_app()
 

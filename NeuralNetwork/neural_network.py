@@ -97,7 +97,7 @@ class NeuralNetwork:
 
         plt.figure(2)
         y2 = self.accuracy_history
-        plt.xlabel("Accuracy")
+        plt.xlabel("Epoch")
         plt.ylabel("Cost")
         plt.title("Accuracy History")
         plt.plot(x, y2, label="Accuracy History")

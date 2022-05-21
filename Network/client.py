@@ -6,7 +6,6 @@ from UI.chat_box import ChatBox
 from UI.timer import Timer
 from NeuralNetwork.neural_network import NeuralNetwork
 from file_parser import FileParser
-from GameManager import Game
 
 import socket
 import pygame
@@ -61,8 +60,6 @@ class Client:
 
         self.run_ai = True
         self.socket = None
-
-        self.game = Game()
 
         self.name = ""
 
@@ -180,9 +177,7 @@ class Client:
 
                         self.update_score()
 
-            time.sleep(1)
             self.update_chat(chat_box)
-
 
     def run(self):
 
@@ -221,12 +216,12 @@ class Client:
                 if event.type == pygame.QUIT:
                     running = False
 
-                if event.type == pygame.KEYDOWN:
+                """if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
 
                         canvas.fill((255, 255, 255))
                         self.to_draw = self.request_object(ai.objects)
-                        text_box.text = self.to_draw
+                        text_box.text = self.to_draw"""
 
             for element in ui_elements:
                 element.draw(screen, dt)
