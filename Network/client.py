@@ -4,7 +4,7 @@ from UI.input_box import InputBox
 from UI.text_box import TextBox
 from UI.chat_box import ChatBox
 from UI.timer import Timer
-from NeuralNetwork.neural_network import NeuralNetwork
+from NeuralNetwork.model import Model
 from file_parser import FileParser
 
 import socket
@@ -18,7 +18,7 @@ import Network.netlib as netlib  # To use chatlib functions or consts, use chatl
 SERVER_IP = "127.0.0.1"  # Our server will run on same computer as client
 SERVER_PORT = 8080
 PRINT_DEBUG = True
-os.chdir("..")
+
 
 
 def build_app():
@@ -34,7 +34,7 @@ def build_app():
 
     canvas = Canvas(screen, 100, 150, 650, 500)
     file_parser = FileParser()
-    ai = NeuralNetwork(None, None, None, None)
+    ai =Model(None, None, None, None)
     ai.load("NeuralNetwork/Models/10_85.pkl")
 
     img = pygame.image.load("images/eraser.png")
@@ -53,7 +53,7 @@ def build_app():
 
 class Client:
 
-    def __init__(self):
+    def __init__(self, ip, port):
 
         self.IP = SERVER_IP
         self.PORT = SERVER_PORT
@@ -99,20 +99,16 @@ class Client:
         self.send_message(code, data)
         return self.receive_message()
 
-    def login(self):
-        running = True
+    def login(self, username):
+        code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL["request_login"], f"{username}")
 
-        while running:
-            username = input("Please enter username: \n")
-
-            code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL["request_login"], f"{username}")
-
-            if code == netlib.SERVER_PROTOCOL["login_success"]:
-                self.name = username
-                running = False
-            else:
-                if PRINT_DEBUG:
-                    print("Failed Login! Try Again.\n")
+        if code == netlib.SERVER_PROTOCOL["login_success"]:
+            self.name = username
+            return True
+        else:
+            if PRINT_DEBUG:
+                print(f"Failed Login {data}! Try Again.\n")
+            return False
 
     def request_object(self, objects):
 
@@ -153,7 +149,7 @@ class Client:
             for message in messages[1:]:
                 chat_box.append_text(message)
 
-    def _thread(self, ai, canvas, text_box, scoreboard, chat_box):
+    """def _thread(self, ai, canvas, text_box, scoreboard, chat_box):
 
         while self.run_ai:
             if not pygame.mouse.get_pressed()[0]:
@@ -216,13 +212,6 @@ class Client:
                 if event.type == pygame.QUIT:
                     running = False
 
-                """if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-
-                        canvas.fill((255, 255, 255))
-                        self.to_draw = self.request_object(ai.objects)
-                        text_box.text = self.to_draw"""
-
             for element in ui_elements:
                 element.draw(screen, dt)
 
@@ -231,9 +220,10 @@ class Client:
             scoreboard.draw(screen, dt)
 
             pygame.display.flip()
-            total_time += dt
+            total_time += dt"""
 
 
-if __name__ == '__main__':
-    client = Client()
-    client.run()
+
+
+
+
