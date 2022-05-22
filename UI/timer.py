@@ -77,4 +77,5 @@ class Timer(UI):
         screen.blit(data, data_rect)
 
     def handle_event(self, event: pygame.event) -> None:
-        return None
+
+        return self.finish
