@@ -1,33 +1,24 @@
-from typing import Optional, Tuple
-from matplotlib import pyplot as plt
-
-import numpy as np
+from typing import Optional, Tuple, Dict
+from UI.base import UI
 import pygame
 
+import numpy as np
 import utils
 
 
-class Canvas:
+class Canvas(UI):
     """
         Drawing Board for a pygame display Surface.
     """
-    def __init__(self, screen: pygame.Surface, x: int, y: int, width: int, height: int, radius: int = 6,
-                 colorful: bool = False) -> None:
-        """
-        Initialize function
-        :param screen: display surface
-        :param x: x of canvas
-        :param y: y of canvas
-        :param width: width of canvas
-        :param height: height of canvas
-        """
+
+    def __init__(self, rect,
+                 screen,
+                 radius: int = 6,
+                 colorful: bool = False,
+                 **kwargs: Optional[Dict]) -> None:
+
+        super().__init__(rect, kwargs)
         # Rect of canvas
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
-        self.border_color = (0, 0, 0)
-        self.border_width = 2
         self.radius = radius
 
         # if screen is only in black and white
@@ -37,32 +28,7 @@ class Canvas:
         self._prev_mouse_pos = None
         self._draw = False
 
-        # Make sure canvas can only draw to a certain part of the display
-        self.screen = screen.subsurface(x, y, width, height)
-        # fill canvas with white
-        self.fill()
-        # draw borders for the screen
-        # Vertical Border Lines
-        pygame.draw.line(screen, self.border_color,
-                         (self.x - self.border_width, self.y - self.border_width),
-                         (self.x - self.border_width, self.y + self.height + self.border_width),
-                         self.border_width)
-
-        pygame.draw.line(screen, self.border_color,
-                         (self.x + self.width, self.y - self.border_width),
-                         (self.x + self.width, self.y + self.height + self.border_width),
-                         self.border_width)
-
-        # Horizontal Border Lines
-        pygame.draw.line(screen, self.border_color,
-                         (self.x - self.border_width, self.y - self.border_width),
-                         (self.x + self.width + self.border_width, self.y - self.border_width),
-                         self.border_width)
-
-        pygame.draw.line(screen, self.border_color,
-                         (self.x - self.border_width, self.y + self.height),
-                         (self.x + self.width - self.border_width, self.y + self.height),
-                         self.border_width)
+        self.subsurface = screen.subsurface(self.x, self.y, self.width, self.height)
 
     def contains(self, x: int, y: int):
         """
@@ -75,15 +41,15 @@ class Canvas:
         in_y_axis = self.y < y < self.y + self.height
         return in_x_axis and in_y_axis and True
 
-    def fill(self, color: Optional[Tuple[int, int, int]] = (255, 255, 255)) -> None:
+    def show(self, screen, color: Optional[Tuple[int, int, int]] = (255, 255, 255)) -> None:
         """
         Fills all canvas with a certain color
         By default fills with White
+        :param screen: pygame surface of display
         :param color: r, g, b of color
         :return: None
         """
-
-        self.screen.fill(color)
+        super().draw(screen, color)
 
     def draw(self, start: Tuple[int, int], end: Tuple[int, int], radius: int,
              color: Optional[Tuple[int, int, int]] = (0, 0, 0)) -> None:
@@ -100,7 +66,7 @@ class Canvas:
         # Draw a point
         if start == end:
             x, y = (a - b for a, b, in zip(start, (self.x, self.y)))
-            pygame.draw.circle(self.screen, color, (x, y), radius)
+            pygame.draw.circle(self.subsurface, color, (x, y), radius)
         else:
             # Draw a line
             # tuple subtraction: sub both points with (self.x, self.y)
@@ -117,20 +83,16 @@ class Canvas:
             # Loop through points in line
             for _ in range(steps):
                 # Draw point in line
-                pygame.draw.circle(self.screen, color, (round(x), round(y)), radius)
+                pygame.draw.circle(self.subsurface, color, (round(x), round(y)), radius)
                 # Update point
                 x += dx
                 y += dy
 
             # Draw last circle
-            pygame.draw.circle(self.screen, color, (round(x), round(y)), radius)
+            pygame.draw.circle(self.subsurface, color, (round(x), round(y)), radius)
 
-    def update(self, event: pygame.event) -> None:
-        """
-            Updates the canvas every frame
-            :param event: current user event
-            :return: None
-        """
+    def handle_event(self, event: pygame.event) -> None:
+
         if event.type == pygame.MOUSEBUTTONUP:
             self._prev_mouse_pos = None
             self._draw = False
@@ -155,7 +117,7 @@ class Canvas:
         """
 
         # return a (height, width , channels) representation of the canvas
-        image = pygame.surfarray.array3d(self.screen)
+        image = pygame.surfarray.array3d(self.subsurface)
 
         if self.colorful:
             # gray scale image (darker the pixel smaller the value)
