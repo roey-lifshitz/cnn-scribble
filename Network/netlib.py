@@ -107,29 +107,3 @@ def unpack_message(message):
                     return code, data
 
     return None, None
-
-""""def parse_message(data):
-    ""
-    Parses protocol message and returns command name and data field
-    Returns: cmd (str), data (str). If some error occured, returns None, None
-    ""
-    parsed = data.split(DELIMITER)
-    if len(parsed) == 3:
-        cmd, msg_len, msg = parsed
-        # Remove all whitespaces and unnecessary zeros
-        cmd = cmd.strip(" ")
-        if len(msg_len) == 4:
-            # Remove all whitespaces and unnecessary zeros
-            # if msg_len is 0000 then the strip will remove all characters
-            if msg_len != "0000":
-                msg_len = msg_len.lstrip("0")
-                msg_len = msg_len.strip(" ")
-            else:
-                msg_len = "0"
-
-            if msg_len.isnumeric():
-                if int(msg_len) == len(msg):
-                    return cmd, msg
-
-    return ERROR_RETURN, ERROR_RETURN
-"""
