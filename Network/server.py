@@ -3,8 +3,7 @@ from typing import List, Tuple
 import socket
 import select
 import random
-import pickle
-import pygame
+
 
 import Network.netlib as netlib
 
@@ -78,7 +77,7 @@ class Server:
         """
         # if duplicate id
         if data in self.players.keys():
-            self.append_message(conn, netlib.SERVER_PROTOCOL["login_failed_dup_id"], "")
+            self.append_message(conn, netlib.SERVER_PROTOCOL["login_failed_dup_id"], "DUP_ID")
         else:
             # Add client to dictionaries
             self.players.update({data: 0})
@@ -191,7 +190,7 @@ class Server:
 
                     # if client crashed
                     except Exception as e:
-                        print(str(e))
+                        print("Error: ", str(e))
 
             # send all messages in the message queue
             self.send_messages(ready_to_write)
