@@ -49,6 +49,7 @@ class ChatBox(UI):
         :param event: current user event
         :return: None
         """
+        pass
 
     def append_text(self, text: str) -> None:
         if self.counter < self.amount:
