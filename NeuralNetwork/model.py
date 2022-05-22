@@ -8,7 +8,7 @@ import pickle
 from datetime import datetime as dt
 
 
-class NeuralNetwork:
+class Model:
 
     def __init__(self, layers: List[Layer], loss: Loss, optimizer: Adam, objects):
 
@@ -107,11 +107,17 @@ class NeuralNetwork:
     def save(self, file):
 
         with open(file, 'wb') as f:
-            pickle.dump(self.__dict__, f)
+            pickle.dump(self, f)
 
-    def load(self, file):
+    def update(self, file):
 
         with open(file, 'rb') as f:
             self.__dict__.update(pickle.load(f))
 
+    @classmethod
+    def load(cls, file):
 
+        with open(file, 'rb') as f:
+            cls = pickle.load(f)
+
+        return cls
