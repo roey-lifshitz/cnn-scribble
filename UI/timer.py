@@ -76,6 +76,6 @@ class Timer(UI):
         # Draw Numbers
         screen.blit(data, data_rect)
 
-    def handle_event(self, event: pygame.event) -> None:
+    def handle_event(self, event: pygame.event) -> bool:
 
         return self.finish

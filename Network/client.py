@@ -121,6 +121,7 @@ class Client:
             while data == self.to_draw:
                 code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL['request_object'],
                                                    f"{len(objects)}#{objects_list}")
+                print("CLIENT")
 
                 if code != netlib.SERVER_PROTOCOL['send_object']:
                     self.error()
@@ -148,81 +149,6 @@ class Client:
             messages = netlib.split_data(data, -1)
             for message in messages[1:]:
                 chat_box.append_text(message)
-
-    """def _thread(self, ai, canvas, text_box, scoreboard, chat_box):
-
-        while self.run_ai:
-            if not pygame.mouse.get_pressed()[0]:
-                image = canvas.capture()
-
-                if image is not None:
-                    output = ai.predict(image)
-                    prediction = ai.objects[np.argmax(output)]
-
-                    if PRINT_DEBUG:
-                        print(prediction)
-
-                    if prediction == self.to_draw:
-                        canvas.fill((255, 255, 255))
-
-                        self.to_draw = self.request_object(ai.objects)
-                        text_box.text = self.to_draw
-
-                        self.score += 1;
-                        scoreboard.text = f"Score: {self.score}"
-
-                        self.update_score()
-
-            self.update_chat(chat_box)
-
-    def run(self):
-
-        self.connect()
-        self.login()
-
-        screen, canvas, clock, ui_elements, file_parser, ai = build_app()
-
-        chat_box = ChatBox((800, 175, 300, 300), 8)
-        text_box = TextBox((800, 560, 100, 40), text_color=(122, 255, 100))
-        scoreboard = TextBox((1000, 560, 100, 40), text_color=(100, 100, 100))
-        scoreboard.text = f"Score: {self.score}"
-
-        # Ai prediction thread
-        ai_thread = threading.Thread(target=self._thread, args=(ai, canvas, text_box, scoreboard, chat_box))
-        ai_thread.start()
-
-        self.to_draw = self.request_object(ai.objects)
-        text_box.text = self.to_draw
-
-        total_time = 0
-        running = True
-        while running:
-            dt = clock.tick()
-            for event in pygame.event.get():
-                canvas.update(event)
-
-                for element in ui_elements:
-                    if isinstance(element, InputBox):
-                        text = element.handle_event(event)
-                        if text:
-                            self.send_chat(f"{self.name}: {text}")
-                    else:
-                        element.handle_event(event)
-
-                if event.type == pygame.QUIT:
-                    running = False
-
-            for element in ui_elements:
-                element.draw(screen, dt)
-
-            chat_box.draw(screen, dt)
-            text_box.draw(screen, dt)
-            scoreboard.draw(screen, dt)
-
-            pygame.display.flip()
-            total_time += dt"""
-
-
 
 
 

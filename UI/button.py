@@ -59,7 +59,7 @@ class Button(UI):
         # Draw image/text (inside button)
         screen.blit(self.data, self.data_rect)
 
-    def handle_event(self, event: pygame.event) -> None:
+    def handle_event(self, event: pygame.event) -> bool:
         """
         Updates the button every frame
         :param event: current user event
@@ -73,5 +73,6 @@ class Button(UI):
         if self.hover:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.on_click()
+                return True
 
 
