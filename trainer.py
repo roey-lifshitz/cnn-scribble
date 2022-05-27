@@ -4,37 +4,29 @@ from NeuralNetwork.model import Model
 from NeuralNetwork.layers import Convolutional, Pooling, Flatten, Dense, Dropout
 from NeuralNetwork.activations import Relu, Softmax, Sigmoid
 from NeuralNetwork.losses import CrossEntropyLoss
-from NeuralNetwork.optimizers import Adam
+from NeuralNetwork.optimizers import Adam, GradientDescent
 
 
 def main():
  
     file_parser = FileParser()
-    train_x, train_y, test_x, test_y = file_parser.load(train_amount=26, test_amount=26)
+    train_x, train_y, test_x, test_y = file_parser.load(train_amount=100, test_amount=20)
 
-    network = NeuralNetwork(
+    network = Model(
         [
-            Convolutional(filters_num=16, filter_size=3, channels=1),
+            Convolutional(filters_num=2, filter_size=3, channels=1),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=32, filter_size=3, channels=16),
+            Convolutional(filters_num=4, filter_size=3, channels=2),
             Relu(),
             Pooling(filter_size=2, stride=2),
-            Convolutional(filters_num=64, filter_size=3, channels=32),
-            Relu(),
             Flatten(),
-            Dense(576, 256),
-            Relu(),
-            Dropout(0.2),
-            Dense(256, 128),
-            Relu(),
-            Dropout(0.2),
-            Dense(128, 26),
+            Dense(100, 2),
             Softmax()
         ],
 
         loss=CrossEntropyLoss(),
-        optimizer=Adam(3e-5),
+        optimizer=Adam(0.001),
         objects=file_parser.get_objects()
     )
 

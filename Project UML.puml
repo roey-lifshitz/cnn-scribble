@@ -1,0 +1,108 @@
+@startuml
+'https://plantuml.com/class-diagram
+left to right direction
+interface utils
+interface netlib
+
+abstract class UI
+UI : draw()
+UI : handle_event()
+
+abstract class Layer
+Layer : forward_propagate()
+Layer : backward_propagate()
+Layer : get_param()
+Layer : set_param()
+
+abstract class Loss
+Loss : compute_cost()
+Loss : compute_derivative()
+
+abstract class Optimizer
+Optimizer : update()
+
+class Button
+class Canvas
+class ChatBox
+class InputBox
+class TextBox
+class Timer
+
+Button <|-- UI
+Canvas <|-- UI
+Canvas : capture()
+utils --|> Canvas
+ChatBox <|-- UI
+InputBox <|-- UI
+TextBox <|-- UI
+Timer <|-- UI
+
+
+class Relu
+class Sigmoid
+class Softmax
+Relu <|-- Layer
+Sigmoid <|-- Layer
+Softmax <|-- Layer
+
+class Convolution
+class Pooling
+class Dense
+class Flatten
+Convolution <|-- Layer
+Pooling <|-- Layer
+Dense <|-- Layer
+Flatten <|-- Layer
+
+class CrossEntropyLoss
+CrossEntropyLoss <|-- Loss
+
+class GradientDescent
+class Adam
+GradientDescent <|-- Optimizer
+Adam <|-- Optimizer
+
+
+class Model
+Layer --|> Model
+Optimizer --|> Model
+Loss --|> Model
+utils --|> Model
+
+Model : train()
+Model : predict()
+Model : evaluate()
+Model : compute_graphs()
+
+
+netlib : SERVER_PROTOCOL
+netlib : CLIENT_PROTOCOL
+netlib : join_data()
+netlib : split_data()
+netlib : pack_message()
+netlib : unpack_message()
+
+class Server
+netlib --|> Server
+Server : run()
+
+class Client
+netlib --|> Client
+Client : connect()
+
+enum State
+class Game
+State --|> Game
+UI --|> Game
+Model --|> Game
+FileParser --|> Game
+Client --|> Game
+Game : run()
+
+
+class FileParser
+utils --|> FileParser
+FileParser : load()
+
+
+@enduml

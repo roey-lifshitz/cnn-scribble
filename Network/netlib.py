@@ -10,19 +10,23 @@ DELIMITER = "|"  # Delimiter character in protocol
 
 SERVER_PROTOCOL = {
     'login_success': 'LOGIN_SUCCESS',
+    'logout_success': 'LOGOUT_SUCCESS',
     'login_failed_dup_id': 'LOGIN_FAILED',
     'send_object': 'SEND_OBJECT',
     'score_received': 'RECEIVE_SCORE',
     'chat_received': 'RECEIVE_CHAT',
-    'send_chat': 'SEND_CHAT'
+    'send_chat': 'SEND_CHAT',
+    'send_leaderboard': 'SEND_LEADERBOARD'
 }
 
 CLIENT_PROTOCOL = {
     'request_login': 'REQUEST_LOGIN',
+    'request_logout': 'REQUEST_LOGOUT',
     'request_object': 'REQUEST_OBJECT',
     'update_score': 'UPDATE_SCORE',
     'update_chat': 'UPDATE_CHAT',
-    'request_chat': 'REQUEST_CHAT'
+    'request_chat': 'REQUEST_CHAT',
+    'request_leaderboard': 'REQUEST_LEADERBOARD'
 }
 
 

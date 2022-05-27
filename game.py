@@ -45,11 +45,13 @@ class Game:
         self._logo = pygame.image.load('images/logo.png')
         self.screen.blit(self._logo, ((1200 - 338) // 2, 10))
 
+        # Game variables
         self.score = 0
         self.to_draw = None
         self.name = None
-        self.running = True
+        self.running = False
 
+        # Helper Classes
         self.client = Client(SERVER_IP, SERVER_PORT)
         self.file_parser = FileParser()
         self.cnn = Model(None, None, None, None)
@@ -85,7 +87,7 @@ class Game:
                                    color=(235, 232, 232), hover_color=(196, 191, 191),
                                    on_click=lambda: self.canvas.show(self.screen)),
             'post_chat': InputBox((800, 500, 300, 40)),
-            'game_timer': Timer((1000, 610, 100, 40), '00h:01m:00s', color=(125, 125, 125),
+            'game_timer': Timer((1000, 610, 100, 40), '00h:00m:30s', color=(125, 125, 125),
                                 text_color=(100, 255, 100), border_width=0),
             'chat_display': ChatBox((800, 175, 300, 300), 8),
             'object_display': TextBox((800, 560, 120, 40), text_color=(122, 255, 100)),
@@ -94,10 +96,14 @@ class Game:
 
     def get_finish_elements(self):
         return {
-            'new_game': Button((800, 610, 100, 40), text="New Game",
+            'title': TextBox((200, 200, 100, 40), text="Highscore", font_size=72, has_border=False,
+                             color=(122, 122, 122)),
+            'subtitle': TextBox((200, 300, 100, 40), text="The best player's score:", has_border=False,
+                                color=(122, 122, 122)),
+            'new_game': Button((1000, 610, 100, 40), text="New Game",
                                color=(235, 232, 232), hover_color=(196, 191, 191),
                                on_click=lambda *args: None),
-            'score_display': ChatBox((800, 175, 300, 300), 15)
+            'score_display': ChatBox((550, 175, 300, 300), 15)
         }
 
     def clear_screen(self) -> None:
@@ -126,23 +132,28 @@ class Game:
         Predicts the drawing on the canvas using the Games cnn
         :return: None
         """
-        while self.state == States.GAME:
-            if pygame.mouse.get_pressed()[0]:
-                time.sleep(0.5)
-            else:
-                image = self.canvas.capture()
+        while self.running:
+            if self.state == States.GAME:
+                # check chat updates
+                self.client.update_chat(self.ui_elements[self.state]['chat_display'])
+                if pygame.mouse.get_pressed()[0]:
+                    time.sleep(0.5)
+                else:
+                    image = self.canvas.capture()
 
-                if image is not None:
-                    output = self.cnn.predict(image)
-                    prediction = self.cnn.objects[np.argmax(output)]
+                    if image is not None:
+                        output = self.cnn.predict(image)
+                        prediction = self.cnn.objects[np.argmax(output)]
 
-                    if prediction == self.to_draw:
-                        self.canvas.show(self.screen)
-                        self.to_draw = self.client.request_object(self.cnn.objects)
-                        self.score += 1
-                        self.update_text_box(self.state, 'scoreboard', f"Score: {self.score}")
-                        self.client.update_score()
-                        print("new object")
+                        if prediction == self.to_draw:
+                            self.canvas.show(self.screen)
+                            self.to_draw = self.client.request_object(self.cnn.objects)
+                            self.score += 1
+                            self.update_text_box(States.GAME, 'object_display', self.to_draw)
+                            self.update_text_box(States.GAME, 'scoreboard', f"Score: {self.score}")
+
+            time.sleep(0.2)
+
 
     def run(self) -> None:
         """
@@ -150,12 +161,12 @@ class Game:
         :return: None
         """
         self.state = States.MENU
+        self.running = True
         self.client.connect()
 
-        # Cnn prediction thread
         predict = threading.Thread(target=self.predict)
+        predict.start()
 
-        self.running = True
         while self.running:
             dt = self.clock.tick()
             # Menu screen logic
@@ -173,18 +184,23 @@ class Game:
                                     if success:
                                         # Moving into Game State
                                         self.name = text
+
                                         self.ui_elements[States.GAME] = self.get_game_elements()
-                                        self.state = States.GAME
+                                        self.score = 0
+                                        self.update_text_box(States.GAME, 'scoreboard', f"Score: {self.score}")
                                         self.clear_screen()
                                         self.canvas.show(self.screen)
-                                        self.score = 0
-                                        predict.start()
+                                        self.to_draw = None
+                                        self.state = States.GAME
                                     else:
                                         self.clear_screen()
                                         self.update_text_box(States.MENU, 'subtitle', 'A player with this username is '
                                                                                       'currently online. Try Again!')
                         else:
                             element.handle_event(event)
+                    if event.type == pygame.QUIT:
+                        self.running = False
+
             # Game screen logic
             elif self.state == States.GAME:
                 # Get object for the first time
@@ -192,8 +208,6 @@ class Game:
                     self.to_draw = self.client.request_object(self.cnn.objects)
                     self.update_text_box(self.state, 'object_display', self.to_draw)
 
-                # check chat updates
-                self.client.update_chat(self.ui_elements[self.state]['chat_display'])
                 # Loop for all events
                 for event in pygame.event.get():
                     self.canvas.handle_event(event)
@@ -210,9 +224,12 @@ class Game:
                                 # Moving into finish state
                                 self.state = States.FINISH
                                 self.clear_screen()
-                                print("FINISHED")
+                                self.client.prepare_leaderboard(self.ui_elements[States.FINISH]['score_display'], self.score)
                         else:
                             element.handle_event(event)
+                    if event.type == pygame.QUIT:
+                        self.running = False
+
             # Finish screen logic
             elif self.state == States.FINISH:
                 # Loop for all events
@@ -226,20 +243,25 @@ class Game:
                                 if description == 'new_game':
                                     # Moving into Game State
                                     self.ui_elements[States.GAME] = self.get_game_elements()
-                                    self.state = States.GAME
+                                    self.score = 0
+                                    self.update_text_box(States.GAME, 'scoreboard', f"Score: {self.score}")
                                     self.clear_screen()
                                     self.canvas.show(self.screen)
-                                    self.score = 0
+                                    self.to_draw = None
+                                    self.state = States.GAME
 
                         else:
                             element.handle_event(event)
+                    if event.type == pygame.QUIT:
+                        self.running = False
 
             for element in self.ui_elements[self.state].values():
                 element.draw(self.screen, dt)
 
             pygame.display.flip()
-        print("stopped")
 
+        predict.join()
+        self.client.logout()
 
 if __name__ == '__main__':
     game = Game()

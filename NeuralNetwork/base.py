@@ -29,7 +29,7 @@ class Layer(ABC):
         """
         Returns trainable params and their deltas for optimizer
         if layers has no trainable values it returns None otherwise
-        it returns a tuple that contains (weights, biases), delta_weights, delta_biases)
+        it returns a tuple that contains (weights, biases), delta_weights, delta_b`iases)
         :return: None or (weights, biases), delta_weights, delta_biases)
         """
 

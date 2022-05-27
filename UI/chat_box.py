@@ -31,6 +31,9 @@ class ChatBox(UI):
             self.text_boxes.append(text_box)
 
 
+    def clear(self):
+        self.counter = 0
+
     def draw(self, screen, dt):
         """
         Draws input box, text and focus bar

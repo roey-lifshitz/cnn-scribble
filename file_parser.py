@@ -12,45 +12,9 @@ class FileParser:
 
     def __init__(self) -> None:
 
-        """
-            'apple.npy',
-            'dog.npy',
-            'foot.npy',
-            'house.npy',
-            'mushroom.npy',
-            'pencil.npy',
-            'skateboard.npy',
-            'snowman.npy',
-            'stairs.npy',
-            'van.npy'
-            """
         self.files = [
-            'ant.npy',
             'apple.npy',
-            'bed.npy',
-            'bird.npy',
-            'birthday_cake.npy',
-            'bridge.npy',
-            'camera.npy',
-            'cat.npy',
-            'clock.npy',
             'dog.npy',
-            'foot.npy',
-            'house.npy',
-            'microphone.npy',
-            'mushroom.npy',
-            'pencil.npy',
-            'piano.npy',
-            'skateboard.npy',
-            'snowman.npy',
-            'sock.npy',
-            'spoon.npy',
-            'stairs.npy',
-            'stop_sign.npy',
-            'sun.npy',
-            'sword.npy',
-            'tree.npy',
-            'van.npy',
         ]
 
     def get_objects(self) -> List[str]:
@@ -145,13 +109,52 @@ class FileParser:
         return train_x, train_y, test_x, test_y
 
 
+"""
+  'apple.npy',
+            'dog.npy',
+            'foot.npy',
+            'house.npy',
+            'mushroom.npy',
+            'pencil.npy',
+            'skateboard.npy',
+            'snowman.npy',
+            'stairs.npy',
+            'van.npy'
+"""
 
 
 
 
 
+"""
+'ant.npy',
+            'apple.npy',
+            'bed.npy',
+            'bird.npy',
+            'birthday_cake.npy',
+            'bridge.npy',
+            'camera.npy',
+            'cat.npy',
+            'clock.npy',
+            'dog.npy',
+            'foot.npy',
+            'house.npy',
+            'microphone.npy',
+            'mushroom.npy',
+            'pencil.npy',
+            'piano.npy',
+            'skateboard.npy',
+            'snowman.npy',
+            'sock.npy',
+            'spoon.npy',
+            'stairs.npy',
+            'stop_sign.npy',
+            'sun.npy',
+            'sword.npy',
+            'tree.npy',
+            'van.npy',
 
-
+"""
 
 
 

@@ -4,7 +4,6 @@ import socket
 import select
 import random
 
-
 import Network.netlib as netlib
 
 SERVER_IP = "127.0.0.1"
@@ -19,12 +18,21 @@ class Server:
         self.IP = SERVER_IP
         self.PORT = SERVER_PORT
 
-        # List of all connected players
+        # List of all connected sockets
         self.client_sockets = []
-        self.players = {}
-
         # Queue of messages that server needs to send to connected clients
         self.messages_to_send = []
+
+        # Dictionary of connected socket to username
+        self.players = {}
+        # list of tuple (username: score)
+        self.leaderboards = []
+
+        with open('leaderboard.txt', 'r') as f:
+            for line in f:
+                print(line)
+                name, score = netlib.split_data(line, 2, ":")
+                self.leaderboards.append((name, int(score)))
         # Queue of all chat messages each socket needs to receive
         self.chat_queue = {}
 
@@ -75,15 +83,28 @@ class Server:
         :param data: Clients name
         :return: None
         """
-        # if duplicate id
         if data in self.players.keys():
             self.append_message(conn, netlib.SERVER_PROTOCOL["login_failed_dup_id"], "DUP_ID")
         else:
-            # Add client to dictionaries
-            self.players.update({data: 0})
+            # Add client to player dictionary: socket: username
+            self.players.update({conn: data})
+            # Add client message queue: socket: chat_messages
             self.chat_queue.update({conn: ""})
-
+            # Add client to leaderboard: [username: score]
             self.append_message(conn, netlib.SERVER_PROTOCOL["login_success"], "")
+
+    def handle_client_logout(self, conn: socket.socket) -> None:
+        """
+        Handles clients logout request
+        :param conn: Clients socket
+        :return:
+        """
+        # Delete from dictionary
+        self.chat_queue.pop(conn, None)
+        self.players.pop(conn, None)
+        self.client_sockets.remove(conn)
+        print(f"{conn.getpeername()} Disconnected")
+        conn.close()
 
     def handle_client_request_object(self, conn: socket.socket, data: str) -> None:
         """
@@ -108,8 +129,17 @@ class Server:
         """
         name, score = netlib.split_data(data, 2)
 
-        self.players[name] = int(score)
-        self.append_message(conn, netlib.SERVER_PROTOCOL["score_received"], "")
+        with open('leaderboard.txt', 'at') as f:
+            f.write(f"{name}:{score}\n")
+
+        self.leaderboards.append((name, int(score)))
+        # sort leaderboards
+        self.leaderboards = sorted(self.leaderboards, key=lambda v: v[1], reverse=True)[:15]
+
+        score = ['%s: %s' % t for t in self.leaderboards]
+        score = '#'.join(score)
+
+        self.append_message(conn, netlib.SERVER_PROTOCOL["score_received"], score)
 
     def handle_client_update_chat(self, conn: socket.socket, data: str) -> None:
         """
@@ -119,7 +149,8 @@ class Server:
         :return: None
         """
         for client_socket in self.client_sockets:
-            self.chat_queue[client_socket] += f"#{data}"
+            if client_socket in self.chat_queue.keys():
+                self.chat_queue[client_socket] += f"#{data}"
 
         self.append_message(conn, netlib.SERVER_PROTOCOL["chat_received"], "")
 
@@ -132,6 +163,7 @@ class Server:
         self.append_message(conn, netlib.SERVER_PROTOCOL["send_chat"], self.chat_queue[conn])
         self.chat_queue[conn] = ""
 
+
     def handle_client_message(self, conn: socket.socket, code: str, data: str) -> None:
         """
         Calls the correct handle function according the given code by client
@@ -142,6 +174,8 @@ class Server:
         """
         if code == netlib.CLIENT_PROTOCOL["request_login"]:
             self.handle_client_login(conn, data)
+        elif code == netlib.CLIENT_PROTOCOL["request_logout"]:
+            self.handle_client_logout(conn)
         elif code == netlib.CLIENT_PROTOCOL["request_object"]:
             self.handle_client_request_object(conn, data)
         elif code == netlib.CLIENT_PROTOCOL["update_score"]:
@@ -150,6 +184,7 @@ class Server:
             self.handle_client_update_chat(conn, data)
         elif code == netlib.CLIENT_PROTOCOL["request_chat"]:
             self.handle_client_receive_chat(conn)
+
 
     def run(self) -> None:
         """
@@ -190,7 +225,8 @@ class Server:
 
                     # if client crashed
                     except Exception as e:
-                        print("Error: ", str(e))
+                        print(e)
+                        self.handle_client_logout(conn)
 
             # send all messages in the message queue
             self.send_messages(ready_to_write)
@@ -199,8 +235,3 @@ class Server:
 if __name__ == '__main__':
     server = Server()
     server.run()
-
-
-
-
-

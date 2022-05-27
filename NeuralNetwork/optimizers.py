@@ -3,6 +3,27 @@ from NeuralNetwork.base import Optimizer, Layer
 import numpy as np
 
 
+class GradientDescent(Optimizer):
+
+    def __init__(self, lr: float):
+        self._lr = lr
+
+        self.layers = None
+
+    def update(self):
+
+        # Loop through layers
+        for idx, layer in enumerate(self.layers):
+            params = layer.get_params()
+            # Skip layers with no trainable parameters
+            if params is None:
+                continue
+
+            (w, b), (dw, db) = params
+
+            layer.set_params(w - self._lr * dw, b - self._lr * db)
+
+
 class Adam(Optimizer):
     """
     Adaptive Movement Estimation algorithm

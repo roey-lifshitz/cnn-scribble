@@ -1,54 +1,9 @@
-from UI.canvas import Canvas
-from UI.button import Button
-from UI.input_box import InputBox
-from UI.text_box import TextBox
-from UI.chat_box import ChatBox
-from UI.timer import Timer
-from NeuralNetwork.model import Model
-from file_parser import FileParser
-
 import socket
-import pygame
-import threading
-import time
-import os
-import numpy as np
 import Network.netlib as netlib  # To use chatlib functions or consts, use chatlib.****
 
 SERVER_IP = "127.0.0.1"  # Our server will run on same computer as client
 SERVER_PORT = 8080
 PRINT_DEBUG = True
-
-
-
-def build_app():
-    pygame.init()
-    pygame.font.init()
-    pygame.display.set_caption('Scribble')
-
-    screen = pygame.display.set_mode((1200, 800))
-    screen.fill((122, 122, 122))
-
-    logo = pygame.image.load('images/logo.png')
-    screen.blit(logo, ((1200 - 338) // 2, 10))
-
-    canvas = Canvas(screen, 100, 150, 650, 500)
-    file_parser = FileParser()
-    ai =Model(None, None, None, None)
-    ai.load("NeuralNetwork/Models/10_85.pkl")
-
-    img = pygame.image.load("images/eraser.png")
-    ui_elements = [
-        Button((800, 610, 100, 40), image=img, color=(235, 232, 232), hover_color=(196, 191, 191),
-               on_click=canvas.fill),
-        InputBox((800, 500, 300, 40)),
-        Timer((1000, 610, 100, 40), '00h:01m:05s', color=(125, 125, 125), text_color=(100, 255, 100), border_width=0)
-    ]
-
-    clock = pygame.time.Clock()
-    clock.tick(60)
-
-    return screen, canvas, clock, ui_elements, file_parser, ai
 
 
 class Client:
@@ -58,16 +13,15 @@ class Client:
         self.IP = SERVER_IP
         self.PORT = SERVER_PORT
 
-        self.run_ai = True
         self.socket = None
 
         self.name = ""
-
         self.to_draw = None
         self.score = 0
 
     @staticmethod
     def error():
+        print("Client Error")
         exit()
 
     def connect(self):
@@ -110,6 +64,9 @@ class Client:
                 print(f"Failed Login {data}! Try Again.\n")
             return False
 
+    def logout(self):
+        self.send_message(netlib.CLIENT_PROTOCOL['request_logout'], "")
+
     def request_object(self, objects):
 
         objects_list = ",".join(objects)
@@ -121,35 +78,39 @@ class Client:
             while data == self.to_draw:
                 code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL['request_object'],
                                                    f"{len(objects)}#{objects_list}")
-                print("CLIENT")
 
                 if code != netlib.SERVER_PROTOCOL['send_object']:
                     self.error()
         return data
 
-    def update_score(self):
-        code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL["update_score"], f"{self.name}#{self.score}")
+    def prepare_leaderboard(self, leaderboard, score):
+        code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL["update_score"], f"{self.name}#{score}")
 
         if code != netlib.SERVER_PROTOCOL["score_received"]:
             self.error()
+
+        leaderboard.clear()
+        highscores = netlib.split_data(data, -1)
+        for highscore in highscores[:leaderboard.amount]:
+            leaderboard.append_text(highscore)
 
     def send_chat(self, text):
         code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL["update_chat"], f"{text}")
 
         if code != netlib.SERVER_PROTOCOL["chat_received"]:
+            print("ERROR SEND CHAT")
             self.error()
 
     def update_chat(self, chat_box):
         code, data = self.send_and_receive(netlib.CLIENT_PROTOCOL["request_chat"], "")
 
         if code != netlib.SERVER_PROTOCOL["send_chat"]:
+            print("error in return 2")
             self.error()
 
         if data != "":
             messages = netlib.split_data(data, -1)
             for message in messages[1:]:
                 chat_box.append_text(message)
-
-
 
 

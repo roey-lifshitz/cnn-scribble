@@ -8,13 +8,19 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="working on online">
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="delete">
+      <change afterPath="$PROJECT_DIR$/Network/leaderboard.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Project UML.puml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/GameManager.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Network/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Network/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/neural_network.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/neural_network.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Network/netlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/Network/netlib.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Network/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Network/server.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/base.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork/optimizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/optimizers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/UI/chat_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/chat_box.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/file_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_parser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
     <list id="70e296d0-f9f9-4205-946d-5a11e9e7da8b" name="rebasing" comment="undo commit" />
@@ -27,6 +33,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="UML Sequence" />
+        <option value="UML Class" />
       </list>
     </option>
   </component>
@@ -39,25 +47,26 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DefaultPlantUmlFileTemplate" value="UML Class" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Downloads" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\Network" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\data" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models" />
-      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models\10itemsa" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models" />
       <recent name="C:\Users\rnm24\PycharmProjects\scribbleTraining" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\Network" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\UI" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\data" />
+      <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models" />
+    </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.game">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="scribble" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -100,7 +109,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="game" type="PythonConfigurationType" factoryName="Python" singleton="false">
       <module name="scribble" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -112,7 +121,7 @@
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/game.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -142,10 +151,32 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="trainer" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="scribble" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="C:\Users\rnm24\anaconda3\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/trainer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.main" />
-      <item itemvalue="Python.server" />
       <item itemvalue="Python.client" />
+      <item itemvalue="Python.game" />
+      <item itemvalue="Python.server" />
+      <item itemvalue="Python.trainer" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -161,90 +192,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637851522366</updated>
-    </task>
-    <task id="LOCAL-00017" summary="save">
-      <created>1644594507610</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1644594507610</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Neural network">
-      <created>1644610466277</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1644610466277</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Neural network">
-      <created>1644861627952</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1644861627952</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Neural network">
-      <created>1644863935113</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1644863935113</updated>
-    </task>
-    <task id="LOCAL-00021" summary="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network">
-      <created>1644869862368</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1644869862368</updated>
-    </task>
-    <task id="LOCAL-00022" summary="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network">
-      <created>1644869962808</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1644869962808</updated>
-    </task>
-    <task id="LOCAL-00023" summary="After miserably deleting a full month progress- start to write code form scratch&#10;&#10;finished writing the FileParser.py&#10;Next Stop: Rewritting the Nerual Network">
-      <created>1644870331467</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1644870331467</updated>
-    </task>
-    <task id="LOCAL-00024" summary="FInished FileParser.py with documentations">
-      <created>1644872327325</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1644872327325</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Finished with convolutional.py">
-      <created>1644876394421</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1644876394421</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Implemented all neural network layers hopefully">
-      <created>1644878742871</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1644878742871</updated>
-    </task>
-    <task id="LOCAL-00027" summary="Test Neural Network!">
-      <created>1644886039856</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1644886039856</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Test Neural Network!">
-      <created>1644890908644</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1644890908644</updated>
     </task>
     <task id="LOCAL-00029" summary="Test Neural Network!">
       <created>1644951592888</created>
@@ -505,7 +452,91 @@
       <option name="project" value="LOCAL" />
       <updated>1652871377483</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="update">
+      <created>1653145204059</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1653145204059</updated>
+    </task>
+    <task id="LOCAL-00067" summary="added inheritance from base ui class">
+      <created>1653253748114</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253748114</updated>
+    </task>
+    <task id="LOCAL-00068" summary="added pass in handle even function">
+      <created>1653253766032</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253766032</updated>
+    </task>
+    <task id="LOCAL-00069" summary="removed game login from class into a seperate class">
+      <created>1653253781022</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253781022</updated>
+    </task>
+    <task id="LOCAL-00070" summary="refactored name">
+      <created>1653253790103</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253790103</updated>
+    </task>
+    <task id="LOCAL-00071" summary="deleted &quot;&quot;&quot; &quot;&quot;&quot;">
+      <created>1653253813253</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253813253</updated>
+    </task>
+    <task id="LOCAL-00072" summary="added &quot;dup id &quot; return in handle client login">
+      <created>1653253841544</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253841544</updated>
+    </task>
+    <task id="LOCAL-00073" summary="documentation">
+      <created>1653253858714</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253858714</updated>
+    </task>
+    <task id="LOCAL-00074" summary="returns true in handle events when timer is finished">
+      <created>1653253876406</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253876406</updated>
+    </task>
+    <task id="LOCAL-00075" summary="refactoring">
+      <created>1653253892157</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253892157</updated>
+    </task>
+    <task id="LOCAL-00076" summary="delete">
+      <created>1653253900405</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1653253900405</updated>
+    </task>
+    <task id="LOCAL-00077" summary="delete">
+      <created>1653258856303</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1653258856303</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -573,23 +604,12 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Restructured canvas drawing&#10;Added graph computation for neural network" />
-    <MESSAGE value="event handling for ui components is now in the class and not in main game loop" />
-    <MESSAGE value="Updated input_box.py, need to fix padding" />
-    <MESSAGE value="uploaded images" />
-    <MESSAGE value="Shuffle training set before each epoch" />
-    <MESSAGE value="Fixed load function" />
-    <MESSAGE value="updated ui classes" />
-    <MESSAGE value="add timer class- havent finished yet" />
-    <MESSAGE value="general testing changes" />
-    <MESSAGE value="forgot to update filters according to delta filters" />
     <MESSAGE value="Focus Bar on input box" />
     <MESSAGE value="slight upgrades to drawing function" />
     <MESSAGE value="removed print messages" />
     <MESSAGE value="added comments" />
     <MESSAGE value="refactored project" />
     <MESSAGE value="fixed bug in return" />
-    <MESSAGE value="update" />
     <MESSAGE value="Finisehf neural network!!!!!" />
     <MESSAGE value="UPDATE" />
     <MESSAGE value="Base class for Ui implemented" />
@@ -598,17 +618,24 @@
     <MESSAGE value="completed" />
     <MESSAGE value="uploaded canvas again" />
     <MESSAGE value="working on online" />
-    <option name="LAST_COMMIT_MESSAGE" value="working on online" />
+    <MESSAGE value="update" />
+    <MESSAGE value="added inheritance from base ui class" />
+    <MESSAGE value="added pass in handle even function" />
+    <MESSAGE value="removed game login from class into a seperate class" />
+    <MESSAGE value="refactored name" />
+    <MESSAGE value="deleted &quot;&quot;&quot; &quot;&quot;&quot;" />
+    <MESSAGE value="added &quot;dup id &quot; return in handle client login" />
+    <MESSAGE value="documentation" />
+    <MESSAGE value="returns true in handle events when timer is finished" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="698" y="343" key="#Notifications" timestamp="1644864090652">
+    <state x="414" y="174" width="1092" height="787" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1653258640063">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="698" y="343" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1644864090652" />
-    <state x="414" y="174" width="1092" height="739" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1652806327302">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="414" y="174" width="1092" height="739" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1652806327302" />
+    <state x="414" y="174" width="1092" height="787" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1653258640063" />
     <state x="692" y="321" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1646514255229">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -621,93 +648,73 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="803" y="410" key="#com.jetbrains.python.refactoring.move.PyMoveModuleMembersDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1645701140318" />
-    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog" timestamp="1644869980333">
+    <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl" timestamp="1653648979482">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="184" y="85" width="1536" height="860" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644869980333" />
-    <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl" timestamp="1652983718558">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1652983718558" />
-    <state width="1899" height="304" key="GridCell.Tab.0.bottom" timestamp="1653144927517">
+    <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1653648979482" />
+    <state width="1899" height="245" key="GridCell.Tab.0.bottom" timestamp="1653552179380">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="304" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1653144927517" />
-    <state width="1899" height="304" key="GridCell.Tab.0.center" timestamp="1653144927517">
+    <state width="1899" height="245" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179380" />
+    <state width="1899" height="245" key="GridCell.Tab.0.center" timestamp="1653552179379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="304" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1653144927517" />
-    <state width="1899" height="304" key="GridCell.Tab.0.left" timestamp="1653144927517">
+    <state width="1899" height="245" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179379" />
+    <state width="1899" height="245" key="GridCell.Tab.0.left" timestamp="1653552179379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="304" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1653144927517" />
-    <state width="1899" height="304" key="GridCell.Tab.0.right" timestamp="1653144927517">
+    <state width="1899" height="245" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179379" />
+    <state width="1899" height="245" key="GridCell.Tab.0.right" timestamp="1653552179379">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="304" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1653144927517" />
-    <state width="1899" height="372" key="GridCell.Tab.1.bottom" timestamp="1652871811115">
+    <state width="1899" height="245" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179379" />
+    <state width="1899" height="165" key="GridCell.Tab.1.bottom" timestamp="1653264462185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1652871811115" />
-    <state width="1899" height="372" key="GridCell.Tab.1.center" timestamp="1652871811115">
+    <state width="1899" height="165" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1653264462185" />
+    <state width="1899" height="165" key="GridCell.Tab.1.center" timestamp="1653264462185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1652871811115" />
-    <state width="1899" height="372" key="GridCell.Tab.1.left" timestamp="1652871811115">
+    <state width="1899" height="165" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1653264462185" />
+    <state width="1899" height="165" key="GridCell.Tab.1.left" timestamp="1653264462185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1652871811115" />
-    <state width="1899" height="372" key="GridCell.Tab.1.right" timestamp="1652871811115">
+    <state width="1899" height="165" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1653264462185" />
+    <state width="1899" height="165" key="GridCell.Tab.1.right" timestamp="1653264462185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1899" height="372" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1652871811115" />
-    <state x="184" y="85" key="MergeDialog" timestamp="1644864007375">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="184" y="85" key="MergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644864007375" />
-    <state x="598" y="281" key="MultipleFileMergeDialog" timestamp="1644862017054">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="598" y="281" key="MultipleFileMergeDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644862017054" />
+    <state width="1899" height="165" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1653264462185" />
     <state x="761" y="222" key="RollbackChangesDialog" timestamp="1648746420530">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="761" y="222" key="RollbackChangesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1648746420530" />
-    <state x="461" y="164" key="SettingsEditor" timestamp="1644870280822">
+    <state x="461" y="164" key="SettingsEditor" timestamp="1653647108227">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1644870280822" />
-    <state x="807" y="433" key="VCS.ChangelistChooser" timestamp="1644862182928">
+    <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1653647108227" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1653258871636">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="807" y="433" key="VCS.ChangelistChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1644862182928" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1652871383459">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1652871383459" />
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1644863907092">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="92" y="92" width="1736" height="856" key="com.intellij.history.integration.ui.views.FileHistoryDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1644863907092" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1653258871636" />
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1645662273687">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1645662273687" />
+    <state x="522" y="248" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2" timestamp="1653257369960">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="522" y="248" key="com.intellij.xdebugger.impl.breakpoints.ui.BreakpointsDialogFactory$2/0.0.1920.1040@0.0.1920.1040" timestamp="1653257369960" />
     <state x="667" y="253" width="585" height="534" key="find.popup" timestamp="1645212024627">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="667" y="253" width="585" height="534" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1645212024627" />
-    <state x="804" y="432" key="git4idea.rebase.GitUnstructuredEditor" timestamp="1644862010495">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1653648156415">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="804" y="432" key="git4idea.rebase.GitUnstructuredEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1644862010495" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1645538347079">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1645538347079" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1653648156415" />
   </component>
 </project>
