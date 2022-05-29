@@ -87,7 +87,7 @@ class Game:
                                    color=(235, 232, 232), hover_color=(196, 191, 191),
                                    on_click=lambda: self.canvas.show(self.screen)),
             'post_chat': InputBox((800, 500, 300, 40)),
-            'game_timer': Timer((1000, 610, 100, 40), '00h:00m:30s', color=(125, 125, 125),
+            'game_timer': Timer((1000, 610, 100, 40), '00h:01m:5s', color=(125, 125, 125),
                                 text_color=(100, 255, 100), border_width=0),
             'chat_display': ChatBox((800, 175, 300, 300), 8),
             'object_display': TextBox((800, 560, 120, 40), text_color=(122, 255, 100)),
