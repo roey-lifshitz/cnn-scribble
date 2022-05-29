@@ -83,7 +83,7 @@ class Server:
         :param data: Clients name
         :return: None
         """
-        if data in self.players.keys():
+        if data in self.players.values():
             self.append_message(conn, netlib.SERVER_PROTOCOL["login_failed_dup_id"], "DUP_ID")
         else:
             # Add client to player dictionary: socket: username
