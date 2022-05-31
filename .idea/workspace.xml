@@ -8,19 +8,11 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="delete">
-      <change afterPath="$PROJECT_DIR$/Network/leaderboard.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Project UML.puml" afterDir="false" />
+    <list default="true" id="eb833c10-a877-437d-98c0-2253ac5d6144" name="Default Changelist" comment="added time in timer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Network/client.py" beforeDir="false" afterPath="$PROJECT_DIR$/Network/client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Network/netlib.py" beforeDir="false" afterPath="$PROJECT_DIR$/Network/netlib.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Network/leaderboard.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Network/leaderboard.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Network/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/Network/server.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork/optimizers.py" beforeDir="false" afterPath="$PROJECT_DIR$/NeuralNetwork/optimizers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UI/chat_box.py" beforeDir="false" afterPath="$PROJECT_DIR$/UI/chat_box.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_parser.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_parser.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/game.py" beforeDir="false" afterPath="$PROJECT_DIR$/game.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/trainer.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainer.py" afterDir="false" />
     </list>
     <list id="8f7b2798-2759-442b-85ab-f4dc3dd1eb0c" name="Neural network" comment="" />
     <list id="70e296d0-f9f9-4205-946d-5a11e9e7da8b" name="rebasing" comment="undo commit" />
@@ -66,7 +58,7 @@
       <recent name="C:\Users\rnm24\PycharmProjects\scribble\NeuralNetwork\Models" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.game">
+  <component name="RunManager" selected="Python.server">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="scribble" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -192,34 +184,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1637851522366</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Test Neural Network!">
-      <created>1644951592888</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1644951592888</updated>
-    </task>
-    <task id="LOCAL-00030" summary="NeuralNetwork Layers completed">
-      <created>1644965505703</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1644965505703</updated>
-    </task>
-    <task id="LOCAL-00031" summary="FIxed accuracy">
-      <created>1644968116370</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1644968116370</updated>
-    </task>
-    <task id="LOCAL-00032" summary="Neural Network Finally Working, Added annotations to Buttons class">
-      <created>1645041140107</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1645041140107</updated>
     </task>
     <task id="LOCAL-00033" summary="Fileparser can work with multiple file, starting work on canvas capture">
       <created>1645058271653</created>
@@ -536,7 +500,35 @@
       <option name="project" value="LOCAL" />
       <updated>1653258856303</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="Final Version 27/05/2022">
+      <created>1653660414553</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1653660414554</updated>
+    </task>
+    <task id="LOCAL-00079" summary="models">
+      <created>1653839270851</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1653839270852</updated>
+    </task>
+    <task id="LOCAL-00080" summary="fixed problem with dup id login, needed to check if name is player dictonary values not keys">
+      <created>1653840572740</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1653840572740</updated>
+    </task>
+    <task id="LOCAL-00081" summary="added time in timer">
+      <created>1653840583982</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1653840583983</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -604,10 +596,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Focus Bar on input box" />
-    <MESSAGE value="slight upgrades to drawing function" />
-    <MESSAGE value="removed print messages" />
-    <MESSAGE value="added comments" />
     <MESSAGE value="refactored project" />
     <MESSAGE value="fixed bug in return" />
     <MESSAGE value="Finisehf neural network!!!!!" />
@@ -629,7 +617,11 @@
     <MESSAGE value="returns true in handle events when timer is finished" />
     <MESSAGE value="refactoring" />
     <MESSAGE value="delete" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete" />
+    <MESSAGE value="Final Version 27/05/2022" />
+    <MESSAGE value="models" />
+    <MESSAGE value="fixed problem with dup id login, needed to check if name is player dictonary values not keys" />
+    <MESSAGE value="added time in timer" />
+    <option name="LAST_COMMIT_MESSAGE" value="added time in timer" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="174" width="1092" height="787" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1653258640063">
@@ -652,26 +644,26 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" width="439" height="491" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1653648979482" />
-    <state width="1899" height="245" key="GridCell.Tab.0.bottom" timestamp="1653552179380">
+    <state width="1877" height="245" key="GridCell.Tab.0.bottom" timestamp="1653845007390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.bottom/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="245" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179380" />
-    <state width="1899" height="245" key="GridCell.Tab.0.center" timestamp="1653552179379">
+    <state width="1877" height="245" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1653845007390" />
+    <state width="1877" height="245" key="GridCell.Tab.0.center" timestamp="1653845007389">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.center/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="245" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179379" />
-    <state width="1899" height="245" key="GridCell.Tab.0.left" timestamp="1653552179379">
+    <state width="1877" height="245" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1653845007389" />
+    <state width="1877" height="245" key="GridCell.Tab.0.left" timestamp="1653845007389">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.left/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="245" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179379" />
-    <state width="1899" height="245" key="GridCell.Tab.0.right" timestamp="1653552179379">
+    <state width="1877" height="245" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1653845007389" />
+    <state width="1877" height="245" key="GridCell.Tab.0.right" timestamp="1653845007390">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="672" height="314" key="GridCell.Tab.0.right/0.0.1366.728@0.0.1366.728" timestamp="1646593059442" />
-    <state width="1899" height="245" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1653552179379" />
+    <state width="1877" height="245" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1653845007390" />
     <state width="1899" height="165" key="GridCell.Tab.1.bottom" timestamp="1653264462185">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -696,10 +688,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="461" y="164" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1653647108227" />
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1653258871636">
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2" timestamp="1653840586853">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1653258871636" />
+    <state x="552" y="252" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1653840586853" />
     <state x="777" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1645662273687">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

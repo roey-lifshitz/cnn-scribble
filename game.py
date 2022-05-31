@@ -245,10 +245,10 @@ class Game:
                                     self.ui_elements[States.GAME] = self.get_game_elements()
                                     self.score = 0
                                     self.update_text_box(States.GAME, 'scoreboard', f"Score: {self.score}")
-                                    self.clear_screen()
                                     self.canvas.show(self.screen)
                                     self.to_draw = None
                                     self.state = States.GAME
+                                    self.clear_screen()
 
                         else:
                             element.handle_event(event)

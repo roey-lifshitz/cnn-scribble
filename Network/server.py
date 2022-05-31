@@ -130,7 +130,7 @@ class Server:
         name, score = netlib.split_data(data, 2)
 
         with open('leaderboard.txt', 'at') as f:
-            f.write(f"{name}:{score}\n")
+            f.write(f"\n{name}:{score}")
 
         self.leaderboards.append((name, int(score)))
         # sort leaderboards
